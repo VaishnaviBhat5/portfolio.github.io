@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vaishnavi Bhat | Portfolio</title>
+<style>  
+:root {
+  --color-bg: #f4f4f7;
+  --color-text: #1c1f26;
+  --color-accent: #0d47a1;
+  --color-highlight: #ffffff;
+  --color-muted: #607d8b;
+  --color-shadow: rgba(0, 0, 0, 0.06);
+  --primary-shade: #0a2e6e;
+  --border-radius: 10px;
+  --hero-name-color: linear-gradient(90deg, #0d47a1, #1976d2);
+  --hero-tagline-bg: rgba(225, 236, 255, 0.6);
+  --section-bg: #e9edf2;
+  --project-bg: #f0f3f8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  background: linear-gradient(-45deg, #e9edf2, #f4f4f7, #dce3ea, #eef1f4);
+  background-size: 400% 400%;
+  animation: gradientFlow 15s ease infinite;
+  color: var(--color-text);
+  line-height: 1.6;
+  padding-top: 60px;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: var(--color-highlight);
+    box-shadow: 0 2px 12px var(--color-shadow);
+    z-index: 1000;
+    height: 60px; /* Set a fixed height for the navbar */
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--primary-shade);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--color-accent);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--color-muted);
+}
+
+.hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 60px); /* Ensure the hero section doesn't overlap with the navbar */
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(8px);
+    text-align: center;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 24px var(--color-shadow);
+}
+
+.hero h1 {
+    font-size: 3.2rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, #4b2aad, #00bcd4);
+    
+    background-clip: text;             /* standard */
+    -webkit-background-clip: text;     /* for WebKit browsers */
+    
+    color: transparent;                /* fallback */
+    -webkit-text-fill-color: transparent; /* for WebKit browsers */
+    
+    margin-bottom: 1rem;
+}
+
+
+
+.hero p {
+    font-size: 1.3rem;
+    max-width: 600px;
+    font-weight: 400;
+    background-color: var(--hero-tagline-bg);
+    padding: 0.75rem 1rem;
+    border-radius: var(--border-radius);
+    color: var(--primary-shade);
+    box-shadow: 0 2px 6px var(--color-shadow);
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem; /* Reduced gap between sections */
+    padding: 3rem 1.5rem; /* Reduced padding for a tighter layout */
+    width: 95%; /* Set the section width to 95% */
+    margin: auto; /* Center the section horizontally */
+}
+
+#aboutme-info {
+    text-align: center;
+    font-size: large;
+    padding: 2rem;
+}
+
+.sub-section {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(6px);
+    padding: 1.5rem; /* Reduced padding inside sub-sections */
+    border-radius: var(--border-radius);
+    box-shadow: 0 6px 20px var(--color-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 100%; /* Make the width flexible */
+    margin: auto; /* Center the sub-section */
+    margin-top: 40px; /* Reduced top margin */
+}
+
+.sub-section:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px var(--color-shadow);
+}
+
+h2 {
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+    margin-top: 1.5rem; /* Reduced top margin for a tighter layout */
+    border-bottom: 2px solid #ddd;
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+    font-size: 1.6rem;
+    text-align: center;
+}
+
+ul {
+    list-style-position: inside;
+    padding-left: 1rem;
+}
+
+ul li {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.8rem;
+    line-height: 1.8;
+}
+
+.project {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 1rem;
+}
+
+
+.project2 {
+  list-style: disc inside;
+  padding-left: 1rem;
+  display: block;
+}
+
+
+h3 {
+    color: #2a2f36; /* Darker shade of the main text color */
+    border-bottom: 2px solid #ddd;
+    padding: 1rem;
+    font-size: 1.3rem;
+    text-align: center;
+}
+
+.project-item {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-left: 4px solid var(--color-accent);
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+    box-shadow: 0 6px 16px var(--color-shadow);
+    transition: transform 0.3s ease;
+}
+
+.project-item:hover {
+    transform: translateY(-5px);
+    background-color: #f8faff;
+}
+
+.project-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.5rem;
+}
+
+.project-desc {
+    color: var(--color-text);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.tech-used {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.tech-head {
+    font-weight: 600;
+    color: var(--primary-shade);
+    margin-right: 0.5rem;
+}
+
+
+.tech-item {
+    background-color: #ede9fe;
+    color: var(--primary-shade);
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.project-link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ede9fe;
+    color: var(--primary-shade);
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.project li {
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border-left: 4px solid var(--color-accent);
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.project li:hover {
+    background-color: #eeeeee;
+}
+
+.li-style {
+    color: var(--color-accent);
+    font-weight: 500;
+}
+
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: var(--color-muted);
+}
+
+dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.5rem 1.5rem;
+}
+
+dt {
+    font-weight: 600;
+    color: var(--color-accent);
+}
+
+dd {
+    color: var(--color-text);
+}
+
+blockquote {
+    background-color: #f1f1f1;
+    padding: 2rem;
+    border-left: 4px solid var(--color-accent);
+    font-style: italic;
+    font-size: 1.1rem;
+    text-align: center;
+    border-radius: var(--border-radius);
+    margin-top: 2rem; /* Reduced margin-top */
+    color: var(--color-muted);
+}
+
+.project2 > li {
+    list-style: disc;
+}
+
+.contact-link {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+    text-align: center;
+}
+
+.education-content {
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px var(--color-shadow);
+    margin-top: 1rem;
+}
+
+.education-item {
+    text-align: center;
+}
+
+.education-item h3 {
+    font-size: 1.4rem;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+}
+
+.edu-institute {
+    font-size: 1.1rem;
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+.edu-year {
+    color: var(--color-muted);
+    margin-top: 0.25rem;
+}
+
+
+.edu-grade {
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+  color: var(--primary-shade);
+}
+
+
+.contact-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 1rem 0;
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    width: 50rem;
+    flex-direction: column;
+}
+
+input,
+textarea {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+}
+
+button {
+    background-color: var(--color-accent);
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: var(--border-radius);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--primary-shade);
+}
+
+/* General styles for form-group and other sections */
+.form-group {
+    display: flex;
+    width: 50rem;
+    flex-direction: column;
+    margin: auto; /* Center align on larger screens */
+}
+
+/* Other responsive adjustments for different breakpoints */
+@media (max-width: 1024px) {
+    .form-group {
+        width: 100%; /* Allow it to take full width on tablets */
+    }
+
+    .nav-container {
+        padding: 1rem;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero h1 {
+        font-size: 2.8rem; /* Slightly smaller on tablets */
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+    }
+
+    .section {
+        padding: 2rem 1.5rem;
+    }
+
+    .project {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 767px) {
+    .form-group {
+        width: 90%; /* Allow more space on mobile devices */
+    }
+
+    .navbar {
+        height: 60px;
+    }
+
+    .hero h1 {
+        font-size: 2.2rem; /* Adjust font size for mobile */
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .nav-links {
+        display: none; /* Hide nav links initially */
+    }
+
+    .nav-links.show {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .nav-container {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .section {
+        padding: 2rem 1rem;
+    }
+
+    .project,
+    
+.project2 {
+  list-style: disc inside;
+  padding-left: 1rem;
+  display: block;
+}
+
+
+    .education-content {
+        width: 100%;
+    }
+
+    .contact-form {
+        width: 100%;
+        padding: 2rem;
+    }
+}
+
+/* Key media queries for PC and mobile responsiveness */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .form-group {
+        width: 80%; /* Keep the form-group at 80% width on tablets */
+    }
+
+    .project {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .hero h1 {
+        font-size: 2.6rem; /* Adjust font size for tablets */
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+    }
+
+    .nav-container {
+        flex-direction: row;
+    }
+
+    .nav-links {
+        flex-direction: row;
+    }
+
+    .section {
+        padding: 2.5rem 1.5rem;
+    }
+}
+
+
+
+@media (max-width: 767px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+        display: none;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .section {
+        flex-direction: column;
+        padding: 2rem 1rem;
+    }
+
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .project,
+    
+.project2 {
+  list-style: disc inside;
+  padding-left: 1rem;
+  display: block;
+}
+
+
+    .education-content {
+        width: 100%;
+    }
+
+    .form-group {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+    }
+}
+
+@keyframes gradientFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.skills-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+
+.skill-box {
+  flex: 1;
+  min-width: 300px;
+  background-color: var(--section-bg);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px var(--color-shadow);
+  border: 1px solid #dce3ea;
+}
+
+
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">Vaishnavi Bhat </div>
+      <ul class="nav-links">
+        <li><a href="#AboutMe">About me</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#domain">Domain description</a></li>
+        <li><a href="#Business-cases">Business Cases</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#details">Details</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <h1>Hello, I'm Vaishnavi Bhat </h1>
+    <p>A motivated and committed graduate eager to contribute to the industry</p>
+  </header>
+
+  <main class="section">
+    <section id="AboutMe" class="sub-section">
+      <h2>About Me</h2>
+      <p id="aboutme-info">
+          
+        I am a passionate computer science student with a strong foundation in programming and software development. Focused on building scalable, secure applications, I enjoy solving real-world challenges through efficient and impactful technology. I thrive on learning emerging technologies and applying my knowledge to create meaningful, practical solutions.
+
+        Inspired by Google’s innovation in AI, open-source contributions, and large-scale systems, I aim to contribute to impactful technology that benefits users globally.
+        
+      </p>
+      
+    </section>
+
+    <section class="sub-section">
+      <h2>Education</h2>
+      <div id="education" class="education-content">
+        <div class="education-item">
+          <h3>Bachelor of Engineering in Computer Science</h3>
+          <p class="edu-institute">KLE Technological University</p>
+          <p class="edu-institute">Hubballi, Karnataka </p>
+          <p class="edu-year">Graduation: 2026</p>
+          <p class="edu-grade">CGPA: 9.35</p>
+        </div>
+      </div>
+    </section>
+    
+    
+    
+    <section id="skills" class="sub-section">
+        <h2>Skills</h2>
+        <div class="skills-wrapper">
+          <div class="skill-box">
+            <h3>Technical Skills</h3>
+            <ul class="project2">
+              <li>C, C++</li>
+              <li>SQL</li>
+              <li>Python</li>
+              <li>Data Structures and Algorithms</li>
+              <li>Web Development (HTML, CSS, JavaScript, Node.js, React.js)</li>
+              <li>Machine Learning and Deep Learning</li>
+              <li>Cyber Security</li>
+              <li>Git, GitHub</li>
+              <li>Cloud Computing</li>
+            </ul>
+          </div>
+          <div class="skill-box">
+            <h3>Soft Skills</h3>
+            <ul class="project2">
+              <li>Communication</li>
+              <li>Leadership</li>
+              <li>Critical Thinking</li>
+              <li>Problem Solving</li>
+              <li>Time Management</li>
+              <li>Team Work</li>
+              <li>Adaptability</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+      
+
+
+    <section id="projects" class="sub-section">
+      <h2> Projects</h2>
+      <ul class="project">
+        <li class="project-item">
+            <h3 class="project-title">Weighted Ensemble Model for Tackling Fake News </h3>
+            <p class="project-desc"> This project presents a robust approach to detecting fake news by leveraging ensemble learning with transformer-based text embeddings. The model utilizes BERT for contextual text representation and combines eight machine learning classifiers—Logistic Regression, SGD, XGBoost, SVM, Random Forest, AdaBoost, KNN, and Naive Bayes—through ensemble techniques like Majority Voting, Unweighted Averaging, and Weighted Averaging.</p>
+                <p>Achieved 94.83% validation accuracy using Weighted Averaging across 8 classifiers.</p>
+                  <p>Published research paper</p>
+                <div class="tech-used">
+                <span class="tech-head">Technologies Used:</span>   
+                <span class="tech-item">BERT (Bidirectional Encoder Representations from Transformers)</span>
+                <span class="tech-item">Ensemble Learning </span>                
+                <span class="tech-item">Python</span>
+                <span class="tech-item">Natural Language Processing</span>
+                <span class="tech-item">Scikit-learn</span>
+            </div>
+            <div>
+                <br/>
+                <a href="https://drive.google.com/file/d/14D2oqXzTdsOr3B8V7sBGnfXJRHWtl5Kt/view?usp=sharing" target="_blank">View Research Paper</a>
+            </div>
+        </li>
+        <li class="project-item">
+            <h3 class="project-title">Password-Based Security Lock System </h3>
+            <p class="project-desc">
+                Embedded Systems Project using AVR Microcontroller
+                
+                Designed and implemented a secure electronic locking system using the ATmega16 microcontroller. Integrated a 4x4 matrix keypad for password input and a 16x2 LCD for real-time feedback. Developed an embedded C program to verify a 4-digit password and control a motorized lock mechanism based on input validation. The system loops for continuous operation and includes password re-entry and lock-close functionality to enhance user experience and security. Ideal for lockers, doors, or similar access-controlled environments.</p>
+                <p>Key Highlights:</p>
+                
+                <p>Real-time password verification and display using an LCD
+                
+                Dynamic keypad scanning via GPIO port manipulation
+                
+                Motor control for automated locking/unlocking based on password logic
+                
+                Continuous loop for secure system reset and reuse</p>
+            </p>
+            <div class="tech-used">
+                <span class="tech-head">Technologies Used:</span>
+                <span class="tech-item">Atmel Studio</span>   
+                <span class="tech-item">AVR ATmega16</span>
+                <span class="tech-item">AVR-GCC </span>
+                <span class="tech-item">DC Motor</span>
+                </div>
+                <br>
+                <div>
+                <a href="https://github.com/VaishnaviBhat5/Door-Locking-System" target="_blank">
+                    View Project on GitHub
+                  </a>
+                              
+            </div>
+        </li>
+        <li class="project-item">
+            <h3 class="project-title">Full-Stack Tourism Management Web Application </h3>
+            <p class="project-desc">
+                Developed an all-in-one web platform to streamline tourism experiences, enabling users to discover destinations, plan detailed itineraries, make bookings, and maintain a personal travel portfolio. The platform delivers personalized travel recommendations based on user location, history, and interests. It also supports multilingual interfaces, secure payment integration, and media-rich destination guides. A dedicated admin panel allows management of users, bookings, and content to ensure a scalable and user-centric travel planning solution. </p>
+                <p>Key features:</p>
+                
+                <p>Personalized destination suggestions based on user profile and history
+
+                    Itinerary planning with location-based activity suggestions and route mapping
+                    
+                    Secure user authentication and role-based access
+                    
+                    Real-time booking of hotels, guides, and transport with payment gateway integration </p>
+                    <div class="tech-used">
+                        <span class="tech-head">Technologies Used:</span>   
+                        <span class="tech-item">HTML, CSS, JavaScript </span>
+                        <span class="tech-item">Node.js, Express.js </span>
+                        <span class="tech-item">MongoDB, RESTful APIs</span>
+                        <span class="tech-item">Google Maps API</span>
+                        
+                    </div>
+
+        </li>
+        <li class="project-item">
+            <h3 class="project-title">Domain Tagging and Label Generation
+            </h3>
+            <p class="project-desc">
+                Designed and implemented a system that analyzes textual content to identify domain relevance using natural language processing, keyword extraction, and graph-based analysis. The system processes input paragraphs, extracts significant keywords (using TF-IDF with bigram and trigram models), and retrieves related web pages via inlink-outlink analysis. It then constructs knowledge graphs to visualize content relationships and calculates domain-wise similarity percentages for tagging and content curation. This approach supports applications in SEO, academic research, and content moderation. </p>
+                <p>Key features:</p>
+                
+                <p>Keyword extraction and similarity scoring using TF-IDF and fuzzy matching
+
+                    Graph-based domain tagging through inlink and outlink web page analysis
+                    
+                    Domain proportion prediction and label generation
+                    
+                    Modular pipeline for extensibility and scalable content analysis</p>
+                    <div class="tech-used">
+                <span class="tech-head">Technologies Used:</span>   
+                <span class="tech-item">Python</span>
+                <span class="tech-item">Natural Language Processing(spaCy, TF-IDF, N-gram analysis)</span>
+                <span class="tech-item">Beautiful Soup</span>
+                <span class="tech-item">rapidfuzz</span>
+                <span class="tech-item">Graph Construction Algorithms</span>
+            </div>
+        </li>
+      </ul>
+    </section>
+
+    <section id="domain" class="sub-section">
+        <h2>Domain - Google</h2>
+        <p>
+          Google has consistently been at the forefront of innovation, leveraging cutting-edge technologies to solve complex problems at an unprecedented scale. From AI and machine learning advancements to cloud computing and quantum computing, Google shapes the future of technology. As a leader in search, advertising, and digital services, Google’s ecosystem reaches billions, making it one of the most impactful and transformative companies in the world. With its commitment to open-source software, scalable infrastructure, and data-driven decision-making, Google continues to empower developers and organizations globally to create smarter solutions for real-world challenges.
+        </p>
+      </section>
+      
+
+    <section id="Business-cases" class="sub-section">
+      <h2>Business Cases </h2>
+      <div class="use-case-list">
+    
+        <div class="use-case-item">
+          <h3>Quantum-Enabled Cloud Platform</h3>
+          <p>
+            A quantum-enabled cloud platform would integrate quantum processors with classical cloud infrastructure, enabling faster and more efficient computations for AI, cryptography, and scientific research. By overcoming the limitations of classical systems, this platform would unlock new possibilities for enterprises and researchers, speeding up complex problem-solving in fields like material science and drug discovery. </p>
+        </div>
+    
+        <div class="use-case-item">
+          <h3> Autonomous Urban Farming Networks </h3>
+          <p>
+            A network of autonomous indoor farms powered by AI and robotics, capable of growing, harvesting, and distributing fresh produce with minimal human involvement. These farms could be integrated within urban areas, making food production local and sustainable, drastically reducing transportation costs, and contributing to food security. This would involve robotic harvesting systems, AI-driven climate control, and local supply chain optimization, creating self-sustaining ecosystems in cities.        </div>
+    
+        <div class="use-case-item">
+          <h3>Global Clean Water Network Powered by AI and Solar Desalination</h3>
+          <p>
+            A global network that uses AI to monitor and optimize solar-powered desalination plants to provide clean water to areas facing water scarcity. The AI would analyze local conditions and adjust operations to ensure efficient water production with minimal environmental impact. This system could be deployed in remote areas or places suffering from chronic water shortages, helping to solve a global crisis with sustainable technologies.
+            </p>
+        </div>
+    
+        <div class="use-case-item">
+          <h3>Dynamic Carbon Footprint Reduction Network</h3>
+          <p>
+            A global, AI-driven network that tracks and incentivizes carbon footprint reduction across individuals, businesses, and governments. This system would use real-time data from IoT devices, transportation systems, and manufacturing plants to calculate emissions and suggest improvements. Rewards and carbon credits could be automatically assigned to those who reduce their carbon footprint, enabling a global carbon-reduction ecosystem that incentivizes sustainable behaviors.          </p>
+        </div>
+    
+      </div>
+    </section>
+    
+    
+    
+
+      <section >
+      
+
+              <!-- Contact Me Section with Buttons -->
+<section id="contact">
+    <h2>Contact Me</h2>
+    <div class="contact-buttons">
+      <!-- GitHub Button -->
+      <a href="https://github.com/VaishnaviBhat5" target="_blank" class="contact-button">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" width="20" height="20">
+        GitHub
+      </a>
+
+      <a href="mailto:vaishnavibhat706@gmail.com" class="contact-button">
+        <img
+          src="https://cdn-icons-png.flaticon.com/512/732/732200.png"
+          alt="Email"
+          width="20"
+          height="20"
+        />
+        vaishnavibhat706@gmail.com
+      </a>
+    
+    </div>
+  </section>
+  
+  <!-- CSS Styling -->
+  <style>
+    #contact {
+      text-align: center;
+      padding: 2rem 0;
+    }
+  
+    .contact-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 20px;
+    }
+  
+    .contact-button {
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      background-color: #0073b1; /* LinkedIn Blue */
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+  
+    .contact-button img {
+      margin-right: 8px;
+    }
+  
+    .contact-button:hover {
+      background-color: #005582; /* Darker Blue */
+    }
+  
+    .contact-button:nth-child(2) {
+      background-color: #db4437; /* Email Red */
+    }
+  
+    .contact-button:nth-child(2):hover {
+      background-color: #a83226; /* Darker Red */
+    }
+  
+    .contact-button:nth-child(3) {
+      background-color: #333; /* GitHub Black */
+    }
+  
+    .contact-button:nth-child(3):hover {
+      background-color: #24292f; /* Darker Black */
+    }
+  
+.skills-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+
+.skill-box {
+  flex: 1;
+  min-width: 300px;
+  background-color: var(--section-bg);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px var(--color-shadow);
+  border: 1px solid #dce3ea;
+}
+
+
+</style>
+
+
+            </ul>
+        <form action="https://formsubmit.co/vaishnavibhat706@gmail.com" method="POST" class="contact-form">
+          
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_subject" value="New Message from Portfolio Site">
+      
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required placeholder="Enter your name">
+          </div>
+      
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" required placeholder="Enter your email">
+          </div>
+      
+          <div class="form-group">
+            <label for="message">Your Message</label>
+            <textarea id="message" name="message" rows="6" required placeholder="Write your message here..."></textarea>
+          </div>
+      
+          <button type="submit">Send Message</button>
+        </form>
+      </section>
+      
+    </section>
+
+    <section id="details" class="sub-section">
+      <h2>Portfolio Details</h2>
+      <dl>
+        <dt>Course Name</dt>
+        <dd>Algorithmic Problem Solving</dd>
+        <dt>Course Code</dt>
+        <dd>24ECSE309</dd>
+        <dt>Name</dt>
+        <dd>Vaishnavi Bhat</dd>
+        <dt>SRN</dt>
+        <dd>01FE22BCS152</dd>
+        <dt>Course Instructor</dt>
+        <dd>Prakash Hegade</dd>
+        <dt>University</dt>
+        <dd>KLE Technological University</dd>
+        <dt>Domain</dt>
+        <dd>Google</dd>
+      </dl>
+    </section>
+
+  </main>
+</body>
+</html>
