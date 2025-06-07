@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Business Case 8: Global Attack Detection and DDoS Mitigation at the Edge</title>
+  <style>
+    :root {
+      --color-bg: #f4f4f7;
+      --color-text: #1c1f26;
+      --color-accent: #0d47a1;
+      --color-highlight: #ffffff;
+      --color-muted: #607d8b;
+      --color-shadow: rgba(0, 0, 0, 0.06);
+      --primary-shade: #0a2e6e;
+      --border-radius: 10px;
+      --section-bg: #e9edf2;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(-45deg, #e9edf2, #f4f4f7, #dce3ea, #eef1f4);
+      background-size: 400% 400%;
+      animation: gradientFlow 15s ease infinite;
+      color: var(--color-text);
+      line-height: 1.8;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(6px);
+      border-radius: var(--border-radius);
+      box-shadow: 0 6px 20px var(--color-shadow);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: var(--color-accent);
+      text-align: center;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.8rem;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: var(--primary-shade);
+      margin: 2rem 0 1rem;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      color: var(--color-text);
+      margin: 1.5rem 0 1rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    li {
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+
+    th, td {
+      padding: 1rem;
+      border: 1px solid #ddd;
+      text-align: left;
+      font-size: 1.1rem;
+    }
+
+    th {
+      background-color: var(--color-accent);
+      color: white;
+    }
+
+    td {
+      background-color: #f9f9f9;
+    }
+
+    pre {
+      background: #f8f8f8;
+      padding: 12px;
+      border-left: 4px solid var(--color-accent);
+      overflow-x: auto;
+      font-size: 1rem;
+      border-radius: var(--border-radius);
+      margin: 1.5rem 0;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1.5rem auto;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 8px var(--color-shadow);
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>Global Attack Detection and DDoS Mitigation at the Edge</h1>
+
+    <p>
+      This business case focuses on detecting and mitigating Distributed Denial of Service (DDoS) attacks globally at edge nodes, using real-time threat intelligence to protect websites and APIs from malicious traffic, ensuring availability and performance.
+    </p>
+    <h2>Theory</h2>
+    <p>
+      Global Attack Detection and DDoS Mitigation at the edge involves analyzing network traffic in real-time to identify and block malicious patterns, such as sudden spikes in requests, unusual packet distributions, or botnet activity. Traffic data (e.g., request rate, packet size, source IP diversity) is collected from edge servers. Algorithms detect malicious patterns by isolating outliers in high-dimensional data or monitoring traffic over time. Mitigation involves rate-limiting, IP blocking, or rerouting traffic. Key considerations include low-latency detection, scalability across distributed edge nodes, and distinguishing legitimate from malicious traffic to minimize false positives, ensuring robust protection for online services.
+    </p>
+    <h2>Real-Time Scenario</h2>
+    <p>
+      During a high-traffic e-commerce sale, edge servers globally process millions of requests. A DDoS attack emerges, with botnets flooding servers from multiple IPs, spiking request rates. The system monitors traffic in real-time, using sliding windows to track requests per second per IP. An isolation forest identifies unusual patterns in packet size and IP diversity, confirming an attack from 10,000 IPs sending rapid, small requests. Mitigation kicks in—rate-limiting blocks IPs exceeding 100 requests/sec, and suspicious traffic is rerouted to a sinkhole. Legitimate users experience no downtime, and the system adapts to a new attack wave, ensuring website and API availability.
+    </p>
+    <h2>Usage</h2>
+    <p>
+      For Akamai, Global Attack Detection and DDoS Mitigation at the Edge strengthens client protection during high-risk periods. Key use cases include:
+    </p>
+    <ul>
+      <li><strong>Website Protection</strong>: Detecting and blocking DDoS floods to ensure e-commerce or media sites remain accessible.</li>
+      <li><strong>API Security</strong>: Safeguarding APIs from volumetric attacks, preserving backend performance.</li>
+      <li><strong>Real-Time Threat Intelligence</strong>: Analyzing edge traffic to identify global attack patterns instantly.</li>
+      <li><strong>Rate Limiting</strong>: Throttling malicious IPs to mitigate HTTP floods or SYN attacks.</li>
+      <li><strong>Botnet Detection</strong>: Identifying coordinated bot traffic for rapid response.</li>
+      <li><strong>Scalable Defense</strong>: Distributing mitigation across edge nodes to handle massive, global attacks.</li>
+    </ul>
+
+    <h2>Impact</h2>
+    <p>
+      Implementing Global Attack Detection and DDoS Mitigation at the Edge delivers significant benefits for Akamai’s clients:
+    </p>
+    <ul>
+      <li><strong>Enhanced Availability</strong>: Ensures 99.99% uptime by blocking DDoS attacks, boosting user trust.</li>
+      <li><strong>Reduced Latency</strong>: Edge-based mitigation cuts response time impact by 50-70% during attacks.</li>
+      <li><strong>Improved Security</strong>: Detects and mitigates 95% of volumetric attacks in real-time, protecting data.</li>
+      <li><strong>Cost Savings</strong>: Minimizes server overload, reducing mitigation costs by 20-30%.</li>
+      <li><strong>Market Edge</strong>: Positions Akamai as a leader in real-time, global DDoS defense solutions.</li>
+    </ul>
+    <h2>Challenges</h2>
+    <ul>
+      <li>Real-time detection: Identifying attacks instantly with minimal latency at edge nodes.</li>
+      <li>Scale: Handling millions of requests across distributed servers.</li>
+      <li>False positives: Distinguishing legitimate traffic from malicious patterns.</li>
+      <li>Dynamic attacks: Adapting to evolving, multi-vector DDoS strategies.</li>
+      <li>Mitigation speed: Blocking threats without disrupting user experience.</li>
+    </ul>
+
+    <h2>Algorithms Used</h2>
+    <p>Below are the algorithms evaluated for global attack detection and DDoS mitigation, with summaries of their purpose, detailed explanations, and optimized implementations:</p>
+
+    <h2>Isolation Forest</h2>
+    <p>
+      Excellent for unsupervised outlier detection, this algorithm isolates malicious patterns in high-dimensional traffic data (e.g., request rate, packet size) to detect DDoS attacks at the edge.
+    </p>
+    <h3>How It Works</h3>
+    <p>
+      Isolation Forest detects malicious patterns by randomly partitioning traffic data (e.g., request rate, packet size, IP diversity) into trees. Each tree splits data on random features and values, isolating points. Outlier points (e.g., DDoS traffic) are isolated faster, requiring fewer splits, due to their distinct values compared to normal traffic. The score is based on the average path length across trees—shorter paths indicate outliers. For example, during an attack, an IP with an unusually high request rate is flagged quickly. This unsupervised method scales well for edge nodes, handling high-dimensional data with low latency for real-time DDoS detection.
+    </p>
+    <pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;time.h&gt;
+#include &lt;math.h&gt;
+#define MAX_POINTS 1000
+#define MAX_TREES 50
+#define MAX_DEPTH 10
+
+typedef struct {
+    double features[3]; // Request rate, packet size, IP diversity
+    int index;
+} DataPoint;
+
+typedef struct Node {
+    int featureIdx;
+    double splitValue;
+    struct Node* left;
+    struct Node* right;
+    int isLeaf;
+    int size;
+} Node;
+
+Node* createNode() {
+    Node* node = (Node*)malloc(sizeof(Node));
+    node->left = node->right = NULL;
+    node->isLeaf = 0;
+    node->size = 0;
+    return node;
+}
+
+Node* buildTree(DataPoint* data, int n, int depth, int maxDepth) {
+    if (n <= 1 || depth >= maxDepth) {
+        Node* leaf = createNode();
+        leaf->isLeaf = 1;
+        leaf->size = n;
+        return leaf;
+    }
+    Node* node = createNode();
+    node->featureIdx = rand() % 3; // Random feature: 0=rate, 1=size, 2=diversity
+    double minVal = data[0].features[node->featureIdx], maxVal = minVal;
+    for (int i = 1; i < n; i++) {
+        if (data[i].features[node->featureIdx] < minVal) minVal = data[i].features[node->featureIdx];
+        if (data[i].features[node->featureIdx] > maxVal) maxVal = data[i].features[node->featureIdx];
+    }
+    node->splitValue = minVal + (maxVal - minVal) * ((double)rand() / RAND_MAX);
+    
+    int leftCount = 0, rightCount = 0;
+    DataPoint* left = (DataPoint*)malloc(n * sizeof(DataPoint));
+    DataPoint* right = (DataPoint*)malloc(n * sizeof(DataPoint));
+    for (int i = 0; i < n; i++) {
+        if (data[i].features[node->featureIdx] < node->splitValue)
+            left[leftCount++] = data[i];
+        else
+            right[rightCount++] = data[i];
+    }
+    node->left = buildTree(left, leftCount, depth + 1, maxDepth);
+    node->right = buildTree(right, rightCount, depth + 1, maxDepth);
+    free(left);
+    free(right);
+    return node;
+}
+
+double pathLength(DataPoint point, Node* node, int depth) {
+    if (node->isLeaf) {
+        return depth + (node->size > 1 ? log(node->size) : 0);
+    }
+    if (point.features[node->featureIdx] < node->splitValue)
+        return pathLength(point, node->left, depth + 1);
+    return pathLength(point, node->right, depth + 1);
+}
+
+double anomalyScore(DataPoint point, Node* trees[], int numTrees, int n) {
+    double avgPath = 0;
+    for (int i = 0; i < numTrees; i++)
+        avgPath += pathLength(point, trees[i], 0);
+    avgPath /= numTrees;
+    double c = 2 * (log(n - 1) + 0.5772156649) - (2 * (n - 1) / (double)n);
+    return pow(2, -avgPath / c); // Score: ~0 normal, ~1 anomalous
+}
+
+void freeTree(Node* node) {
+    if (!node) return;
+    freeTree(node->left);
+    freeTree(node->right);
+    free(node);
+}
+
+int main() {
+    srand(time(NULL));
+    int n = 10;
+    DataPoint data[] = {
+        {{10, 100, 0.1}, 0},  // Normal: low rate, normal size, low diversity
+        {{12, 95, 0.15}, 1},  // Normal
+        {{9, 105, 0.12}, 2},  // Normal
+        {{11, 98, 0.13}, 3},  // Normal
+        {{500, 50, 0.9}, 4},  // Outlier: high rate, small size, high diversity (DDoS)
+        {{8, 102, 0.11}, 5},  // Normal
+        {{600, 40, 0.95}, 6}, // Outlier: DDoS flood
+        {{13, 97, 0.14}, 7},  // Normal
+        {{450, 60, 0.85}, 8}, // Outlier: HTTP flood
+        {{10, 99, 0.12}, 9}   // Normal
+    };
+    Node* trees[MAX_TREES];
+    for (int i = 0; i < MAX_TREES; i++)
+        trees[i] = buildTree(data, n, 0, MAX_DEPTH);
+    
+    printf("Isolation Forest DDoS Detection:\n");
+    printf("Example 1: Normal traffic (IP 0)\n");
+    printf("Score: %.2f (Threshold: 0.6, >0.6 = DDoS)\n", anomalyScore(data[0], trees, MAX_TREES, n));
+    printf("Example 2: Potential DDoS (IP 4)\n");
+    printf("Score: %.2f (Threshold: 0.6, >0.6 = DDoS)\n", anomalyScore(data[4], trees, MAX_TREES, n));
+    printf("Example 3: Normal traffic (IP 5)\n");
+    printf("Score: %.2f (Threshold: 0.6, >0.6 = DDoS)\n", anomalyScore(data[5], trees, MAX_TREES, n));
+    printf("Example 4: DDoS flood (IP 6)\n");
+    printf("Score: %.2f (Threshold: 0.6, >0.6 = DDoS)\n", anomalyScore(data[6], trees, MAX_TREES, n));
+    printf("Example 5: HTTP flood (IP 8)\n");
+    printf("Score: %.2f (Threshold: 0.6, >0.6 = DDoS)\n", anomalyScore(data[8], trees, MAX_TREES, n));
+    printf("Example 6: Normal traffic (IP 9)\n");
+    printf("Score: %.2f (Threshold: 0.6, >0.6 = DDoS)\n", anomalyScore(data[9], trees, MAX_TREES, n));
+    
+    for (int i = 0; i < MAX_TREES; i++) freeTree(trees[i]);
+    return 0;
+}
+    </pre>
+
+    <h2>Sliding Window</h2>
+    <p>
+      Allows monitoring traffic in real-time over fixed/rolling intervals, detecting sudden spikes in requests or packets to flag potential DDoS attacks at the edge.
+    </p>
+    <h3>How It Works</h3>
+    <p>
+      Sliding Window tracks traffic metrics (e.g., requests per second) over a fixed time window (e.g., 10 seconds), sliding forward with each new data point. A circular buffer stores recent values, efficiently updating the sum of requests as old values exit and new ones enter the window. If the average rate in the window exceeds a threshold (e.g., 50 req/s), it flags a potential DDoS attack, triggering mitigation like rate-limiting. For edge nodes, this method quickly detects volumetric attacks (e.g., HTTP floods) in real-time, with minimal memory and computation, ideal for high-speed traffic analysis.
+    </p>
+    <pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#define WINDOW_SIZE 10
+#define MAX_POINTS 1000
+
+typedef struct {
+    double requests; // Requests in current second
+    int ipIndex;
+} TrafficSample;
+
+typedef struct {
+    TrafficSample buffer[WINDOW_SIZE];
+    int head;
+    double sum;
+    int count;
+} SlidingWindow;
+
+void initWindow(SlidingWindow* w) {
+    w->head = 0;
+    w->sum = 0;
+    w->count = 0;
+}
+
+void addSample(SlidingWindow* w, TrafficSample sample) {
+    if (w->count >= WINDOW_SIZE) {
+        w->sum -= w->buffer[w->head].requests;
+        w->buffer[w->head] = sample;
+        w->head = (w->head + 1) % WINDOW_SIZE;
+    } else {
+        w->buffer[w->head] = sample;
+        w->head = (w->head + 1) % WINDOW_SIZE;
+        w->count++;
+    }
+    w->sum += sample.requests;
+}
+
+double getAverage(SlidingWindow* w) {
+    if (w->count == 0) return 0;
+    return w->sum / w->count;
+}
+
+int main() {
+    SlidingWindow w;
+    initWindow(&w);
+    TrafficSample samples[] = {
+        {10, 0},  // Normal traffic
+        {12, 0},  // Normal
+        {9, 0},   // Normal
+        {11, 0},  // Normal
+        {15, 0},  // Normal
+        {500, 1}, // Outlier: DDoS spike
+        {600, 1}, // Outlier: Flood
+        {550, 1}, // Outlier: Continued flood
+        {13, 0},  // Normal
+        {10, 0}   // Normal
+    };
+    int n = 10;
+    
+    printf("Sliding Window DDoS Detection:\n");
+    printf("Example 1: Normal traffic (IP 0, early window)\n");
+    for (int i = 0; i < 4; i++) {
+        addSample(&w, samples[i]);
+    }
+    printf("Avg requests/sec: %.2.f (Threshold: 50, >50 = DDoS)\n", getAverage(&w));
+    
+    printf("Example 2: Normal traffic (IP 0, full window)\n");
+    addSample(&w, samples[4]);
+    printf("Avg requests/sec: %.2.f (Threshold: 50, >50 = DDoS)\n", getAverage(&w));
+    
+    printf("Example 3: Potential DDoS (IP 1, spike)\n");
+    addSample(&w, samples[5]);
+    printf("Score: %.2f requests/sec (Threshold: 50, >50 = DDoS)\n", getAverage(&w));
+    
+    printf("Example 4: Flood attack (IP 1, continued)\n");
+    addSample(&w, samples[6]);
+    printf("Avg requests/sec: %.2f\n", getAverage(&w));
+    printf("Score: %.2f requests/sec (Threshold: 50, >50 = DDoS)\n", getAverage(&w));
+    
+    printf("Example 5: Flood persists (IP 5)\n");
+    addSample(&w, samples[7]);
+    printf("Score: %.2f requests/sec (Threshold: 50, >50 = DDoS)\n", getAverage(&w));
+    
+    printf("Example 6: Return to normal (IP 0)\n");
+    addSample(&w, samples[8]);
+    addSample(&w, samples[9]);
+    printf("Avg requests/sec: %.2f (Threshold: 50, >50 = DDoS)\n", getAverage(&w));
+    
+    return 0;
+}
+    </pre>
+
+    <h2>Time and Space Complexity</h2>
+    <table>
+      <tr>
+        <th>Algorithm</th>
+        <th>Best Case Time</th>
+        <th>Typical Case Time</th>
+        <th>Worst Case Time</th>
+        <th>Space Complexity</th>
+      </tr>
+      <tr>
+        <td>Isolation Forest</td>
+        <td>O(T * N)</td>
+        <td>O(T * N * log N)</td>
+        <td>O(T * N * log N)</td>
+        <td>O(T * N)</td>
+      </tr>
+      <tr>
+        <td>Sliding Window</td>
+        <td>O(1)</td>
+        <td>O(1)</td>
+        <td>O(1)</td>
+        <td>O(W)</td>
+      </tr>
+    </table>
+    <p>
+      Note: N = number of data points, T = number of trees (Isolation Forest), W = window size (Sliding Window). Isolation Forest scales with trees and data size, while Sliding Window is constant-time per update, ideal for real-time.
+    </p>
+
+    <h2>Inference</h2>
+    <p>
+      For Global Attack Detection and DDoS Mitigation at the Edge, Sliding Window is the recommended algorithm. Its O(1) time complexity per update enables real-time detection of traffic spikes, crucial for rapid mitigation at edge nodes during DDoS attacks. Isolation Forest excels for complex, high-dimensional data, effectively detecting subtle attack patterns, but its higher complexity suits deeper analysis. Sliding Window’s speed and simplicity make it ideal for real-time protection of websites and APIs across distributed edge servers.
+    </p>
+  </div>
+</body>
+</html>
