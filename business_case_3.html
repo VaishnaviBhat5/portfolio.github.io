@@ -129,7 +129,7 @@
     </p>
     <h2>Theory</h2>
     <p>
-      Live Event Traffic Management involves coordinating vehicle and pedestrian flows in a road network surrounding event venues to prevent congestion and ensure safety. The road network is modeled as a directed graph, where nodes represent intersections or zones (e.g., parking lots, entrances) and edges represent roads with capacity constraints (e.g., vehicles per minute). Real-time data from sensors, GPS, and traffic cameras informs dynamic routing decisions, maximizing throughput while respecting capacity limits. Algorithms like Ford-Fulkerson optimize flow by finding paths with available capacity, while others, like Traffic Assignment, balance loads across routes to minimize travel times. Prioritizing emergency vehicles requires reserving capacity or computing dedicated routes. Key considerations include adapting to sudden changes (e.g., accidents, road closures), ensuring scalability for thousands of vehicles, and maintaining safety by avoiding bottlenecks and crowd surges. Effective traffic management reduces delays, enhances accessibility, and improves the overall event experience.
+      Live Event Traffic Management involves coordinating vehicle and pedestrian flows in a road network surrounding event venues to prevent congestion and ensure safety. The road network is modeled as a directed graph, where nodes represent intersections or zones (e.g., parking lots, entrances) and edges represent roads with capacity constraints (e.g., vehicles per minute). Real-time data from sensors, GPS, and traffic cameras informs dynamic routing decisions, maximizing throughput while respecting capacity limits. Algorithms like Ford-Fulkerson optimize flow by finding paths with available capacity. Prioritizing emergency vehicles requires reserving capacity or computing dedicated routes. Key considerations include adapting to sudden changes (e.g., accidents, road closures), ensuring scalability for thousands of vehicles, and maintaining safety by avoiding bottlenecks and crowd surges. Effective traffic management reduces delays, enhances accessibility, and improves the overall event experience.
     </p>
     <h2>Real-Time Scenario</h2>
     <p>
@@ -170,7 +170,7 @@
     <h2>Algorithms Used</h2>
     <p>Below are the algorithms evaluated for live event traffic management, with summaries of their purpose and detailed explanations of their mechanics, followed by simplified implementations:</p>
 
-    <h2>Ford-Fulkerson (Edmonds-Karp)</h2>
+    <h2>Ford-Fulkerson </h2>
     <p>
       This algorithm maximizes vehicle throughput in a road network by finding the optimal flow of traffic from entry points to the event venue, respecting road capacity limits, using a breadth-first search approach.
     </p>
@@ -179,9 +179,9 @@
       This algorithm, using the Edmonds-Karp variant, maximizes traffic flow through a road network modeled as a graph, where intersections are nodes and roads are edges with capacity limits (vehicles per minute). It employs Breadth-First Search (BFS) to find augmenting paths—routes from the source (entry points) to the sink (venue) with available capacity. For each path, the algorithm sends the maximum possible flow (limited by the smallest capacity along the path), updating residual capacities to reflect the flow used. This process repeats until no augmenting paths remain, ensuring the maximum number of vehicles can reach the venue without exceeding road limits. In practice, this means rerouting traffic to less congested roads in real-time, such as directing vehicles to secondary routes during a festival when main roads are saturated. The algorithm also supports prioritizing emergency vehicles by reserving capacity on specific edges, ensuring faster routes.
     </p>
     <pre>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
 #define MAX_NODES 100
 #define INF 1000000
 
@@ -270,9 +270,9 @@ int main() {
       Building on Ford-Fulkerson (Edmonds-Karp), this algorithm not only computes the maximum flow but also identifies the minimum cut—the smallest set of roads (edges) that, if blocked, would prevent additional vehicles from reaching the venue. After calculating the maximum flow using BFS to find augmenting paths, a final BFS on the residual graph marks nodes reachable from the source. Edges connecting these reachable nodes to unreachable ones form the min-cut, highlighting critical bottlenecks, such as overused intersections or narrow roads. In a real-world scenario, this helps planners identify which roads need capacity upgrades or traffic signal adjustments to prevent congestion during events. For example, during a concert, it might reveal that a single bridge to the venue is the limiting factor, prompting temporary traffic controls or rerouting strategies.
     </p>
     <pre>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
 #define MAX_NODES 100
 #define INF 1000000
 
@@ -371,144 +371,6 @@ int main() {
 }
     </pre>
 
-    <h2>Traffic Assignment Algorithm</h2>
-    <p>
-      This algorithm balances traffic across multiple routes to achieve user equilibrium, ensuring no driver can reduce travel time by switching paths, accounting for congestion effects.
-    </p>
-    <h3>How It Works</h3>
-    <p>
-      This algorithm seeks user equilibrium, where vehicles are distributed across routes so no driver can reduce their travel time by switching paths. The road network is modeled as a graph, with edges having base travel times and capacities. Travel times increase with congestion, calculated using a formula that accounts for flow relative to capacity. The algorithm iteratively applies Dijkstra’s algorithm to find the shortest (fastest) paths from source to sink, assigning a fraction of the traffic demand to these paths. After each iteration, edge flows are updated, and travel times are recalculated to reflect increased congestion, gradually balancing traffic across multiple routes. For example, during a festival, it ensures vehicles spread across main and secondary roads, preventing any single route from becoming overly congested. The process converges after several iterations, achieving a stable distribution of traffic that minimizes overall delays.
-    </p>
-    <pre>
-#include <stdio.h>
-#include <stdlib.h>
-#include <float.h>
-#define MAX_NODES 100
-#define INF DBL_MAX
-
-typedef struct {
-    int from, to;
-    double capacity;
-    double flow;
-    double baseTime;
-} Edge;
-
-typedef struct {
-    int id;
-    double distance;
-} PQNode;
-
-void swap(PQNode* a, PQNode* b) {
-    PQNode temp = *a;
-    *a = *b;
-    *b = temp;
-}
-
-void heapify(PQNode* pq, int size, int i) {
-    int smallest = i, left = 2 * i + 1, right = 2 * i + 2;
-    if (left < size && pq[left].distance < pq[smallest].distance) smallest = left;
-    if (right < size && pq[right].distance < pq[smallest].distance) smallest = right;
-    if (smallest != i) {
-        swap(&pq[i], &pq[smallest]);
-        heapify(pq, size, smallest);
-    }
-}
-
-void push(PQNode* pq, int* size, int id, double distance) {
-    pq[*size].id = id;
-    pq[*size].distance = distance;
-    int i = (*size)++;
-    while (i > 0 && pq[(i - 1) / 2].distance > pq[i].distance) {
-        swap(&pq[i], &pq[(i - 1) / 2]);
-        i = (i - 1) / 2;
-    }
-}
-
-PQNode pop(PQNode* pq, int* size) {
-    PQNode result = pq[0];
-    pq[0] = pq[--(*size)];
-    heapify(pq, *size, 0);
-    return result;
-}
-
-double getTravelTime(Edge* edge) {
-    return edge->baseTime * (1.0 + 0.15 * (edge->flow / edge->capacity));
-}
-
-void dijkstra(Edge* edges, int numEdges, int numNodes, int source, int sink, int* parent) {
-    double distances[MAX_NODES];
-    PQNode pq[MAX_NODES];
-    int pqSize = 0;
-    
-    for (int i = 0; i < numNodes; i++) distances[i] = INF;
-    distances[source] = 0;
-    push(pq, &pqSize, source, 0);
-    
-    while (pqSize > 0) {
-        PQNode current = pop(pq, &pqSize);
-        int u = current.id;
-        if (distances[u] < current.distance) continue;
-        
-        for (int i = 0; i < numEdges; i++) {
-            if (edges[i].from == u) {
-                int v = edges[i].to;
-                double weight = getTravelTime(&edges[i]);
-                if (distances[u] + weight < distances[v]) {
-                    distances[v] = distances[u] + weight;
-                    parent[v] = u;
-                    push(pq, &pqSize, v, distances[v]);
-                }
-            }
-        }
-    }
-}
-
-void trafficAssignment(Edge* edges, int numEdges, int numNodes, int source, int sink, double totalDemand) {
-    int iterations = 10; // Simplified for convergence
-    double stepSize = 0.1;
-    
-    for (int iter = 0; iter < iterations; iter++) {
-        int parent[MAX_NODES];
-        dijkstra(edges, numEdges, numNodes, source, sink, parent);
-        
-        double pathFlow = totalDemand * stepSize;
-        for (int v = sink; v != source; v = parent[v]) {
-            int u = parent[v];
-            for (int i = 0; i < numEdges; i++) {
-                if (edges[i].from == u && edges[i].to == v) {
-                    edges[i].flow += pathFlow;
-                    break;
-                }
-            }
-        }
-        
-        for (int i = 0; i < numEdges; i++) {
-            edges[i].flow = edges[i].flow * (1 - stepSize) + pathFlow * stepSize;
-        }
-    }
-}
-
-int main() {
-    int numNodes = 7, numEdges = 8;
-    Edge edges[] = {
-        {0, 1, 50, 0, 5}, {0, 2, 40, 0, 6}, {1, 3, 30, 0, 4}, {2, 3, 20, 0, 3},
-        {2, 4, 25, 0, 5}, {3, 5, 35, 0, 4}, {4, 5, 15, 0, 3}, {5, 6, 45, 0, 6}
-    };
-    
-    double totalDemand = 100; // Vehicles/min entering the network
-    printf("Traffic Assignment Simulation:\n");
-    trafficAssignment(edges, numEdges, numNodes, 0, 6, totalDemand);
-    
-    printf("Edge flows after equilibrium:\n");
-    for (int i = 0; i < numEdges; i++) {
-        printf("Edge %d->%d: Flow = %.2f vehicles/min, Travel Time = %.2f min\n",
-               edges[i].from, edges[i].to, edges[i].flow, getTravelTime(&edges[i]));
-    }
-    
-    return 0;
-}
-    </pre>
-
     <h2>Time and Space Complexity</h2>
     <table>
       <tr>
@@ -532,21 +394,14 @@ int main() {
         <td>O(V * E^2)</td>
         <td>O(V + E)</td>
       </tr>
-      <tr>
-        <td>Traffic Assignment</td>
-        <td>O(E * log V)</td>
-        <td>O(I * E * log V)</td>
-        <td>O(I * E * log V)</td>
-        <td>O(V + E)</td>
-      </tr>
     </table>
     <p>
-      Note: V = number of vertices (intersections/zones), E = number of edges (roads), I = number of iterations (Traffic Assignment). Ford-Fulkerson and Min-Cut Max-Flow have high worst-case complexity, while Traffic Assignment depends on iteration count.
+      Note: V = number of vertices (intersections/zones), E = number of edges (roads). Ford-Fulkerson and Min-Cut Max-Flow have high worst-case complexity.
     </p>
 
     <h2>Inference</h2>
     <p>
-      For Live Event Traffic Management, Ford-Fulkerson (Edmonds-Karp) is the recommended algorithm. It excels in optimizing dynamic traffic flow by maximizing vehicle throughput while respecting road capacities, making it ideal for real-time rerouting to avoid bottlenecks during events like concerts or sports matches. Min-Cut Max-Flow is a close second, offering similar flow optimization with the added benefit of identifying critical congestion points for predictive control. Traffic Assignment Algorithm is effective for achieving equilibrium in multi-path routing but is less adaptable to rapid changes due to its iterative nature. Ford-Fulkerson’s ability to handle live capacity constraints ensures efficient, safe traffic management for large-scale events.
+      For Live Event Traffic Management, Ford-Fulkerson (Edmonds-Karp) is the recommended algorithm. It excels in optimizing dynamic traffic flow by maximizing vehicle throughput while respecting road capacities, making it ideal for real-time rerouting to avoid bottlenecks during events like concerts or sports matches. Min-Cut Max-Flow is a close second, offering similar flow optimization with the added benefit of identifying critical congestion points for predictive control. Ford-Fulkerson’s ability to handle live capacity constraints ensures efficient, safe traffic management for large-scale events.
     </p>
   </div>
 </body>
