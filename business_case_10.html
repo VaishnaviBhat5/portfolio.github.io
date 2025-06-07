@@ -179,9 +179,9 @@
       LSM Tree optimizes for high write throughput by appending logs to an in-memory memtable (e.g., a balanced tree). When full, the memtable is flushed to disk as an immutable, sorted SSTable. Multiple SSTables are merged periodically via compaction, keeping data sorted for efficient range queries (e.g., logs by timestamp). For cloud monitoring, this allows rapid ingestion of millions of logs, with queries to detect issues like error spikes over time. Compaction merges overlapping data, reducing redundancy and optimizing storage, making it scalable for large-scale log analytics.
     </p>
     <pre>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
 #define MAX_MEMTABLE 5
 #define MAX_KEY 100
 
@@ -406,9 +406,9 @@ int main() {
       B+ Tree is a balanced tree where nodes store multiple keys and pointers, keeping data sorted for efficient searches and range queries. Unlike B-Tree, only leaves store values, with internal nodes guiding searches. For log analytics, logs are indexed by keys (e.g., timestamps), allowing O(log N) lookups and range queries (e.g., logs from 14:00 to 14:05). This supports cloud monitoring by quickly finding logs for issue detection or performance trends, though write performance is slower than LSM for high ingestion rates. The balanced structure scales well for large log datasets.
     </p>
     <pre>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
 #define ORDER 3
 
 typedef struct {
@@ -517,8 +517,8 @@ int main() {
       Segment Tree is a binary tree for storing aggregated metrics (e.g., error counts) over time intervals. Leaves store values for individual time points (e.g., error count at a timestamp), and internal nodes hold aggregates (e.g., sum) of their children. Built bottom-up, it enables O(log N) range queries to sum metrics, such as counting errors in a time window for cloud monitoring. Updates are efficient, adjusting nodes up the tree. It’s ideal for analyzing trends or detecting issue spikes, but less suited for high-throughput log ingestion or full-text search.
     </p>
     <pre>
-#include <stdio.h>
-#include <stdlib.h>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
 #define MAX_POINTS 100
 
 typedef struct {
