@@ -13,7 +13,636 @@
       --color-muted: #607d8b;
       --color-shadow: rgba(0, 0, 0, 0.06);
       --primary-shade: #0a2e6e;
+      --border-radius: 10px;<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Business Case: Intelligent Edge Routing for Low Latency Content Delivery</title>
+  <style>
+    :root {
+      --color-bg: #f4f4f7;
+      --color-text: #1c1f26;
+      --color-accent: #0d47a1;
+      --color-highlight: #ffffff;
+      --color-muted: #607d8b;
+      --color-shadow: rgba(0, 0, 0, 0.06);
+      --primary-shade: #0a2e6e;
       --border-radius: 10px;
+      --section-bg: #e9edf2;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(-45deg, #e9edf2, #f4f4f7, #dce3ea, #eef1f4);
+      background-size: 400% 400%;
+      animation: gradientFlow 15s ease infinite;
+      color: var(--color-text);
+      line-height: 1.8;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(6px);
+      border-radius: var(--border-radius);
+      box-shadow: 0 6px 20px var(--color-shadow);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: var(--color-accent);
+      text-align: center;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.8rem;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: var(--primary-shade);
+      margin: 2rem 0 1rem;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      color: var(--color-text);
+      margin: 1.5rem 0 1rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    li {
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+
+    th, td {
+      padding: 1rem;
+      border: 1px solid #ddd;
+      text-align: left;
+      font-size: 1.1rem;
+    }
+
+    th {
+      background-color: var(--color-accent);
+      color: white;
+    }
+
+    td {
+      background-color: #f9f9f9;
+    }
+
+    pre {
+      background: #f8f8f8;
+      padding: 12px;
+      border-left: 4px solid var(--color-accent);
+      overflow-x: auto;
+      font-size: 1rem;
+      border-radius: var(--border-radius);
+      margin: 1.5rem 0;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1.5rem auto;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 15px var(--color-shadow);
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>Intelligent Edge Routing for Low Latency Content Delivery</h1>
+
+    <p>
+      This business case focuses on optimizing content delivery by intelligently routing user requests to the nearest edge server, minimizing latency and improving user experience for media and e-commerce platforms. This approach leverages real-time network conditions, user location, and server health to ensure fast, reliable content delivery.
+    </p>
+    <h2>Theory</h2>
+    <p>
+      Intelligent Edge Routing involves directing user requests to the optimal edge server in a content delivery network (CDN) to minimize latency and ensure reliability. The network is modeled as a weighted graph, where nodes represent users, routers, and edge servers, and edges represent network links with weights reflecting real-time latency or congestion. Routing algorithms, such as A* or Dijkstra’s, use real-time metrics (e.g., latency, server load) and heuristics (e.g., geographic distance) to compute the shortest or fastest path to an edge server. Key considerations include adapting to dynamic network conditions, ensuring server health (avoiding overloaded or failed servers), and balancing speed with resource efficiency. Data structures like priority queues or hash tables enable efficient path computation and server selection. By routing requests to nearby, healthy servers, this approach reduces round-trip times, enhances user experience, and supports high availability, critical for applications like streaming or e-commerce.
+    </p>
+    <h2>Real-Time Scenario</h2>
+    <p>
+      During a Black Friday sale, an e-commerce platform experiences a global surge in traffic as users from New York, London, and Tokyo access product pages, images, and promotional videos. A user in New York, for instance, clicks to view a product video, triggering a DNS query that resolves to the nearest edge server, such as one in New Jersey, based on real-time data like user location, network latency, server load, and network congestion. An intelligent routing algorithm evaluates possible paths, factoring in latency and server health, to select the optimal route to the New Jersey edge server. Upon receiving the request, the edge server checks its cache: if the video is cached (a cache hit), it delivers the content instantly with optimizations for speed and security, ensuring fast page loads. If the video is not cached (a cache miss), the server fetches it from the origin server, caches it for future requests, and delivers it to the user. As traffic spikes, the system continuously logs latency and traffic data, dynamically adjusting routes to avoid congested paths or overloaded servers, ensuring a seamless shopping experience with minimal delays even under high demand.
+    </p>
+    <h2>Usage</h2>
+    <p>
+      For Akamai, Intelligent Edge Routing enhances content delivery across its global CDN infrastructure. Key use cases include:
+    </p>
+    <ul>
+      <li><strong>E-commerce</strong>: Routing product page and checkout requests to nearby servers to ensure fast load times during sales events.</li>
+      <li><strong>Media Streaming</strong>: Directing video content requests to low-latency edge servers for uninterrupted playback.</li>
+      <li><strong>Web Applications</strong>: Delivering dynamic content or API responses with minimal delay for interactive platforms.</li>
+      <li><strong>Online Gaming</strong>: Routing player data to the closest servers to reduce lag in real-time multiplayer games.</li>
+      <li><strong>Enterprise Services</strong>: Ensuring low-latency access to business-critical applications for global users.</li>
+    </ul>
+
+    <h2>Impact</h2>
+    <p>
+      Implementing Intelligent Edge Routing provides significant benefits for Akamai’s CDN operations and clients:
+    </p>
+    <ul>
+      <li><strong>Reduced Latency</strong>: Cutting page load times by 60-80% boosts user engagement and conversion rates by 15-25%.</li>
+      <li><strong>Enhanced Reliability</strong>: Achieving 99.99% uptime by avoiding congested or unhealthy servers ensures consistent service.</li>
+      <li><strong>Improved Scalability</strong>: Handling 3-5x traffic surges during peak events maintains performance for global audiences.</li>
+      <li><strong>Cost Savings</strong>: Optimizing routing reduces bandwidth and server costs by 20-30%, enhancing operational efficiency.</li>
+      <li><strong>Market Leadership</strong>: Delivering superior low-latency performance strengthens Akamai’s position as a top CDN provider.</li>
+    </ul>
+    <h2>Challenges</h2>
+    <ul>
+      <li>Dynamic network conditions: Latency and congestion vary in real-time, requiring adaptive routing.</li>
+      <li>Global scale: Routing efficiently across thousands of edge servers worldwide.</li>
+      <li>Server health: Ensuring requests are not routed to overloaded or unhealthy servers.</li>
+      <li>Balancing speed and cost: Minimizing latency while optimizing resource use.</li>
+    </ul>
+
+    <h2>Algorithms Used</h2>
+    <p>Below are the algorithms evaluated for intelligent edge routing, with descriptions and optimized implementations:</p>
+
+    <h2>A* (A Star)</h2>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/AstarExampleEn.gif" alt="A* Algorithm Visualization">
+    <p>
+      Nodes = Network routers, data centers, and edge servers (e.g., NY ↔ Newark ↔ Philadelphia ↔ New Jersey edge server).<br>
+      Edges = Network links between nodes with dynamic weights based on:<br>
+      <ul>
+        <li>Latency (ms)</li>
+        <li>Bandwidth availability</li>
+        <li>Server load</li>
+        <li>Congestion</li>
+      </ul>
+      <strong>A* Formula:</strong><br>
+      f(x) = g(x) + h(x)<br>
+      g(x) = Actual latency from New York to node x.<br>
+      h(x) = Estimated (heuristic) straight-line latency from node x to the New Jersey edge server.
+    </p>
+    <h3>How It Works</h3>
+    <p>
+      A* algorithm models the network as a graph, with nodes representing users, routers, and edge servers, and edges representing network links with weights (e.g., latency in milliseconds). It starts at the user’s node and uses a priority queue to explore paths, prioritizing the node with the lowest combined score: the actual cost (g-score, sum of latencies along the path so far) plus a heuristic estimate (h-score, e.g., geographic distance to the target edge server). The heuristic must be admissible, meaning it never overestimates the true cost, ensuring optimality. For each node, A* evaluates its neighbors, updates their scores if a better path is found, and continues until it reaches the target edge server, reconstructing the optimal path. In a Black Friday scenario, A* might route a New York user’s request to a New Jersey edge server by favoring a path with 10ms latency over a congested 20ms path, guided by a heuristic like straight-line distance. A*’s efficiency depends on the heuristic quality: a good heuristic (e.g., latency proportional to distance) minimizes explored nodes, while a poor one increases computation. It adapts to real-time network changes by updating edge weights and can incorporate server health by excluding overloaded nodes. However, its O(E * log V) complexity (where V is nodes, E is edges) can be costly in dense networks, making it best for scenarios where heuristic accuracy accelerates pathfinding, such as content delivery networks (CDNs).
+    </p>
+    <pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;math.h&gt;
+#define MAX_NODES 1000
+
+typedef struct {
+    int id;
+    double fScore;
+} PQNode;
+
+typedef struct {
+    int from, to;
+    double weight;
+} Edge;
+
+void swap(PQNode* a, PQNode* b) {
+    PQNode temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void heapify(PQNode* pq, int size, int i) {
+    int smallest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+    if (left < size && pq[left].fScore < pq[smallest].fScore) smallest = left;
+    if (right < size && pq[right].fScore < pq[smallest].fScore) smallest = right;
+    if (smallest != i) {
+        swap(&pq[i], &pq[smallest]);
+        heapify(pq, size, smallest);
+    }
+}
+
+void push(PQNode* pq, int* size, int id, double fScore) {
+    pq[*size].id = id;
+    pq[*size].fScore = fScore;
+    int i = (*size)++;
+    while (i > 0 && pq[(i - 1) / 2].fScore > pq[i].fScore) {
+        swap(&pq[i], &pq[(i - 1) / 2]);
+        i = (i - 1) / 2;
+    }
+}
+
+PQNode pop(PQNode* pq, int* size) {
+    PQNode result = pq[0];
+    pq[0] = pq[--(*size)];
+    heapify(pq, *size, 0);
+    return result;
+}
+
+double estimateLatency(int node, int goal) {
+    return sqrt(pow(node - goal, 2)); // Simplified heuristic
+}
+
+double getNetworkLatency(int from, int to, Edge* edges, int edgeCount) {
+    for (int i = 0; i < edgeCount; i++) {
+        if (edges[i].from == from && edges[i].to == to) return edges[i].weight;
+    }
+    return INF;
+}
+
+int* aStar(int start, int goal, Edge* edges, int edgeCount, int nodeCount) {
+    double gScore[MAX_NODES];
+    double fScore[MAX_NODES];
+    int prev[MAX_NODES];
+    PQNode pq[MAX_NODES];
+    int pqSize = 0;
+    int* path = (int*)malloc(MAX_NODES * sizeof(int));
+    int pathLen = 0;
+    
+    for (int i = 0; i < nodeCount; i++) {
+        gScore[i] = INF;
+        fScore[i] = INF;
+        prev[i] = -1;
+    }
+    gScore[start] = 0;
+    fScore[start] = estimateLatency(start, goal);
+    push(pq, &pqSize, start, fScore[start]);
+    
+    while (pqSize > 0) {
+        PQNode current = pop(pq, &pqSize);
+        if (current.id == goal) {
+            for (int at = goal; at != -1; at = prev[at])
+                path[pathLen++] = at;
+            break;
+        }
+        
+        for (int i = 0; i < nodeCount; i++) {
+            double weight = getNetworkLatency(current.id, i, edges, edgeCount);
+            if (weight == INF) continue;
+            double tentativeGScore = gScore[current.id] + weight;
+            if (tentativeGScore < gScore[i]) {
+                prev[i] = current.id;
+                gScore[i] = tentativeGScore;
+                fScore[i] = gScore[i] + estimateLatency(i, goal);
+                push(pq, &pqSize, i, fScore[i]);
+            }
+        }
+    }
+    
+    int* result = (int*)malloc((pathLen + 1) * sizeof(int));
+    for (int i = 0; i < pathLen; i++) result[i] = path[pathLen - 1 - i];
+    result[pathLen] = -1;
+    free(path);
+    return result;
+}
+
+int main() {
+    int nodeCount = 6;
+    Edge edges[] = {
+        {0, 1, 2.5}, {0, 2, 4.0}, {1, 3, 3.0}, {2, 3, 1.5},
+        {3, 4, 2.0}, {1, 4, 5.0}, {4, 5, 1.0}
+    };
+    int edgeCount = 7;
+    int start = 0; // User in New York
+    int goal = 5; // Edge server in New Jersey
+    
+    int* path = aStar(start, goal, edges, edgeCount, nodeCount);
+    printf("A* Path from user to edge server: ");
+    for (int i = 0; path[i] != -1; i++) {
+        printf("%d ", path[i]);
+    }
+    printf("\n");
+    free(path);
+    return 0;
+}
+    </pre>
+
+    <h2>Dijkstra’s Algorithm</h2>
+    <img src="https://github.com/codedmachine111/APS/assets/88738817/3b8bf100-f506-4126-8ed7-4caf07c60c25" alt="Dijkstra’s Algorithm Visualization">
+    <p>
+      Dijkstra’s finds the shortest path from a user to an edge server by exploring all possible paths, using actual costs (e.g., latency).
+    </p>
+    <h3>How It Works</h3>
+    <p>
+      Dijkstra’s Algorithm represents the network as a weighted graph, where nodes are users, routers, or edge servers, and edge weights reflect real-time latency. Starting at the user’s node, it initializes the distance to the starting node as 0 and all others as infinity, using a priority queue to select the node with the smallest current distance for exploration. For each selected node, it examines its neighbors, updating their distances if a shorter path (sum of the current node’s distance and edge weight) is found, and continues until the target edge server is reached or all reachable nodes are processed. The algorithm reconstructs the shortest path by backtracking from the goal using stored predecessors. In a Black Friday e-commerce scenario, Dijkstra’s might identify a 12ms path from a New York user to a New Jersey edge server via an uncongested route, avoiding a 25ms congested path. It guarantees the shortest path based on actual costs, making it robust for dynamic networks where latency changes frequently. The algorithm can incorporate server health by setting infinite weights for unhealthy servers. However, its O(E * log V) complexity (V = nodes, E = edges) requires exploring all possible paths, which can be slower than A* in large networks, especially without a heuristic to guide exploration. Dijkstra’s is ideal for scenarios where heuristic estimates are unreliable or unavailable, ensuring optimal routing in CDNs.
+    </p>
+    <pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#define MAX_NODES 1000
+
+typedef struct {
+    int id;
+    double dist;
+} PQNode;
+
+typedef struct {
+    int from, to;
+    double weight;
+} Edge;
+
+void swap(PQNode* a, PQNode* b) {
+    PQNode temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void heapify(PQNode* pq, int size, int i) {
+    int smallest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+    if (left < size && pq[left].dist < pq[smallest].dist) smallest = left;
+    if (right < size && pq[right].dist < pq[smallest].dist) smallest = right;
+    if (smallest != i) {
+        swap(&pq[i], &pq[smallest]);
+        heapify(pq, size, smallest);
+    }
+}
+
+void push(PQNode* pq, int* size, int id, double dist) {
+    pq[*size].id = id;
+    pq[*size].dist = dist;
+    int i = (*size)++;
+    while (i > 0 && pq[(i - 1) / 2].dist > pq[i].dist) {
+        swap(&pq[i], &pq[(i - 1) / 2]);
+        i = (i - 1) / 2;
+    }
+}
+
+PQNode pop(PQNode* pq, int* size) {
+    PQNode result = pq[0];
+    pq[0] = pq[--(*size)];
+    heapify(pq, *size, 0);
+    return result;
+}
+
+double getNetworkLatency(int from, int to, Edge* edges, int edgeCount) {
+    for (int i = 0; i < edgeCount; i++) {
+        if (edges[i].from == from && edges[i].to == to) return edges[i].weight;
+    }
+    return INF;
+}
+
+int* dijkstra(int start, int goal, Edge* edges, int edgeCount, int nodeCount) {
+    double distances[MAX_NODES];
+    int prev[MAX_NODES];
+    PQNode pq[MAX_NODES];
+    int pqSize = 0;
+    int* path = (int*)malloc(MAX_NODES * sizeof(int));
+    int pathLen = 0;
+    
+    for (int i = 0; i < nodeCount; i++) {
+        distances[i] = INF;
+        prev[i] = -1;
+    }
+    distances[start] = 0;
+    push(pq, &pqSize, start, 0);
+    
+    while (pqSize > 0) {
+        PQNode current = pop(pq, &pqSize);
+        if (current.id == goal) {
+            for (int at = goal; at != -1; at = prev[at])
+                path[pathLen++] = at;
+            break;
+        }
+        if (distances[current.id] < current.dist) continue;
+        
+        for (int i = 0; i < nodeCount; i++) {
+            double weight = getNetworkLatency(current.id, i, edges, edgeCount);
+            if (weight == INF) continue;
+            double newDist = distances[current.id] + weight;
+            if (newDist < distances[i]) {
+                distances[i] = newDist;
+                prev[i] = current.id;
+                push(pq, &pqSize, i, newDist);
+            }
+        }
+    }
+    
+    int* result = (int*)malloc((pathLen + 1) * sizeof(int));
+    for (int i = 0; i < pathLen; i++) result[i] = path[pathLen - 1 - i];
+    result[pathLen] = -1;
+    free(path);
+    return result;
+}
+
+int main() {
+    int nodeCount = 6;
+    Edge edges[] = {
+        {0, 1, 2.5}, {0, 2, 4.0}, {1, 3, 3.0}, {2, 3, 1.5},
+        {3, 4, 2.0}, {1, 4, 5.0}, {4, 5, 1.0}
+    };
+    int edgeCount = 7;
+    int start = 0; // User in New York
+    int goal = 5; // Edge server in New Jersey
+    
+    int* path = dijkstra(start, goal, edges, edgeCount, nodeCount);
+    printf("Dijkstra Path from user to edge server: ");
+    for (int i = 0; path[i] != -1; i++) {
+        printf("%d ", path[i]);
+    }
+    printf("\n");
+    free(path);
+    return 0;
+}
+    </pre>
+
+    <h2>Uniform Cost Search</h2>
+    <p>
+      Uniform Cost Search explores paths in order of increasing cost (e.g., latency), guaranteeing the least-cost path to an edge server.
+    </p>
+    <h3>How It Works</h3>
+    <p>
+      Uniform Cost Search (UCS) models the network as a weighted graph, with nodes for users, routers, and edge servers, and edges weighted by latency. It begins at the user’s node, setting its cost to 0 and all others to infinity, and uses a priority queue to explore the node with the lowest cumulative cost (sum of edge weights along the path). For each node, UCS examines its neighbors, updating their costs if a cheaper path is found, and continues until the target edge server is reached or all reachable nodes are explored. The shortest path is reconstructed by tracing predecessors from the goal. In a Black Friday e-commerce context, UCS might select a 15ms path to a New Jersey edge server for a New York user, ensuring minimal latency even if a shorter-distance path is congested. UCS guarantees optimality, like Dijkstra’s, and is essentially identical in weighted graphs, with O(E * log V) complexity (V = nodes, E = edges). It adapts to real-time network changes by updating edge weights and can avoid unhealthy servers by assigning them infinite costs. However, its exhaustive exploration makes it slower than A* in large networks, as it lacks a heuristic to focus the search. UCS is best for scenarios requiring guaranteed optimal paths without reliable heuristics, such as smaller CDNs or networks with unpredictable latency patterns.
+    </p>
+    <pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#define MAX_NODES 1000
+
+typedef struct {
+    int id;
+    double cost;
+} PQNode;
+
+typedef struct {
+    int from, to;
+    double weight;
+} Edge;
+
+void swap(PQNode* a, PQNode* b) {
+    PQNode temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void heapify(PQNode* pq, int size, int i) {
+    int smallest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+    if (left < size && pq[left].cost < pq[smallest].cost) smallest = left;
+    if (right < size && pq[right].cost < pq[smallest].cost) smallest = right;
+    if (smallest != i) {
+        swap(&pq[i], &pq[smallest]);
+        heapify(pq, size, smallest);
+    }
+}
+
+void push(PQNode* pq, int* size, int id, double cost) {
+    pq[*size].id = id;
+    pq[*size].cost = cost;
+    int i = (*size)++;
+    while (i > 0 && pq[(i - 1) / 2].cost > pq[i].cost) {
+        swap(&pq[i], &pq[(i - 1) / 2]);
+        i = (i - 1) / 2;
+    }
+}
+
+PQNode pop(PQNode* pq, int* size) {
+    PQNode result = pq[0];
+    pq[0] = pq[--(*size)];
+    heapify(pq, *size, 0);
+    return result;
+}
+
+double getNetworkLatency(int from, int to, Edge* edges, int edgeCount) {
+    for (int i = 0; i < edgeCount; i++) {
+        if (edges[i].from == from && edges[i].to == to) return edges[i].weight;
+    }
+    return INF;
+}
+
+int* uniformCostSearch(int start, int goal, Edge* edges, int edgeCount, int nodeCount) {
+    double distances[MAX_NODES];
+    int prev[MAX_NODES];
+    PQNode pq[MAX_NODES];
+    int pqSize = 0;
+    int* path = (int*)malloc(MAX_NODES * sizeof(int));
+    int pathLen = 0;
+    
+    for (int i = 0; i < nodeCount; i%) {
+        distances[i] = INF;
+        prev[i] = -1;
+    }
+    distances[start] = 0;
+    push(pq, &pqSize, start, 0);
+    
+    while (pqSize > 0) {
+        PQNode current = pop(pq, &pqSize);
+        if (current.id == goal) {
+            for (int at = goal; at != -1; at = prev[at])
+                path[pathLen++] = at;
+            break;
+        }
+        if (distances[current.id] < current.cost) continue;
+        
+        for (int i = 0; i < nodeCount; i++) {
+            double weight = getNetworkLatency(current.id, i, edges, edgeCount);
+            if (weight == INF) continue;
+            double newCost = distances[current.id] + weight;
+            if (newCost < distances[i]) {
+                distances[i] = newCost;
+                prev[i] = current.id;
+                push(pq, &pqSize, i, newCost);
+            }
+        }
+    }
+    
+    int* result = (int*)malloc((pathLen + 1) * sizeof(int));
+    for (int i = 0; i < pathLen; i++) result[i] = path[pathLen - 1 - i];
+    result[pathLen] = -1;
+    free(path);
+    return result;
+}
+
+int main() {
+    int nodeCount = 6;
+    Edge edges[] = {
+        {0, 1, 2.5}, {0, 2, 4.0}, {1, 3, 3.0}, {2, 3, 1.5},
+        {3, 4, 2.0}, {1, 4, 5.0}, {4, 5, 1.0}
+    };
+    int edgeCount = 7;
+    int start = 0; // User in New York
+    int goal = 5; // Edge server in New Jersey
+    
+    int* path = uniformCostSearch(start, goal, edges, edgeCount, nodeCount);
+    printf("Uniform Cost Search Path from user to edge server: ");
+    for (int i = 0; path[i] != -1; i++) {
+        printf("%d ", path[i]);
+    }
+    printf("\n");
+    free(path);
+    return 0;
+}
+    </pre>
+
+    <h2>Time and Space Complexity</h2>
+    <table>
+      <tr>
+        <th>Algorithm</th>
+        <th>Best Case Time</th>
+        <th>Typical Case Time</th>
+        <th>Worst Case Time</th>
+        <th>Space Complexity</th>
+      </tr>
+      <tr>
+        <td>A* (A Star)</td>
+        <td>O(V) with perfect heuristic</td>
+        <td>O(E * log V) with admissible heuristic</td>
+        <td>O(V^2 * log V) for dense graph or poor heuristic</td>
+        <td>O(V) for priority queue and arrays</td>
+      </tr>
+      <tr>
+        <td>Dijkstra’s Algorithm</td>
+        <td>O(log V) for direct edge</td>
+        <td>O(E * log V)</td>
+        <td>O(V^2 * log V) for dense graph</td>
+        <td>O(V) for priority queue and arrays</td>
+      </tr>
+      <tr>
+        <td>Uniform Cost Search</td>
+        <td>O(log V) for direct edge</td>
+        <td>O(E * log V)</td>
+        <td>O(V^2 * log V) for dense graph</td>
+        <td>O(V) for priority queue and arrays</td>
+      </tr>
+    </table>
+    <p>
+      Note: V = number of nodes (edge servers), E = number of edges (network links). A*’s complexity depends on the heuristic; a perfect heuristic minimizes exploration, while a poor one may lead to exploring all nodes.
+    </p>
+
+    <h2>Inference</h2>
+    <p>
+      For Intelligent Edge Routing for Low Latency Content Delivery, A* is the recommended algorithm. It excels by combining real-time network costs (e.g., latency) with heuristic estimates (e.g., user location) to efficiently find the optimal path to the nearest edge server. This ensures low latency for delivering content like videos or product pages. Dijkstra’s and Uniform Cost Search guarantee optimal paths but are slower in large, dynamic networks due to exhaustive exploration. A* balances speed, optimality, and adaptability, making it ideal for delivering fast, reliable experiences to media and e-commerce users.
+    </p>
+  </div>
+</body>
+</html>
       --section-bg: #e9edf2;
     }
 
