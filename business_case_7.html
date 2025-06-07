@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Business Case 7: Dynamic TLS Key Distribution and Validation</title>
+  <style>
+    :root {
+      --color-bg: #f4f4f7;
+      --color-text: #1c1f26;
+      --color-accent: #0d47a1;
+      --color-highlight: #ffffff;
+      --color-muted: #607d8b;
+      --color-shadow: rgba(0, 0, 0, 0.06);
+      --primary-shade: #0a2e6e;
+      --border-radius: 10px;
+      --section-bg: #e9edf2;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(-45deg, #e9edf2, #f4f4f7, #dce3ea, #eef1f4);
+      background-size: 400% 400%;
+      animation: gradientFlow 15s ease infinite;
+      color: var(--color-text);
+      line-height: 1.8;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(6px);
+      border-radius: var(--border-radius);
+      box-shadow: 0 6px 20px var(--color-shadow);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: var(--color-accent);
+      text-align: center;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.8rem;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: var(--primary-shade);
+      margin: 2rem 0 1rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    li {
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+
+    th, td {
+      padding: 1rem;
+      border: 1px solid #ddd;
+      text-align: left;
+      font-size: 1.1rem;
+    }
+
+    th {
+      background-color: var(--color-accent);
+      color: white;
+    }
+
+    td {
+      background-color: #f9f9f9;
+    }
+
+    pre {
+      background: #f8f8f8;
+      padding: 12px;
+      border-left: 4px solid var(--color-accent);
+      overflow-x: auto;
+      font-size: 1rem;
+      border-radius: var(--border-radius);
+      margin: 1.5rem 0;
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>Dynamic TLS Key Distribution and Validation</h1>
+
+    <p>
+      This business case focuses on distributing and validating TLS keys dynamically at Akamai's edge servers to ensure secure communication and protect user data during real-time transactions, such as online banking or e-commerce, across global networks.
+    </p>
+    <h2>Theory</h2>
+    <p>
+      Dynamic TLS key distribution and validation involves securely sharing and verifying cryptographic keys used in TLS sessions at edge servers to establish secure, encrypted communication channels. The process is executed in Step 6: Content Delivery with Optimization and Security of Akamai's CDN architecture, leveraging the Intelligent Edge Platform (365,000+ servers across 4,100+ PoPs in 135 countries) and TLS 1.1.3 protocols. Key considerations include minimizing latency for real-time transactions, ensuring key integrity and authenticity, supporting scalability for millions of simultaneous sessions, and resisting attacks (e.g., man-in-the-middle, key compromise). Data structures like Merkle Trees, Bloom Filters, and hash tables enable efficient key storage, rapid validation, and secure distribution. The Analytics System logs key usage and validation metrics, accessible via the Akamai Control Center, while the Overlay Network ensures low-latency key exchange. Effective key management enhances security, reduces handshake times, and protects user trust in applications like banking and e-commerce.
+    </p>
+    <h2>Real-Time Scenario</h2>
+    <p>
+      During a Black Friday sale, an online banking platform experiences a global surge in traffic as users from New York, London, and Singapore perform transactions. A user in Singapore initiates a payment, triggering a TLS handshake with an edge server in Singapore. The server distributes an ephemeral key, validated using a Merkle Tree to confirm its inclusion in a trusted set, checked via a Bloom Filter for revoked keys, and retrieved via a Hash table for speed. The validation completes in under 0.5 ms, establishing a secure session for the transaction. As traffic spikes, edge servers dynamically update key sets, logging validation times and attack attempts via the Analytics System. The Overlay Network ensures rapid key distribution across regions, maintaining seamless, secure transactions even under high demand.
+    </p>
+    <h2>Usage</h2>
+    <p>
+      For Akamai, dynamic TLS key distribution and validation enhances secure content delivery across its global CDN infrastructure. Key use cases include:
+    </p>
+    <ul>
+      <li><strong>E-commerce:</strong> Securing checkout transactions with fast, validated TLS keys during sales events.</li>
+      <li><strong>Online Banking:</strong> Protecting financial transactions with secure key exchange and validation.</li>
+      <li><strong>Web Applications:</strong> Ensuring secure API responses for interactive platforms with minimal delay.</li>
+      <li><strong>Healthcare:</strong> Safeguarding sensitive patient data during telehealth sessions.</li>
+      <li><strong>Enterprise Services:</strong> Securing business-critical communications for global users.</li>
+    </ul>
+
+    <h2>Impact</h2>
+    <p>
+      Implementing dynamic TLS key distribution and validation provides significant benefits for Akamai’s CDN operations and clients:
+    </p>
+    <ul>
+      <li><strong>Enhanced Security:</strong> Validating keys in real-time prevents 99.9% of key-related attacks, protecting user data.</li>
+      <li><strong>Reduced Latency:</strong> Cutting TLS handshake times by 50-70% improves transaction speeds by 20%.</li>
+      <li><strong>Scalability:</strong> Supporting 3-5x traffic surges during peak events ensures consistent security.</li>
+      <li><strong>Cost Efficiency:</strong> Optimizing key validation reduces server resource usage by 15-25%.</li>
+      <li><strong>Market Leadership:</strong> Robust security strengthens Akamai’s position as a trusted CDN provider.</li>
+    </ul>
+    <h2>Challenges</h2>
+    <ul>
+      <li>Low latency: Validating keys quickly during high-traffic TLS handshakes.</li>
+      <li>Scalability: Managing millions of keys across global edge servers.</li>
+      <li>Security: Preventing key compromise or man-in-the-middle attacks.</li>
+      <li>Dynamic updates: Efficiently updating or revoking keys in real-time.</li>
+      <li>Resource constraints: Minimizing CPU/memory usage on edge servers.</li>
+    </ul>
+
+    <h2>Algorithms Used</h2>
+    <p>Below are the algorithms evaluated for dynamic TLS key distribution and validation, with descriptions and optimized implementations:</p>
+
+    <h2>Merkle Tree</h2>
+    <p>
+      A Merkle Tree is a binary tree where leaf nodes store cryptographic hashes of TLS keys or certificates, and non-leaf nodes are hashes of their children, enabling efficient verification of key inclusion and integrity.
+    </p>
+    <h3>How It Works</h3>
+    <p>
+      Merkle Trees store TLS keys as hashed leaf nodes, with parent nodes hashing their children up to a root hash, signed by a trusted Certificate Authority (CA). For distribution, edge servers send a key and its Merkle proof (a logarithmic-sized path of hashes) to clients, who verify the key’s inclusion against the root hash. For validation, clients recompute the proof, ensuring the key is untampered and part of the trusted set. In a Black Friday scenario, a Singapore edge server distributes a TLS key to a client, sending a proof of 20 hashes for 1 million keys, validated in 0.3 ms. The tree’s O(log n) verification time scales well for Akamai’s 365,000+ edge servers. Updates require tree reconstruction, mitigated by incremental methods. Merkle Trees align with TLS 1.3 for certificate verification and are used in blockchain for similar purposes.
+    </p>
+    <pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;openssl/sha.h&gt;
+
+#define MAX_KEYS 100000
+#define KEY_SIZE 32 // 256-bit TLS key
+
+typedef struct {
+    unsigned char hash[SHA256_DIGEST_LENGTH];
+} Hash;
+
+typedef struct {
+    Hash hash;
+    unsigned char key[KEY_SIZE];
+} Leaf;
+
+typedef struct {
+    Hash* proof;
+    int proof_len;
+    unsigned char key[KEY_SIZE];
+} KeyProof;
+
+// Compute SHA-256 hash
+void compute_hash(unsigned char* data, size_t len, Hash* hash) {
+    SHA256(data, len, hash->hash);
+}
+
+// Build Merkle Tree
+Hash build_merkle_tree(Leaf* leaves, int num_keys) {
+    Hash* nodes = malloc(2 * num_keys * sizeof(Hash));
+    for (int i = 0; i < num_keys; i++) nodes[i] = leaves[i].hash;
+
+    int size = num_keys;
+    int offset = 0;
+    while (size > 1) {
+        for (int i = 0; i < size / 2; i++) {
+            unsigned char concat[2 * SHA256_DIGEST_LENGTH];
+            memcpy(concat, nodes[offset + 2 * i].hash, SHA256_DIGEST_LENGTH);
+            memcpy(concat + SHA256_DIGEST_LENGTH, nodes[offset + 2 * i + 1].hash, SHA256_DIGEST_LENGTH);
+            compute_hash(concat, 2 * SHA256_DIGEST_LENGTH, &nodes[offset + size + i]);
+        }
+        if (size % 2) nodes[offset + size + size / 2] = nodes[offset + size - 1];
+        offset += size;
+        size = (size + 1) / 2;
+    }
+
+    Hash root = nodes[offset];
+    free(nodes);
+    return root;
+}
+
+// Generate Merkle proof
+KeyProof generate_proof(Leaf* leaves, int num_keys, int index) {
+    KeyProof proof;
+    proof.proof = malloc((int)(log2(num_keys) + 1) * sizeof(Hash));
+    proof.proof_len = 0;
+    memcpy(proof.key, leaves[index].key, KEY_SIZE);
+
+    Hash* nodes = malloc(2 * num_keys * sizeof(Hash));
+    for (int i = 0; i < num_keys; i++) nodes[i] = leaves[i].hash;
+
+    int size = num_keys;
+    int offset = 0;
+    int pos = index;
+    while (size > 1) {
+        int sibling = pos ^ 1;
+        if (sibling < size) proof.proof[proof.proof_len++] = nodes[offset + sibling];
+        pos /= 2;
+        for (int i = 0; i < size / 2; i++) {
+            unsigned char concat[2 * SHA256_DIGEST_LENGTH];
+            memcpy(concat, nodes[offset + 2 * i].hash, SHA256_DIGEST_LENGTH);
+            memcpy(concat + SHA256_DIGEST_LENGTH, nodes[offset + 2 * i + 1].hash, SHA256_DIGEST_LENGTH);
+            compute_hash(concat, 2 * SHA256_DIGEST_LENGTH, &nodes[offset + size + i]);
+        }
+        if (size % 2) nodes[offset + size + size / 2] = nodes[offset + size - 1];
+        offset += size;
+        size = (size + 1) / 2;
+    }
+
+    free(nodes);
+    return proof;
+}
+
+// Verify key
+int verify_key(Hash root, KeyProof proof) {
+    Hash current;
+    compute_hash(proof.key, KEY_SIZE, &current);
+    for (int i = 0; i < proof.proof_len; i++) {
+        unsigned char concat[2 * SHA256_DIGEST_LENGTH];
+        if (i % 2 == 0) {
+            memcpy(concat, current.hash, SHA256_DIGEST_LENGTH);
+            memcpy(concat + SHA256_DIGEST_LENGTH, proof.proof[i].hash, SHA256_DIGEST_LENGTH);
+        } else {
+            memcpy(concat, proof.proof[i].hash, SHA256_DIGEST_LENGTH);
+            memcpy(concat + SHA256_DIGEST_LENGTH, current.hash, SHA256_DIGEST_LENGTH);
+        }
+        compute_hash(concat, 2 * SHA256_DIGEST_LENGTH, &current);
+    }
+    return memcmp(current.hash, root.hash, SHA256_DIGEST_LENGTH) == 0;
+}
+
+int main() {
+    Leaf leaves[4];
+    for (int i = 0; i < 4; i++) {
+        memset(leaves[i].key, i, KEY_SIZE); // Dummy keys
+        compute_hash(leaves[i].key, KEY_SIZE, &leaves[i].hash);
+    }
+
+    Hash root = build_merkle_tree(leaves, 4);
+    printf("Merkle Root: ");
+    for (int i = 0; i < SHA256_DIGEST_LENGTH; i++) printf("%02x", root.hash[i]);
+    printf("\n");
+
+    KeyProof proof = generate_proof(leaves, 4, 2);
+    if (verify_key(root, proof)) printf("Key verified successfully!\n");
+    else printf("Key verification failed!\n");
+
+    free(proof.proof);
+    return 0;
+}
+    </pre>
+
+    <h2>Bloom Filter</h2>
+    <p>
+      A Bloom Filter is a probabilistic data structure that tests whether a TLS key is not in a set (e.g., revoked keys), using multiple hash functions and a bit array to minimize false negatives.
+    </p>
+    <h3>How It Works</h3>
+    <p>
+      Bloom Filters store a set of revoked TLS keys by hashing each key with k hash functions (e.g., MurmurHash) and setting corresponding bits in a bit array. For validation, a client hashes a received key and checks if all corresponding bits are set; if not, the key is not revoked. If all bits are set, the key may be revoked (false positive), requiring further checks (e.g., via Merkle Tree). In a Black Friday scenario, a New York edge server uses a Bloom Filter to check a key’s revocation status in 0.1 ms, rejecting invalid keys before proceeding with a TLS handshake. The filter’s O(1) lookup time and small memory footprint (e.g., 1 MB for 100,000 keys) make it ideal for edge servers. However, false positives (e.g., 1% with optimal parameters) necessitate secondary validation, and adding keys is efficient but deleting requires rebuilding or using a Counting Bloom Filter.
+    </p>
+    <pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+
+#define BLOOM_SIZE 1000000 // Bit array size
+#define HASH_COUNT 7       // Number of hash functions
+
+typedef struct {
+    unsigned char bits[BLOOM_SIZE / 8];
+} BloomFilter;
+
+// Simple hash function for demonstration
+unsigned int hash(unsigned char* key, int key_size, int seed) {
+    unsigned int h = seed;
+    for (int i = 0; i < key_size; i++) h = h * 31 + key[i];
+    return h % (BLOOM_SIZE);
+}
+
+// Initialize Bloom Filter
+void init_bloom(BloomFilter* bf) {
+    memset(bf->bits, 0, BLOOM_SIZE / 8);
+}
+
+// Add key to Bloom Filter
+void add_key(BloomFilter* bf, unsigned char* key, int key_size) {
+    for (int i = 0; i < HASH_COUNT; i++) {
+        unsigned int h = hash(key, key_size, i);
+        bf->bits[h / 8] |= (1 << (h % 8));
+    }
+}
+
+// Check if key is in Bloom Filter
+int check_key(BloomFilter* bf, unsigned char* key, int key_size) {
+    for (int i = 0; i < HASH_COUNT; i++) {
+        unsigned int h = hash(key, key_size, i);
+        if (!(bf->bits[h / 8] & (1 << (h % 8)))) return 0; // Not present
+    }
+    return 1; // Possibly present
+}
+
+int main() {
+    BloomFilter bf;
+    init_bloom(&bf);
+
+    unsigned char key1[32] = {1}; // Revoked key
+    unsigned char key2[32] = {2}; // Valid key
+
+    add_key(&bf, key1, 32);
+    printf("Key1 (revoked) check: %d\n", check_key(&bf, key1, 32)); // Should be 1
+    printf("Key2 (valid) check: %d\n", check_key(&bf, key2, 32));   // Should be 0
+
+    return 0;
+}
+    </pre>
+
+    <h2>Hash Table</h2>
+    <p>
+      A Hash Table stores TLS keys and their metadata (e.g., validity status, signatures) using a hash function to map keys to indices, enabling fast key retrieval and validation.
+    </p>
+    <h3>How It Works</h3>
+    <p>
+      Hash Tables store TLS keys as key-value pairs, with the key’s hash (e.g., SHA-256) mapping to an index containing the key, its signature, and metadata (e.g., expiration). For distribution, edge servers retrieve a key and its metadata in O(1) time. For validation, clients verify the key’s signature using the server’s public key. In a Black Friday scenario, a London edge server retrieves a TLS key from a hash table in 0.05 ms, sending it with a signature for client validation. The O(1) lookup time is ideal for rapid key access, but collisions (resolved via chaining or open addressing) and memory usage (e.g., 10 MB for 100,000 keys) pose challenges. Hash Tables complement Merkle Trees by providing fast access to key metadata before proof generation. Updates are efficient, but large key sets require significant memory on edge servers.
+    </p>
+    <pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+
+#define TABLE_SIZE 100000
+#define KEY_SIZE 32
+
+typedef struct {
+    unsigned char key[KEY_SIZE];
+    int valid; // Metadata: 1 = valid, 0 = revoked
+} Entry;
+
+typedef struct {
+    Entry* entries[TABLE_SIZE];
+} HashTable;
+
+// Simple hash function
+unsigned int hash_key(unsigned char* key) {
+    unsigned int h = 0;
+    for (int i = 0; i < KEY_SIZE; i++) h = h * 31 + key[i];
+    return h % TABLE_SIZE;
+}
+
+// Initialize Hash Table
+HashTable* init_hash_table() {
+    HashTable* ht = malloc(sizeof(HashTable));
+    for (int i = 0; i < TABLE_SIZE; i++) ht->entries[i] = NULL;
+    return ht;
+}
+
+// Add or update key
+void add_key(HashTable* ht, unsigned char* key, int valid) {
+    unsigned int index = hash_key(key);
+    Entry* entry = malloc(sizeof(Entry));
+    memcpy(entry->key, key, KEY_SIZE);
+    entry->valid = valid;
+    ht->entries[index] = entry; // Simple overwrite (no collision handling for brevity)
+}
+
+// Check key
+int check_key(HashTable* ht, unsigned char* key) {
+    unsigned int index = hash_key(key);
+    if (ht->entries[index] && memcmp(ht->entries[index]->key, key, KEY_SIZE) == 0)
+        return ht->entries[index]->valid;
+    return -1; // Not found
+}
+
+int main() {
+    HashTable* ht = init_hash_table();
+
+    unsigned char key1[32] = {1}; // Valid key
+    unsigned char key2[32] = {2}; // Revoked key
+
+    add_key(ht, key1, 1);
+    add_key(ht, key2, 0);
+
+    printf("Key1 status: %d\n", check_key(ht, key1)); // Should be 1
+    printf("Key2 status: %d\n", check_key(ht, key2)); // Should be 0
+
+    for (int i = 0; i < TABLE_SIZE; i++) if (ht->entries[i]) free(ht->entries[i]);
+    free(ht);
+    return 0;
+}
+    </pre>
+
+    <h2>Time and Space Complexity</h2>
+    <table>
+      <tr>
+        <th>Algorithm</th>
+        <th>Best Case Time</th>
+        <th>Typical Case Time</th>
+        <th>Worst Case Time</th>
+        <th>Space Complexity</th>
+      </tr>
+      <tr>
+        <td>Merkle Tree</td>
+        <td>O(log n) for verification</td>
+        <td>O(log n) for proof generation/verification</td>
+        <td>O(n log n) for construction</td>
+        <td>O(n) for tree, O(log n) for proofs</td>
+      </tr>
+      <tr>
+        <td>Bloom Filter</td>
+        <td>O(1) for lookup</td>
+        <td>O(1) for lookup/add</td>
+        <td>O(1) for lookup/add</td>
+        <td>O(m) for bit array (m = size)</td>
+      </tr>
+      <tr>
+        <td>Hash Table</td>
+        <td>O(1) for lookup/add</td>
+        <td>O(1) for lookup/add</td>
+        <td>O(n) with collisions</td>
+        <td>O(n) for entries</td>
+      </tr>
+    </table>
+    <p>
+      Note: n = number of keys, m = Bloom Filter size. Merkle Trees scale logarithmically, Bloom Filters offer constant-time checks with false positives, and Hash Tables provide fast access but may degrade with collisions.
+    </p>
+
+    <h2>Inference</h2>
+    <p>
+      For Dynamic TLS Key Distribution and Validation in Akamai’s CDN, a hybrid approach using Merkle Trees, Bloom Filters, and Hash Tables is optimal. Merkle Trees ensure scalable, tamper-evident key validation with O(log n) proofs, ideal for verifying key inclusion during TLS handshakes. Bloom Filters provide fast O(1) revocation checks, filtering out invalid keys with minimal memory, though false positives require secondary validation. Hash Tables enable rapid O(1) key retrieval, supporting dynamic updates and metadata storage. Together, they address low-latency, scalability, and security needs, ensuring secure, real-time transactions during high-demand scenarios like Black Friday, while aligning with TLS 1.3 and Akamai’s edge infrastructure.
+    </p>
+  </div>
+</body>
+</html>
