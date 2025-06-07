@@ -189,8 +189,9 @@
       List Scheduling models edge functions as a DAG, where nodes represent functions and edges represent dependencies. A priority queue maintains ready functions (those with no unsatisfied dependencies), ordered by priority (e.g., SLA urgency or execution time). The algorithm assigns ready functions to available resources (e.g., CPU cores) as they become free, respecting dependencies and prioritizing high-impact tasks. For each function, it updates the dependency status of its successors, adding them to the queue when ready. In a Black Friday scenario, List Scheduling ensures personalization (high priority) runs before analytics (low priority) and assigns functions to multiple cores for parallel execution, minimizing latency. Its O(V log V + E) complexity, where V is the number of functions and E is dependencies, makes it scalable for Akamai’s edge servers, and its flexibility supports dynamic workloads.
     </p>
     <pre>
-#include <stdio.h>
-#include <stdlib.h>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
 #define MAX_FUNCTIONS 100
 
 typedef struct {
@@ -330,8 +331,9 @@ int main() {
       CPM models edge functions as a DAG, with nodes as functions and edges as dependencies, each with a duration (execution time). It computes the earliest start and finish times for each function by traversing the DAG forward, ensuring dependencies are met. The critical path—the longest dependency chain—determines the minimum makespan (total execution time). Functions on the critical path are prioritized to avoid delays, while non-critical functions have slack time, allowing flexible scheduling. In a Black Friday scenario, CPM ensures the fetch → personalize → render pipeline (critical path) completes quickly, scheduling analytics in parallel where possible. Its O(V + E) complexity is efficient, and it can integrate with a priority queue for SLA-aware prioritization, making it ideal for Akamai’s latency-sensitive workflows.
     </p>
     <pre>
-#include <stdio.h>
-#include <stdlib.h>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
 #define MAX_FUNCTIONS 100
 
 typedef struct {
@@ -411,8 +413,9 @@ int main() {
       Kahn’s Algorithm models edge functions as a DAG and produces a topological order by processing functions with no dependencies (in-degree = 0), using a queue. As each function is processed, its dependencies are removed, and successors with zero in-degree are added to the queue. This ensures a valid execution order, allowing independent functions (e.g., A/B testing and analytics) to run in parallel. In a Black Friday scenario, it schedules fetch before personalize and render, enabling concurrent execution of non-dependent tasks. Its O(V + E) complexity is efficient, and it can integrate a priority queue for prioritization, making it suitable for Akamai’s static or semi-dynamic function pipelines.
     </p>
     <pre>
-#include <stdio.h>
-#include <stdlib.h>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
 #define MAX_FUNCTIONS 100
 
 typedef struct {
@@ -476,8 +479,9 @@ int main() {
       EDF schedules functions based on their deadlines, ensuring timely execution for time-sensitive tasks (e.g., real-time ads). Functions are modeled in a DAG, with dependencies ensuring correct execution order. EDF uses a priority queue to maintain ready functions (no unsatisfied dependencies), ordered by deadline. At each time step, EDF assigns the function with the earliest deadline to an available resource, updating dependencies and adding ready successors to the queue. In a Black Friday scenario, EDF prioritizes personalized ads with a 50ms SLA over analytics, scheduling dependent tasks like data fetching first. Its O(V log V + E) complexity is scalable, but it requires deadline estimates, which may be challenging for some functions. For Akamai’s edge servers, EDF is ideal for latency-critical tasks with strict SLAs.
     </p>
     <pre>
-#include <stdio.h>
-#include <stdlib.h>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
 #define MAX_FUNCTIONS 100
 
 typedef struct {
