@@ -184,9 +184,9 @@
       A* models the network as a weighted graph, with nodes representing users, routers, and edge servers, and edges representing links with latency weights. It uses a priority queue to explore paths, prioritizing nodes with the lowest combined score: actual cost (g-score, sum of latencies so far) plus a heuristic estimate (h-score, e.g., straight-line distance to the edge server). The heuristic must be admissible (never overestimates true cost) to ensure optimality. A* evaluates neighbors, updates scores for better paths, and continues until the target edge server is reached, reconstructing the optimal path. In a live streaming scenario, A* routes a London user’s request to a Frankfurt edge server via a 10ms path, guided by geographic distance, avoiding a 20ms congested path. It adapts to real-time changes by updating edge weights and excludes unhealthy servers with infinite weights. Its O(E * log V) complexity (V = nodes, E = edges) is efficient with a good heuristic, making it ideal for Akamai’s large-scale, dynamic CDN.
     </p>
     <pre>
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;math.h&gt;
 #define MAX_NODES 1000
 #define INF 1e9
 
@@ -322,8 +322,9 @@ int main() {
       Bellman-Ford models the network as a weighted graph and computes the shortest path from a source (user) to all nodes by relaxing all edges V-1 times, updating distances if a shorter path is found. It can detect negative cycles, ensuring robustness. In a live streaming scenario, it routes a São Paulo user’s request to a local edge server, recomputing paths when congestion increases latency on a link. It excludes unhealthy servers by setting infinite weights. Its O(V * E) complexity is slower than A* for sparse graphs (E ≈ V in CDNs), making it less efficient for frequent queries in large networks. Negative weights are rare in CDNs (latency is positive), reducing its unique advantage. However, it’s simple and adaptable, suitable for smaller networks or scenarios with infrequent updates.
     </p>
     <pre>
-#include <stdio.h>
-#include <stdlib.h>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
 #define MAX_NODES 1000
 #define INF 1e9
 
@@ -396,8 +397,9 @@ int main() {
       Floyd-Warshall uses dynamic programming to compute shortest paths between all pairs of nodes in a weighted graph. It iterates over all nodes as intermediate points, updating the shortest path between each pair if a better path exists via the intermediate node. In a streaming scenario, it could provide paths for all users to all edge servers but requires O(V³) computation, making it unscalable for large CDNs with thousands of nodes. Dynamic updates (e.g., latency changes) necessitate recomputing the entire matrix, which is too slow for real-time use. It can exclude unhealthy servers but at high cost. Its O(V²) space and O(1) query time after precomputation are offset by its inability to handle frequent updates, making it unsuitable for Akamai’s dynamic, real-time routing needs.
     </p>
     <pre>
-#include <stdio.h>
-#include <stdlib.h>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
 #define MAX_NODES 1000
 #define INF 1e9
 
