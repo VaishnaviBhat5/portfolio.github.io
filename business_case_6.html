@@ -117,13 +117,23 @@
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
+    
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="container">
     <h1>Route Optimization using Real-Time Network Graph Analytics</h1>
-
+   <div style="display: flex; justify-content: space-between; align-items: flex-start; max-width: 1200px; margin: 0 auto;">
+  <div style="text-align: center;">
+    <img src="https://github.com/jiyapalrecha35/Google.github.io/blob/main/images/bellman.gif?raw=true" alt="Bellman-Ford Algorithm" style="width: 500px; height: 350px;">
+    <p>Bellman-Ford Algorithm for safe route planning</p>
+  </div>
+  <div style="text-align: center;">
+    <img src="https://github.com/jiyapalrecha35/Google.github.io/blob/main/images/floyd.gif?raw=true" alt="Floyd-Warshall Algorithm" style="width: 500px; height: 350px;">
+    <p>Floyd-Warshall Algorithm for optimizing network paths</p>
+  </div>
+</div>
     <p>
       This business case focuses on optimizing data routing paths across global networks to minimize latency and avoid congestion, ensuring reliable content delivery for applications like streaming, e-commerce, and gaming. By leveraging real-time network graph analytics, this approach dynamically selects the fastest paths to edge servers, enhancing user experience at scale for Akamai’s content delivery network (CDN).
     </p>
@@ -315,7 +325,7 @@ int main() {
 
     <h2>Bellman-Ford Algorithm</h2>
     <p>
-      Bellman-Ford computes single-source shortest paths, adapting to dynamic network conditions and handling negative weights if present.
+      Bellman-Ford computes single-source shortest paths, adapting to dynamic network conditions and handling negative weights if present[13].
     </p>
     <h3>How It Works</h3>
     <p>
