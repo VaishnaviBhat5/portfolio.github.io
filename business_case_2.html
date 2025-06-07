@@ -58,6 +58,12 @@
       margin: 2rem 0 1rem;
     }
 
+    h3 {
+      font-size: 1.4rem;
+      color: var(--color-text);
+      margin: 1.5rem 0 1rem;
+    }
+
     p {
       font-size: 1.1rem;
       margin-bottom: 1.5rem;
@@ -104,6 +110,17 @@
       font-size: 1rem;
       border-radius: var(--border-radius);
       margin: 1.5rem 0;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 1.5rem auto;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 8px var(--color-shadow);
     }
 
     @keyframes gradientFlow {
@@ -124,7 +141,7 @@
 
     <h2>Theory</h2>
     <p>
-      Real-Time Adaptive Load Balancing involves distributing incoming client requests across a pool of edge servers to optimize performance and reliability. The system monitors server metrics (e.g., connection counts, CPU usage, latency) and uses algorithms to route requests to the least loaded or most suitable server, ensuring low response times and high availability. Key considerations include maintaining session persistence for stateful applications (e.g., shopping carts), adapting to dynamic changes (e.g., server failures or additions), and balancing load across heterogeneous servers with varying capacities. Algorithms like Consistent Hashing ensure consistent routing for user sessions, while others like Power of Two Choices minimize queue buildup by selecting less loaded servers. Data structures such as hash rings, lookup tables, or weighted schedules support efficient routing decisions. Effective load balancing reduces latency, prevents server overload, and enhances scalability, critical for handling traffic surges in content delivery networks (CDNs) like Akamai’s.
+      Real-Time Adaptive Load Balancing involves distributing incoming client requests across a pool of edge servers to optimize performance and reliability. The system monitors server metrics (e.g., connection counts, CPU usage, latency) and uses algorithms to route requests to the most suitable server, ensuring low response times and high availability. Key considerations include maintaining session persistence for stateful applications (e.g., shopping carts), adapting to dynamic changes (e.g., server failures or additions), and balancing load across heterogeneous servers with varying capacities. Algorithms like Consistent Hashing and Maglev Hashing ensure consistent routing for user sessions, while Weighted Round Robin accounts for server capacity differences. Data structures such as hash rings, lookup tables, or weighted schedules support efficient routing decisions. Effective load balancing reduces latency, prevents server overload, and enhances scalability, critical for handling traffic surges in content delivery networks (CDNs) like Akamai’s.
     </p>
 
     <h2>Real-Time Scenario</h2>
@@ -143,7 +160,7 @@
       <li><strong>Enterprise Applications</strong>: Managing internal application traffic to ensure reliability and performance for business-critical services.</li>
     </ul>
     
-    <h2>Impact </h2>
+    <h2>Impact</h2>
     <p>
       Implementing Real-Time Adaptive Load Balancing provides significant benefits for Akamai’s CDN operations and clients:
     </p>
@@ -165,67 +182,18 @@
     <h2>Algorithms Used</h2>
     <p>Below are the algorithms evaluated for load balancing, with descriptions and simplified implementations:</p>
 
-    <h2>Power of Two Choices (P2C)</h2>
-    <p>
-      P2C is a randomized load balancing algorithm that selects two servers randomly and routes the request to the one with fewer active connections, reducing the chance of overloading any server.
-    </p>
-    <h2>How It Works</h2>
-    <p>
-      For each incoming request, the Power of Two Choices (P2C) algorithm randomly selects two servers from the available pool and compares their current connection counts, routing the request to the server with fewer active connections. This simple yet effective approach leverages randomness to avoid overloading any single server, significantly reducing the probability of queue buildup compared to choosing a single random server. After routing, the selected server’s connection count is incremented, and the system continuously updates these metrics in real-time to reflect current loads. In practice, during an e-commerce traffic surge, P2C might choose between two servers—one handling 10 requests and another handling 50—and route to the former, ensuring balanced load distribution. The algorithm’s low computational overhead (O(1) per request) makes it ideal for high-throughput environments, though it may not guarantee session persistence for stateful applications unless combined with additional mechanisms like session tracking. It also adapts well to dynamic server health, as failed servers can be excluded from the random selection pool, ensuring robust performance under varying conditions.
-    </p>
-    <pre>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-#define MAX_SERVERS 100
-
-typedef struct {
-    int id;
-    int connections;
-} Server;
-
-int getRandomServer(int numServers) {
-    return rand() % numServers;
-}
-
-int powerOfTwoChoices(Server* servers, int numServers) {
-    int server1 = getRandomServer(numServers);
-    int server2 = getRandomServer(numServers);
-    while (server2 == server1) server2 = getRandomServer(numServers);
-    
-    return servers[server1].connections <= servers[server2].connections ? server1 : server2;
-}
-
-int main() {
-    srand(time(NULL));
-    int numServers = 7;
-    Server servers[MAX_SERVERS] = {
-        {0, 12}, {1, 5}, {2, 8}, {3, 3}, {4, 7}, {5, 10}, {6, 4}
-    };
-    
-    printf("P2C Load Balancing Simulation:\n");
-    for (int i = 0; i < 10; i++) {
-        int serverId = powerOfTwoChoices(servers, numServers);
-        servers[serverId].connections++;
-        printf("Request %d routed to Server %d (Connections: %d)\n", i+1, serverId, servers[serverId].connections);
-    }
-    
-    return 0;
-}
-    </pre>
-
     <h2>Maglev Hashing</h2>
     <p>
       Maglev Hashing is an advanced hashing algorithm that maps requests to servers using a precomputed lookup table, ensuring even distribution and minimal disruption when servers change.
     </p>
-    <h2>How It Works</h2>
+    <h3>How It Works</h3>
     <p>
       Maglev Hashing constructs a precomputed lookup table that maps fixed slots to servers, ensuring consistent and balanced request distribution. Each server is assigned multiple slots in the table based on hash functions applied to its identifier, creating a permutation of preferences across the table’s slots. For each incoming request, a hash of the request (e.g., based on user ID or session key) determines a slot, which maps to a specific server. This approach ensures even load distribution, as the table is designed to minimize collisions and evenly spread requests. During a product launch, for instance, Maglev Hashing ensures that user requests for shopping cart updates consistently hit the same server, preserving session data like cart contents. When servers are added or removed (e.g., due to failure or scaling), the lookup table is rebuilt, but Maglev’s design minimizes remapping—typically affecting only a small fraction of slots—maintaining session persistence for most users. The algorithm’s O(1) lookup time makes it highly efficient for large-scale systems, though building the initial table (O(N*M), where N is servers and M is table size) can be costly during server changes. This makes Maglev ideal for stateful applications with frequent scaling needs, such as streaming or e-commerce platforms.
     </p>
     <pre>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
 #define MAX_SERVERS 100
 #define TABLE_SIZE 1000
 
@@ -294,16 +262,16 @@ int main() {
 
     <h2>Consistent Hashing</h2>
     <p>
-      Consistent Hashing maps requests to servers using a hash ring, minimizing redistribution when servers are added/removed.
+      Consistent Hashing maps requests to servers using a hash ring, minimizing redistribution when servers are added or removed.
     </p>
-    <h2>How It Works</h2>
+    <h3>How It Works</h3>
     <p>
       Consistent Hashing organizes servers and requests on a circular hash space, or “ring,” where each server is assigned multiple virtual nodes (hash values) to improve distribution. A request is hashed (e.g., using a user ID) to a point on the ring and routed to the next server clockwise. This ensures consistent routing for stateful applications, as the same user request always maps to the same server unless the server configuration changes. For example, during an e-commerce product launch, a user’s shopping cart requests consistently hit the same server, preserving session data. When a server is added or removed, only a small fraction of requests (proportional to 1/N, where N is the number of servers) are remapped, minimizing disruptions compared to traditional hashing. Virtual nodes enhance balance by spreading each server’s presence across the ring, reducing the risk of uneven load distribution. The algorithm’s lookup time is typically O(log N) using a binary search on the sorted ring, making it efficient for large clusters. However, managing virtual nodes increases space complexity (O(N*R), where R is virtual nodes per server). Consistent Hashing is well-suited for dynamic, stateful systems like streaming services, where server changes are frequent but session continuity is critical.
     </p>
     <pre>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
 #define MAX_SERVERS 100
 #define VIRTUAL_NODES 10
 
@@ -363,13 +331,13 @@ int main() {
     <p>
       Weighted Round Robin distributes requests cyclically across servers, with each server assigned a weight based on its capacity.
     </p>
-    <h2>How It Works</h2>
+    <h3>How It Works</h3>
     <p>
       Weighted Round Robin (WRR) assigns requests to servers in a cyclical order, where each server’s frequency in the cycle is proportional to its assigned weight, reflecting its processing capacity (e.g., CPU or memory). A schedule is generated based on these weights, and requests are routed according to this schedule, cycling back to the start once complete. For each request, the algorithm selects the next server in the sequence, reducing the server’s current weight by a factor (e.g., the GCD of all weights) to track capacity usage. When a server’s weight reaches zero, it is reset to its original weight, ensuring continuous cycling. In an e-commerce scenario, a high-capacity server with a weight of 6 might handle three times as many requests as a server with a weight of 2, ensuring efficient resource utilization. WRR’s O(1) time complexity per request makes it highly efficient, but it requires precomputed weights and is less adaptable to real-time load changes or server failures unless combined with health checks. It excels in stable environments with heterogeneous servers but struggles with session persistence unless paired with additional mechanisms, making it best for stateless or semi-static workloads.
     </p>
     <pre>
-#include <stdio.h>
-#include <stdlib.h>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
 #define MAX_SERVERS 100
 
 typedef struct {
@@ -430,14 +398,6 @@ int main() {
         <th>Space Complexity</th>
       </tr>
       <tr>
-        <td>Power of Two Choices</td>
-        <td>O(1)</td>
-        delicensed
-        <td>O(1)</td>
-        <td>O(1)</td>
-        <td>O(N)</td>
-      </tr>
-      <tr>
         <td>Maglev Hashing</td>
         <td>O(1)</td>
         <td>O(1)</td>
@@ -465,7 +425,7 @@ int main() {
 
     <h2>Inference</h2>
     <p>
-      For Load Balancing for Scalable Web Services, Maglev Hashing is the recommended algorithm. It excels in large-scale systems by providing even load distribution, session persistence, and minimal disruption during server changes, making it ideal for e-commerce or streaming platforms. Consistent Hashing is a close second, offering similar benefits with simpler implementation. Power of Two Choices is highly effective for dynamic load adaptation with low overhead, suitable for stateless services. Weighted Round Robin is simpler but less adaptable, best for stable, heterogeneous clusters. Maglev Hashing’s balance of scalability and performance makes it the top choice for delivering reliable, low-latency web services.
+      For Real-Time Adaptive Load Balancing across Edge Servers, Maglev Hashing is the recommended algorithm. It excels in large-scale systems by providing even load distribution, session persistence, and minimal disruption during server changes, making it ideal for e-commerce or streaming platforms. Consistent Hashing is a close second, offering similar benefits with a simpler implementation, suitable for dynamic systems requiring session continuity. Weighted Round Robin is simpler but less adaptable, best for stable, heterogeneous clusters where session persistence is less critical. Maglev Hashing’s balance of scalability and performance makes it the top choice for delivering reliable, low-latency web services.
     </p>
   </div>
 </body>
