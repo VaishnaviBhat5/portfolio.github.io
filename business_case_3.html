@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Business Case 3: Live Event Traffic Management</title>
+  <title>Business Case 3: Live Event Network Traffic Management</title>
   <style>
     :root {
       --color-bg: #f4f4f7;
@@ -122,61 +122,61 @@
 </head>
 <body>
   <div class="container">
-    <h1>Live Event Traffic Management</h1>
-
-    <p>
-      This business case focuses on optimizing the flow of vehicles and pedestrians during large-scale live events, such as concerts, sports matches, or festivals, to minimize congestion, ensure safety, and enhance attendee experience. The approach leverages real-time traffic data, road capacities, and dynamic rerouting to manage inflows/outflows, prioritize emergency vehicles, and adapt to changing conditions.
+    <h1>Live Event Network Traffic Management</h1>
+<img src="https://github.com/jiyapalrecha35/Google.github.io/blob/main/images/ford.gif?raw=true" alt="network traffic management" style="display: block; margin: 0 auto; width: 700px; height: 500px;">    
+<p>
+      This business case focuses on optimizing network traffic during large-scale live events, such as streamed concerts, sports broadcasts, or e-commerce flash sales, to minimize latency, ensure reliability, and enhance user experience. The approach leverages real-time traffic data, server capacities, and dynamic rerouting to manage data flows, prioritize critical requests, and adapt to changing network conditions.
     </p>
     <h2>Theory</h2>
     <p>
-      Live Event Traffic Management involves coordinating vehicle and pedestrian flows in a road network surrounding event venues to prevent congestion and ensure safety. The road network is modeled as a directed graph, where nodes represent intersections or zones (e.g., parking lots, entrances) and edges represent roads with capacity constraints (e.g., vehicles per minute). Real-time data from sensors, GPS, and traffic cameras informs dynamic routing decisions, maximizing throughput while respecting capacity limits. Algorithms like Ford-Fulkerson optimize flow by finding paths with available capacity. Prioritizing emergency vehicles requires reserving capacity or computing dedicated routes. Key considerations include adapting to sudden changes (e.g., accidents, road closures), ensuring scalability for thousands of vehicles, and maintaining safety by avoiding bottlenecks and crowd surges. Effective traffic management reduces delays, enhances accessibility, and improves the overall event experience.
+      Live Event Network Traffic Management involves coordinating data flows in a network of edge servers and origin points to prevent congestion and ensure seamless delivery. The network is modeled as a directed graph, where nodes represent servers (edge or origin) and edges represent connections with capacity constraints (e.g., bandwidth in Mbps). Real-time data from traffic monitors, user requests, and server health informs dynamic routing decisions, maximizing throughput while respecting capacity limits. Algorithms like Ford-Fulkerson optimize flow by finding paths with available bandwidth. Prioritizing critical requests (e.g., video streams, payment transactions) requires reserving bandwidth or computing dedicated routes. Key considerations include adapting to sudden spikes (e.g., millions of concurrent viewers), ensuring scalability for massive traffic, and maintaining reliability by avoiding bottlenecks and packet loss. Effective network management reduces latency, enhances quality of service, and improves the online event experience.
     </p>
     <h2>Real-Time Scenario</h2>
     <p>
-      During a Super Bowl event in Chicago, thousands of vehicles converge on the stadium from multiple highways, while pedestrians stream toward entrances. The traffic management system models the road network as a graph, with intersections as nodes and roads as edges, each assigned a capacity limit (vehicles per minute). Real-time data from sensors and GPS feeds into the system, which computes optimal traffic flows and routes, directing vehicles to underutilized roads or parking zones to prevent congestion. For instance, as heavy traffic builds on main highways, the system reroutes vehicles to secondary roads, ensuring smoother flow. Emergency vehicles, like ambulances, are prioritized with reserved road capacities or faster routes, allowing rapid access to the venue. When a sudden road closure occurs due to an accident, the system instantly recomputes flows, redirecting traffic to alternative paths to avoid bottlenecks. Parking spaces are allocated efficiently based on real-time availability, and crowd surges are managed by adjusting pedestrian and vehicle flows dynamically, maintaining safety and accessibility throughout the event.
+      During a global live stream of a World Cup final, millions of users request video content from Akamai’s edge servers, straining bandwidth across regions. The network traffic management system models the network as a graph, with edge servers and origin servers as nodes and connections as edges, each assigned a bandwidth limit (Mbps). Real-time data from traffic monitors and user requests feeds into the system, which computes optimal data flows, routing traffic to underutilized edge servers to prevent congestion. For instance, as demand spikes in Europe, the system reroutes excess traffic to nearby servers with spare capacity, ensuring smooth streaming. Critical requests, like live video packets, are prioritized with reserved bandwidth or faster routes, maintaining quality. When a server outage occurs, the system instantly recomputes flows, redirecting traffic to alternative nodes to avoid disruptions. Bandwidth is allocated efficiently based on real-time server health, and traffic surges are managed dynamically, ensuring a reliable, low-latency experience for all viewers.
     </p>
     <h2>Usage</h2>
     <p>
-      For Akamai, Live Event Traffic Management can be adapted to optimize digital traffic during high-demand online events, such as live-streamed concerts or sports broadcasts, while also supporting physical event logistics for clients. Key use cases include:
+      For Akamai, Live Event Network Traffic Management optimizes digital traffic during high-demand online events, ensuring seamless delivery and supporting client success. Key use cases include:
     </p>
     <ul>
       <li><strong>Live Streaming Optimization</strong>: Managing millions of concurrent viewers by routing requests to underutilized edge servers, ensuring low-latency streaming.</li>
-      <li><strong>Event Venue Traffic Control</strong>: Coordinating vehicle and pedestrian flows for clients hosting physical events, like sports or music festivals, to minimize congestion.</li>
-      <li><strong>Emergency Response Support</strong>: Prioritizing critical data flows (e.g., security alerts) or physical emergency vehicle routes during events.</li>
-      <li><strong>Parking and Crowd Management</strong>: Allocating parking spaces and controlling pedestrian inflows/outflows to enhance safety and accessibility.</li>
-      <li><strong>Real-Time Analytics</strong>: Providing insights on traffic patterns to optimize future event planning and resource allocation.</li>
+      <li><strong>Peak Traffic Handling</strong>: Balancing network load during flash sales or live broadcasts, maintaining performance and uptime.</li>
+      <li><strong>Priority Data Flows</strong>: Prioritizing critical data (e.g., video streams, payment transactions) with reserved bandwidth for reliable delivery.</li>
+      <li><strong>Dynamic Surge Management</strong>: Adjusting traffic flows in real-time to handle sudden spikes, preventing bottlenecks and packet loss.</li>
+      <li><strong>Real-Time Analytics</strong>: Providing insights on traffic patterns to optimize future event planning and server allocation.</li>
     </ul>
 
-    <h2>Impact </h2>
+    <h2>Impact</h2>
     <p>
-      Implementing Live Event Traffic Management provides significant benefits for Akamai’s clients and operations:
+      Implementing Live Event Network Traffic Management provides significant benefits for Akamai’s clients and operations:
     </p>
     <ul>
-      <li><strong>Reduced Congestion</strong>: Optimizing traffic flows cuts average travel times by 30-50%, improving attendee satisfaction at physical events.</li>
-      <li><strong>Enhanced Digital Performance</strong>: Ensuring 99.99% uptime and low-latency streaming for online events boosts viewer engagement by 20-30%.</li>
-      <li><strong>Improved Safety</strong>: Prioritizing emergency vehicles and managing crowd surges reduces incident response times by 40%, enhancing event security.</li>
-      <li><strong>Cost Efficiency</strong>: Minimizing server load during digital events and optimizing physical traffic reduces operational costs by 15-25%.</li>
-      <li><strong>Market Differentiation</strong>: Offering integrated digital and physical traffic management strengthens Akamai’s position as a leader in event solutions.</li>
+      <li><strong>Reduced Latency</strong>: Optimizing traffic flows cuts delivery times by 30-50%, improving user satisfaction for live streams.</li>
+      <li><strong>Enhanced Reliability</strong>: Ensuring 99.99% uptime and stable streaming boosts viewer engagement by 20-30%.</li>
+      <li><strong>Improved Quality</strong>: Prioritizing critical data reduces packet loss by 40%, enhancing video and transaction quality.</li>
+      <li><strong>Cost Efficiency</strong>: Minimizing server overload and optimizing bandwidth reduces operational costs by 15-25%.</li>
+      <li><strong>Market Differentiation</strong>: Offering robust network traffic management strengthens Akamai’s position as a leader in live event solutions.</li>
     </ul>
     <h2>Challenges</h2>
     <ul>
-      <li>Dynamic conditions: Real-time changes in traffic, road closures, or weather require rapid adaptation.</li>
-      <li>Capacity constraints: Roads and parking lots have limited throughput, risking congestion.</li>
-      <li>Emergency prioritization: Ensuring clear paths for ambulances or police vehicles.</li>
-      <li>Scalability: Managing thousands of vehicles across complex road networks.</li>
-      <li>Safety: Minimizing delays and preventing accidents in high-density scenarios.</li>
+      <li>Dynamic conditions: Real-time changes in traffic, server outages, or demand spikes require rapid adaptation.</li>
+      <li>Capacity constraints: Bandwidth and server resources have limits, risking congestion.</li>
+      <li>Priority handling: Ensuring low latency for critical data like video streams or transactions.</li>
+      <li>Scalability: Managing millions of requests across a global network.</li>
+      <li>Reliability: Minimizing packet loss and downtime in high-traffic scenarios.</li>
     </ul>
 
     <h2>Algorithms Used</h2>
-    <p>Below are the algorithms evaluated for live event traffic management, with summaries of their purpose and detailed explanations of their mechanics, followed by simplified implementations:</p>
+    <p>Below are the algorithms evaluated for live event network traffic management, with summaries of their purpose and detailed explanations of their mechanics, followed by simplified implementations:</p>
 
-    <h2>Ford-Fulkerson </h2>
+    <h2>Ford-Fulkerson</h2>
     <p>
-      This algorithm maximizes vehicle throughput in a road network by finding the optimal flow of traffic from entry points to the event venue, respecting road capacity limits, using a breadth-first search approach.
+      This algorithm maximizes data throughput in a network by finding the optimal flow of traffic from users to edge servers and origin points, respecting bandwidth limits, using a breadth-first search approach[11].
     </p>
     <h3>How It Works</h3>
     <p>
-      This algorithm, using the Edmonds-Karp variant, maximizes traffic flow through a road network modeled as a graph, where intersections are nodes and roads are edges with capacity limits (vehicles per minute). It employs Breadth-First Search (BFS) to find augmenting paths—routes from the source (entry points) to the sink (venue) with available capacity. For each path, the algorithm sends the maximum possible flow (limited by the smallest capacity along the path), updating residual capacities to reflect the flow used. This process repeats until no augmenting paths remain, ensuring the maximum number of vehicles can reach the venue without exceeding road limits. In practice, this means rerouting traffic to less congested roads in real-time, such as directing vehicles to secondary routes during a festival when main roads are saturated. The algorithm also supports prioritizing emergency vehicles by reserving capacity on specific edges, ensuring faster routes.
+      This algorithm, using the Edmonds-Karp variant, maximizes network traffic flow through a graph, where nodes are servers (edge or origin) and edges are connections with bandwidth limits (Mbps). It employs Breadth-First Search (BFS) to find augmenting paths—routes from the source (users) to the sink (content delivery point) with available bandwidth. For each path, the algorithm sends the maximum possible flow (limited by the smallest bandwidth along the path), updating residual capacities to reflect the flow used. This process repeats until no augmenting paths remain, ensuring maximum data delivery without exceeding bandwidth limits. In practice, this means rerouting traffic to less congested servers during a live stream, such as directing requests to regional edge servers when primary ones are saturated. The algorithm also supports prioritizing critical data by reserving bandwidth on specific edges, ensuring faster delivery.
     </p>
     <pre>
 #include &lt;stdio.h&gt;
@@ -247,13 +247,13 @@ int main() {
         graph[i] = (int*)calloc(numNodes, sizeof(int));
     }
     
-    // Graph: Source (0), Intersections (1-5), Sink (6)
-    graph[0][1] = 50; graph[0][2] = 40; graph[1][3] = 30; graph[2][3] = 20;
-    graph[2][4] = 25; graph[3][5] = 35; graph[4][5] = 15; graph[5][6] = 45;
+    // Graph: Source (0, users), Edge Servers (1-5), Sink (6, content delivery)
+    graph[0][1] = 500; graph[0][2] = 400; graph[1][3] = 300; graph[2][3] = 200;
+    graph[2][4] = 250; graph[3][5] = 350; graph[4][5] = 150; graph[5][6] = 450;
     
     printf("Ford-Fulkerson (Edmonds-Karp) Simulation:\n");
     int maxFlow = fordFulkerson(graph, 0, 6, numNodes);
-    printf("Maximum traffic flow to venue: %d vehicles/min\n", maxFlow);
+    printf("Maximum network traffic flow: %d Mbps\n", maxFlow);
     
     for (int i = 0; i < numNodes; i++) free(graph[i]);
     free(graph);
@@ -263,11 +263,11 @@ int main() {
 
     <h2>Min-Cut Max-Flow</h2>
     <p>
-      This algorithm extends Ford-Fulkerson to maximize traffic flow and identify critical road bottlenecks that limit vehicle throughput to the event venue, aiding in congestion mitigation planning.
+      This algorithm extends Ford-Fulkerson to maximize network traffic flow and identify critical bandwidth bottlenecks that limit data throughput, aiding in congestion mitigation planning.
     </p>
     <h3>How It Works</h3>
     <p>
-      Building on Ford-Fulkerson (Edmonds-Karp), this algorithm not only computes the maximum flow but also identifies the minimum cut—the smallest set of roads (edges) that, if blocked, would prevent additional vehicles from reaching the venue. After calculating the maximum flow using BFS to find augmenting paths, a final BFS on the residual graph marks nodes reachable from the source. Edges connecting these reachable nodes to unreachable ones form the min-cut, highlighting critical bottlenecks, such as overused intersections or narrow roads. In a real-world scenario, this helps planners identify which roads need capacity upgrades or traffic signal adjustments to prevent congestion during events. For example, during a concert, it might reveal that a single bridge to the venue is the limiting factor, prompting temporary traffic controls or rerouting strategies.
+      Building on Ford-Fulkerson (Edmonds-Karp), this algorithm not only computes the maximum flow but also identifies the minimum cut—the smallest set of connections (edges) that, if saturated, would prevent additional data from reaching the delivery point. After calculating the maximum flow using BFS to find augmenting paths, a final BFS on the residual graph marks nodes reachable from the source. Edges connecting these reachable nodes to unreachable ones form the min-cut, highlighting critical bottlenecks, such as overused server connections or limited bandwidth links. In a real-world scenario, this helps planners identify which network paths need capacity upgrades or load balancing to prevent congestion during a live stream. For example, during a global broadcast, it might reveal that a key link to an edge server is the limiting factor, prompting traffic rerouting or server scaling.
     </p>
     <pre>
 #include &lt;stdio.h&gt;
@@ -350,19 +350,19 @@ int main() {
         graph[i] = (int*)calloc(numNodes, sizeof(int));
     }
     
-    // Graph: Source (0), Intersections (1-5), Sink (6)
-    graph[0][1] = 50; graph[0][2] = 40; graph[1][3] = 30; graph[2][3] = 20;
-    graph[2][4] = 25; graph[3][5] = 35; graph[4][5] = 15; graph[5][6] = 45;
+    // Graph: Source (0, users), Edge Servers (1-5), Sink (6, content delivery)
+    graph[0][1] = 500; graph[0][2] = 400; graph[1][3] = 300; graph[2][3] = 200;
+    graph[2][4] = 250; graph[3][5] = 350; graph[4][5] = 150; graph[5][6] = 450;
     
     Edge cutEdges[MAX_NODES * MAX_NODES];
     int cutSize;
     
     printf("Min-Cut Max-Flow Simulation:\n");
     int maxFlow = minCutMaxFlow(graph, 0, 6, numNodes, cutEdges, &cutSize);
-    printf("Maximum traffic flow to venue: %d vehicles/min\n", maxFlow);
+    printf("Maximum network traffic flow: %d Mbps\n", maxFlow);
     printf("Min-Cut edges (bottlenecks):\n");
     for (int i = 0; i < cutSize; i++) {
-        printf("Edge %d->%d (Capacity: %d)\n", cutEdges[i].from, cutEdges[i].to, cutEdges[i].capacity);
+        printf("Edge %d->%d (Bandwidth: %d Mbps)\n", cutEdges[i].from, cutEdges[i].to, cutEdges[i].capacity);
     }
     
     for (int i = 0; i < numNodes; i++) free(graph[i]);
@@ -396,12 +396,12 @@ int main() {
       </tr>
     </table>
     <p>
-      Note: V = number of vertices (intersections/zones), E = number of edges (roads). Ford-Fulkerson and Min-Cut Max-Flow have high worst-case complexity.
+      Note: V = number of vertices (servers), E = number of edges (connections). Ford-Fulkerson and Min-Cut Max-Flow have high worst-case complexity.
     </p>
 
     <h2>Inference</h2>
     <p>
-      For Live Event Traffic Management, Ford-Fulkerson (Edmonds-Karp) is the recommended algorithm. It excels in optimizing dynamic traffic flow by maximizing vehicle throughput while respecting road capacities, making it ideal for real-time rerouting to avoid bottlenecks during events like concerts or sports matches. Min-Cut Max-Flow is a close second, offering similar flow optimization with the added benefit of identifying critical congestion points for predictive control. Ford-Fulkerson’s ability to handle live capacity constraints ensures efficient, safe traffic management for large-scale events.
+      For Live Event Network Traffic Management, Ford-Fulkerson (Edmonds-Karp) is the recommended algorithm. It excels in optimizing dynamic data flow by maximizing throughput while respecting bandwidth constraints, making it ideal for real-time rerouting to avoid bottlenecks during events like live streams or flash sales. Min-Cut Max-Flow is a close second, offering similar flow optimization with the added benefit of identifying critical network bottlenecks for predictive control. Ford-Fulkerson’s ability to handle live capacity constraints ensures efficient, reliable traffic management for large-scale online events.
     </p>
   </div>
 </body>
