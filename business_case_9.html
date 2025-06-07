@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Business Case 9: Data Compression</title>
+  <style>
+    :root {
+      --color-bg: #f4f4f7;
+      --color-text: #1c1f26;
+      --color-accent: #0d47a1;
+      --color-highlight: #ffffff;
+      --color-muted: #607d8b;
+      --color-shadow: rgba(0, 0, 0, 0.06);
+      --primary-shade: #0a2e6e;
+      --border-radius: 10px;
+      --section-bg: #e9edf2;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(-45deg, #e9edf2, #f4f4f7, #dce3ea, #eef1f4);
+      background-size: 400% 400%;
+      animation: gradientFlow 15s ease infinite;
+      color: var(--color-text);
+      line-height: 1.8;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(6px);
+      border-radius: var(--border-radius);
+      box-shadow: 0 6px 20px var(--color-shadow);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: var(--color-accent);
+      text-align: center;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.8rem;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: var(--primary-shade);
+      margin: 2rem 0 1rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    li {
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+
+    th, td {
+      padding: 1rem;
+      border: 1px solid #ddd;
+      text-align: left;
+      font-size: 1.1rem;
+    }
+
+    th {
+      background-color: var(--color-accent);
+      color: white;
+    }
+
+    td {
+      background-color: #f9f9f9;
+    }
+
+    pre {
+      background: #f8f8f8;
+      padding: 12px;
+      border-left: 4px solid var(--color-accent);
+      overflow-x: auto;
+      font-size: 1rem;
+      border-radius: var(--border-radius);
+      margin: 1.5rem 0;
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>Data Compression</h1>
+
+    <p>
+      This business case focuses on optimizing data compression to reduce bandwidth usage and accelerate content delivery across global networks, ensuring low-latency and cost-effective experiences for Akamai’s CDN users by compressing static and dynamic content at the edge to optimize transfer time and storage efficiency while preserving content fidelity.
+    </p>
+    <h2>Theory</h2>
+    <p>
+      Data compression involves reducing the size of static (e.g., HTML, CSS, images) and dynamic (e.g., JSON, personalized web pages) content to minimize bandwidth usage, accelerate transfer times, and optimize storage on Akamai’s edge servers. Compression is performed in Step 6: Content Delivery with Optimization and Security of Akamai’s CDN architecture, using algorithms to encode data efficiently while preserving fidelity (lossless for text, lossy for media). The process occurs on the Intelligent Edge Platform (365,000+ servers across 4,100+ PoPs in 135 countries), reducing data sent over the Overlay Network and improving delivery via protocols like HTTP/2 and QUIC. Key considerations include achieving high compression ratios, ensuring fast compression/decompression for real-time delivery, minimizing resource usage on edge servers, and supporting diverse content types. Data structures like priority queues and trees enable efficient encoding, while the Analytics System logs compression metrics for optimization via the Akamai Control Center. Effective compression lowers latency, reduces costs, and enhances user experience for applications like streaming and e-commerce.
+    </p>
+    <h2>Real-Time Scenario</h2>
+    <p>
+      During a global Black Friday sale, an e-commerce platform sees millions of users from New York, London, and Tokyo accessing product pages, images, and API responses. A London user loads a product page, triggering a request to a nearby edge server in Frankfurt. The edge server, after a cache hit or fetching dynamic content via Edge Side Includes (ESI), compresses the page’s HTML, CSS, and JSON data to reduce its size from 500 KB to 150 KB. The compressed content is delivered over HTTP/2, minimizing transfer time and bandwidth costs. For a product image, the server compresses a 2 MB JPEG to 200 KB, optimizing for mobile delivery. As traffic surges, the edge server dynamically adjusts compression levels to balance speed and ratio, ensuring fast page loads (under 2 seconds). The Analytics System logs compression ratios and latency, enabling real-time tuning via the Akamai Control Center, while the Overlay Network ensures efficient transfer of compressed data, maintaining a seamless shopping experience even under high demand.
+    </p>
+    <h2>Usage</h2>
+    <p>
+      For Akamai, data compression enhances content delivery across its global CDN infrastructure. Key use cases include:
+    </p>
+    <ul>
+      <li><strong>E-commerce:</strong> Compressing product pages and API responses to ensure fast load times during sales events.</li>
+      <li><strong>Media Streaming:</strong> Reducing video and image sizes for low-latency playback on diverse devices.</li>
+      <li><strong>Web Applications:</strong> Compressing dynamic JSON or scripts for interactive platforms with minimal delay.</li>
+      <li><strong>Mobile Delivery:</strong> Optimizing content for low-bandwidth networks to improve mobile user experience.</li>
+      <li><strong>Enterprise Services:</strong> Compressing business-critical data for efficient global access.</li>
+    </ul>
+
+    <h2>Impact</h2>
+    <p>
+      Implementing data compression provides significant benefits for Akamai’s CDN operations and clients:
+    </p>
+    <ul>
+      <li><strong>Reduced Latency:</strong> Cutting transfer times by 50-70% boosts user engagement and conversion rates by 15-20%.</li>
+      <li><strong>Bandwidth Savings:</strong> Reducing data size by 60-80% lowers bandwidth costs by 20-30%, enhancing cost efficiency.</li>
+      <li><strong>Storage Efficiency:</strong> Compressing cached content on edge servers reduces storage needs by 50%, optimizing resource use.</li>
+      <li><strong>Scalability:</strong> Handling 3-5x traffic surges during peak events maintains performance for global audiences.</li>
+      <li><strong>Competitive Advantage:</strong> Superior compression strengthens Akamai’s position as a leading CDN provider.</li>
+    </ul>
+    <h2>Challenges</h2>
+    <ul>
+      <li>Balancing speed and ratio: Achieving high compression without slowing real-time delivery.</li>
+      <li>Resource constraints: Minimizing CPU/memory usage on edge servers.</li>
+      <li>Diverse content types: Supporting text, images, and videos with varying compression needs.</li>
+      <li>Dynamic content: Compressing personalized data efficiently in real-time.</li>
+      <li>Content fidelity: Ensuring no loss of critical information, especially for text.</li>
+    </ul>
+
+    <h2>Algorithms Used</h2>
+    <p>Below is the algorithm evaluated for data compression, with a description and optimized implementation:</p>
+
+    <h2>Huffman Coding</h2>
+    <p>
+      Huffman Coding is a lossless compression algorithm that assigns variable-length prefix codes to symbols based on their frequencies, optimizing for frequent symbols with shorter codes.
+    </p>
+    <h3>How It Works</h3>
+    <p>
+      Huffman Coding compresses data by creating a binary tree where each leaf node represents a symbol (e.g., a character in HTML) and its frequency in the input data. It begins by calculating the frequency of each symbol, then builds a min-heap (priority queue) of nodes, each containing a symbol and its frequency. The algorithm repeatedly extracts the two nodes with the lowest frequencies, combines them into a new node with their combined frequency, and reinserts it into the heap, until one node (the root) remains. This forms a Huffman tree, where paths from the root to leaves define prefix codes: left edges are 0, right edges are 1. Symbols with higher frequencies have shorter codes, minimizing the compressed size. To compress, the algorithm replaces each symbol in the input with its code; to decompress, it traverses the tree based on the bit sequence. In a Black Friday scenario, an edge server compresses a 500 KB HTML page by encoding frequent tags (e.g., “div”) with short codes, reducing it to 150 KB. The compressed data is sent over HTTP/2, and the client decompresses it using the shared Huffman tree or code table. Huffman Coding is lossless, preserving content fidelity, and is a core component of DEFLATE (used in gzip), aligning with Akamai’s CDN protocols. Its O(n log n) complexity (n = number of symbols) is efficient for text-based content, but the frequency table adds overhead for dynamic content. It’s less effective for multimedia, requiring preprocessing or alternative algorithms.
+    </p>
+    <pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#define MAX_SYMBOLS 256
+#define MAX_LEN 1000000
+
+typedef struct Node {
+    unsigned char symbol;
+    unsigned freq;
+    struct Node *left, *right;
+} Node;
+
+typedef struct {
+    Node* nodes[MAX_SYMBOLS * 2];
+    int size;
+} MinHeap;
+
+void swap(Node** a, Node** b) {
+    Node* temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void heapify(MinHeap* heap, int idx) {
+    int smallest = idx;
+    int left = 2 * idx + 1;
+    int right = 2 * idx + 2;
+    if (left < heap->size && heap->nodes[left]->freq < heap->nodes[smallest]->freq)
+        smallest = left;
+    if (right < heap->size && heap->nodes[right]->freq < heap->nodes[smallest]->freq)
+        smallest = right;
+    if (smallest != idx) {
+        swap(&heap->nodes[idx], &heap->nodes[smallest]);
+        heapify(heap, smallest);
+    }
+}
+
+Node* pop(MinHeap* heap) {
+    Node* result = heap->nodes[0];
+    heap->nodes[0] = heap->nodes[--heap->size];
+    heapify(heap, 0);
+    return result;
+}
+
+void push(MinHeap* heap, Node* node) {
+    heap->nodes[heap->size++] = node;
+    int i = heap->size - 1;
+    while (i > 0 && heap->nodes[(i - 1) / 2]->freq > heap->nodes[i]->freq) {
+        swap(&heap->nodes[i], &heap->nodes[(i - 1) / 2]);
+        i = (i - 1) / 2;
+    }
+}
+
+Node* buildHuffmanTree(unsigned freq[]) {
+    MinHeap heap = { .size = 0 };
+    for (int i = 0; i < MAX_SYMBOLS; i++) {
+        if (freq[i]) {
+            Node* node = (Node*)malloc(sizeof(Node));
+            node->symbol = i;
+            node->freq = freq[i];
+            node->left = node->right = NULL;
+            push(&heap, node);
+        }
+    }
+    
+    while (heap.size > 1) {
+        Node* left = pop(&heap);
+        Node* right = pop(&heap);
+        Node* parent = (Node*)malloc(sizeof(Node));
+        parent->freq = left->freq + right->freq;
+        parent->left = left;
+        parent->right = right;
+        parent->symbol = 0;
+        push(&heap, parent);
+    }
+    
+    return pop(&heap);
+}
+
+void generateCodes(Node* root, char* code, int depth, char* codes[]) {
+    if (!root) return;
+    if (!root->left && !root->right) {
+        code[depth] = '\0';
+        codes[root->symbol] = strdup(code);
+        return;
+    }
+    code[depth] = '0';
+    generateCodes(root->left, code, depth + 1, codes);
+    code[depth] = '1';
+    generateCodes(root->right, code, depth + 1, codes);
+}
+
+void huffmanCompress(const char* input, char* output, int* outputLen) {
+    unsigned freq[MAX_SYMBOLS] = {0};
+    for (int i = 0; input[i]; i++) freq[(unsigned char)input[i]]++;
+    
+    Node* root = buildHuffmanTree(freq);
+    char* codes[MAX_SYMBOLS] = {0};
+    char code[256] = {0};
+    generateCodes(root, code, 0, codes);
+    
+    *outputLen = 0;
+    int bitPos = 0;
+    output[*outputLen] = 0;
+    for (int i = 0; input[i]; i++) {
+        char* c = codes[(unsigned char)input[i]];
+        for (int j = 0; c[j]; j++) {
+            if (bitPos == 8) {
+                output[++(*outputLen)] = 0;
+                bitPos = 0;
+            }
+            output[*outputLen] |= (c[j] - '0') << (7 - bitPos);
+            bitPos++;
+        }
+    }
+    if (bitPos > 0) (*outputLen)++;
+    
+    for (int i = 0; i < MAX_SYMBOLS; i++) if (codes[i]) free(codes[i]);
+    // Note: In practice, freq[] or tree must be sent for decompression
+}
+
+int main() {
+    const char* input = "<html><body>Hello, Akamai CDN!</body></html>";
+    char output[MAX_LEN];
+    int outputLen;
+    
+    huffmanCompress(input, output, &outputLen);
+    printf("Original size: %lu bytes\n", strlen(input));
+    printf("Compressed size: %d bytes\n", outputLen);
+    
+    return 0;
+}
+    </pre>
+
+    <h2>Time and Space Complexity</h2>
+    <table>
+      <tr>
+        <th>Algorithm</th>
+        <th>Best Case Time</th>
+        <th>Typical Case Time</th>
+        <th>Worst Case Time</th>
+        <th>Space Complexity</th>
+      </tr>
+      <tr>
+        <td>Huffman Coding</td>
+        <td>O(n) for uniform data</td>
+        <td>O(n log n)</td>
+        <td>O(n log n) for encoding</td>
+        <td>O(n) for heap and tree</td>
+      </tr>
+    </table>
+    <p>
+      Note: n = number of symbols in input data. Huffman Coding’s complexity is O(n log n) for building the tree using a min-heap, with O(n) for encoding/decoding. Space complexity is O(n) for the heap, tree, and code table.
+    </p>
+
+    <h2>Inference</h2>
+    <p>
+      For Data Compression in Akamai’s CDN, Huffman Coding is a robust algorithm, excelling at compressing text-based static and dynamic content like HTML, CSS, and JSON with high efficiency and guaranteed content fidelity due to its lossless nature. Its O(n log n) complexity is suitable for real-time compression on edge servers, and its role in DEFLATE (gzip) ensures compatibility with Akamai’s delivery protocols. While less effective for multimedia compared to specialized algorithms like JPEG or H.265, Huffman Coding’s simplicity, scalability, and effectiveness make it ideal for text-heavy use cases, supporting low-latency, cost-effective content delivery during high-demand scenarios like Black Friday sales.
+    </p>
+  </div>
+</body>
+</html>
