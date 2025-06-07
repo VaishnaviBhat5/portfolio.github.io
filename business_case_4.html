@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Business Case 4: Intelligent Cache Eviction and Content Replacement</title>
+  <style>
+    :root {
+      --color-bg: #f4f4f7;
+      --color-text: #1c1f26;
+      --color-accent: #0d47a1;
+      --color-highlight: #ffffff;
+      --color-muted: #607d8b;
+      --color-shadow: rgba(0, 0, 0, 0.06);
+      --primary-shade: #0a2e6e;
+      --border-radius: 10px;
+      --section-bg: #e9edf2;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(-45deg, #e9edf2, #f4f4f7, #dce3ea, #eef1f4);
+      background-size: 400% 400%;
+      animation: gradientFlow 15s ease infinite;
+      color: var(--color-text);
+      line-height: 1.8;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(6px);
+      border-radius: var(--border-radius);
+      box-shadow: 0 6px 20px var(--color-shadow);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: var(--color-accent);
+      text-align: center;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.8rem;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: var(--primary-shade);
+      margin: 2rem 0 1rem;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      color: var(--color-text);
+      margin: 1.5rem 0 1rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    li {
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+
+    th, td {
+      padding: 1rem;
+      border: 1px solid #ddd;
+      text-align: left;
+      font-size: 1.1rem;
+    }
+
+    th {
+      background-color: var(--color-accent);
+      color: white;
+    }
+
+    td {
+      background-color: #f9f9f9;
+    }
+
+    pre {
+      background: #f8f8f8;
+      padding: 12px;
+      border-left: 4px solid var(--color-accent);
+      overflow-x: auto;
+      font-size: 1rem;
+      border-radius: var(--border-radius);
+      margin: 1.5rem 0;
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>Intelligent Cache Eviction and Content Replacement</h1>
+
+    <p>
+      This business case focuses on optimizing cache management at edge servers in content delivery networks (CDNs) like Akamai, aiming to maximize cache hit ratios, reduce origin server load, and ensure fast content delivery for media, e-commerce, and web applications. The approach leverages intelligent eviction policies to decide which content to retain or replace based on access patterns, frequency, and recency, ensuring efficient use of limited cache space.
+    </p>
+     
+    <h2>Theory</h2>
+    <p>
+      Intelligent Cache Eviction and Content Replacement involves managing limited storage on edge servers to store frequently accessed content, such as images, videos, or web pages, to minimize latency and reduce load on origin servers. Caching algorithms prioritize content based on access patterns, balancing recency (recently accessed items are likely to be requested again) and frequency (frequently accessed items indicate high demand). The system uses data structures like linked lists, heaps, or hash maps to track content metadata (e.g., access counts, timestamps) and make eviction decisions when the cache is full. Effective cache management maximizes cache hit ratios—the percentage of requests served directly from the cache—reducing latency and bandwidth costs. Key considerations include adapting to dynamic access patterns, handling large-scale request volumes, and ensuring low computational overhead for eviction decisions. By optimizing cache content, CDNs deliver faster user experiences and improve resource efficiency.
+    </p>
+
+    <h2>Real-Time Scenario</h2>
+    <p>
+      During a global product launch on an e-commerce platform, users from New York, London, and Tokyo flood the website to view product pages, images, and promotional videos, generating millions of requests. Edge servers, deployed worldwide, cache frequently accessed content like product images and videos to minimize latency. When a user in London requests a product video, the edge server checks its cache: if the video is present (cache hit), it’s delivered instantly; if not (cache miss), it’s fetched from the origin server and stored, potentially evicting less valuable content. As traffic spikes, the cache management system uses real-time access data to prioritize content—popular images stay cached, while rarely accessed items are evicted. For instance, a trending product image accessed thousands of times remains in cache, while an older, rarely viewed banner is replaced. The system adapts to sudden popularity shifts, such as a viral video, by dynamically adjusting eviction decisions, ensuring high hit ratios and fast delivery even under heavy load.
+    </p>
+
+    <h2>Usage</h2>
+    <p>
+      For Akamai, Intelligent Cache Eviction and Content Replacement enhances content delivery by optimizing cache utilization. Key use cases include:
+    </p>
+    <ul>
+      <li><strong>E-commerce Content</strong>: Caching product images, videos, and pages to ensure fast load times during sales events, improving user engagement.</li>
+      <li><strong>Media Streaming</strong>: Storing popular video segments or thumbnails to reduce buffering and enhance streaming quality.</li>
+      <li><strong>Web Applications</strong>: Caching static assets (e.g., CSS, JavaScript) to accelerate page rendering for dynamic websites.</li>
+      <li><strong>Personalized Content</strong>: Retaining user-specific content, such as tailored banners, to support personalization without frequent origin requests.</li>
+      <li><strong>API Responses</strong>: Caching API data (e.g., inventory status) to reduce latency for real-time applications.</li>
+    </ul>
+
+    <h2>Impact </h2>
+    <p>
+      Implementing Intelligent Cache Eviction and Content Replacement provides significant benefits for Akamai’s CDN operations:
+    </p>
+    <ul>
+      <li><strong>Increased Cache Hit Ratios</strong>: Achieving 80-90% hit ratios reduces origin server requests, lowering latency by 60-80% for users.</li>
+      <li><strong>Enhanced User Experience</strong>: Faster content delivery boosts engagement and conversion rates by 15-25%, critical for e-commerce clients.</li>
+      <li><strong>Reduced Bandwidth Costs</strong>: Minimizing origin server traffic cuts bandwidth expenses by 20-30%, improving operational efficiency.</li>
+      <li><strong>Scalability</strong>: Handling millions of requests during traffic spikes maintains 99.99% uptime, ensuring reliability for global clients.</li>
+      <li><strong>Competitive Advantage</strong>: High-performance caching strengthens Akamai’s market position, attracting clients needing fast, scalable content delivery.</li>
+    </ul>
+
+    <h2>Challenges</h2>
+    <ul>
+      <li>Dynamic access patterns: Content popularity changes rapidly, requiring adaptive eviction.</li>
+      <li>Limited cache size: Edge servers have finite storage, necessitating efficient content selection.</li>
+      <li>High hit ratios: Maximizing cache hits to reduce origin server load and latency.</li>
+      <li>Scalability: Handling millions of requests across global edge servers.</li>
+      <li>Balancing recency and frequency: Retaining both recently and frequently accessed content.</li>
+    </ul>
+
+    <h2>Algorithms Used</h2>
+    <p>Below are the algorithms evaluated for intelligent cache eviction and content replacement, with summaries of their purpose and detailed explanations of their mechanics, followed by simplified implementations:</p>
+
+    <h2>Adaptive Replacement Cache (ARC)</h2>
+    <p>
+      ARC combines recency and frequency to dynamically balance cache content, adapting to access patterns to maximize hit ratios.
+    </p>
+    <h3>How It Works</h3>
+    <p>
+      ARC maintains two lists: T1 (recently accessed items) and T2 (frequently accessed items, i.e., accessed at least twice), each with associated ghost lists (B1 and B2) to track recently evicted items. The cache size is split between T1 and T2, with a parameter p adjusting their relative sizes based on access patterns. When an item is accessed, ARC checks if it’s in T1, T2, B1, or B2. If in T1 or T2, it’s moved to T2 (marking it frequent); if in B1, p increases to favor recency, and the item is added to T2; if in B2, p decreases to favor frequency, and the item is added to T2. If the cache is full, ARC evicts the least recent item from T1 (if T1 is large) or T2. Ghost lists help ARC adapt: frequent hits in B1 suggest more recency focus, while B2 hits suggest more frequency focus. In an e-commerce launch, ARC keeps trending product images (frequent) and recently viewed videos (recent) in cache, adapting to shifts like a viral video by adjusting p. Its O(1) operations make it efficient for Akamai’s high-throughput edge servers.
+    </p>
+    <pre>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAX_CACHE_SIZE 100
+
+typedef struct Node {
+    char key[20];
+    struct Node *prev, *next;
+} Node;
+
+typedef struct {
+    Node* head;
+    Node* tail;
+    int size;
+} LRUList;
+
+typedef struct {
+    LRUList *T1, *T2, *B1, *B2;
+    int p; // Balance parameter
+    int capacity; // Total cache size
+    int* hashMap; // Maps key hash to list index (0=T1, 1=T2, 2=B1, 3=B2, -1=not present)
+} ARC;
+
+void initList(LRUList* list) {
+    list->head = list->tail = NULL;
+    list->size = 0;
+}
+
+void initARC(ARC* arc, int capacity) {
+    arc->T1 = (LRUList*)malloc(sizeof(LRUList));
+    arc->T2 = (LRUList*)malloc(sizeof(LRUList));
+    arc->B1 = (LRUList*)malloc(sizeof(LRUList));
+    arc->B2 = (LRUList*)malloc(sizeof(LRUList));
+    initList(arc->T1); initList(arc->T2); initList(arc->B1); initList(arc->B2);
+    arc->p = 0;
+    arc->capacity = capacity;
+    arc->hashMap = (int*)malloc(MAX_CACHE_SIZE * sizeof(int));
+    for (int i = 0; i < MAX_CACHE_SIZE; i++) arc->hashMap[i] = -1;
+}
+
+void moveToHead(LRUList* list, Node* node) {
+    if (node == list->head) return;
+    if (node->prev) node->prev->next = node->next;
+    if (node->next) node->next->prev = node->prev;
+    if (node == list->tail) list->tail = node->prev;
+    node->next = list->head;
+    node->prev = NULL;
+    if (list->head) list->head->prev = node;
+    list->head = node;
+    if (!list->tail) list->tail = node;
+}
+
+Node* removeTail(LRUList* list) {
+    if (!list->tail) return NULL;
+    Node* node = list->tail;
+    list->tail = node->prev;
+    if (list->tail) list->tail->next = NULL;
+    else list->head = NULL;
+    list->size--;
+    node->prev = node->next = NULL;
+    return node;
+}
+
+void addToHead(LRUList* list, Node* node) {
+    node->next = list->head;
+    node->prev = NULL;
+    if (list->head) list->head->prev = node;
+    list->head = node;
+    if (!list->tail) list->tail = node;
+    list->size++;
+}
+
+unsigned int hashKey(const char* key) {
+    unsigned int hash = 0;
+    for (int i = 0; key[i]; i++) hash = hash * 31 + key[i];
+    return hash % MAX_CACHE_SIZE;
+}
+
+void arcAccess(ARC* arc, const char* key) {
+    unsigned int hash = hashKey(key);
+    int listIndex = arc->hashMap[hash];
+    Node* node = NULL;
+
+    if (listIndex == 0 || listIndex == 1) { // In T1 or T2
+        for (Node* n = (listIndex == 0 ? arc->T1->head : arc->T2->head); n; n = n->next) {
+            if (strcmp(n->key, key) == 0) { node = n; break; }
+        }
+        if (listIndex == 0) { arc->T1->size--; } else { arc->T2->size--; }
+        moveToHead(arc->T2, node);
+        arc->hashMap[hash] = 1;
+        arc->T2->size++;
+        return;
+    }
+
+    if (listIndex == 2) { // In B1
+        arc->p = arc->p + (arc->B2->size >= arc->B1->size ? 1 : arc->B2->size / arc->B1->size);
+        for (Node* n = arc->B1->head; n; n = n->next) {
+            if (strcmp(n->key, key) == 0) { node = n; break; }
+        }
+        arc->B1->size--;
+        arc->hashMap[hash] = -1;
+    } else if (listIndex == 3) { // In B2
+        arc->p = arc->p - (arc->B1->size >= arc->B2->size ? 1 : arc->B1->size / arc->B2->size);
+        for (Node* n = arc->B2->head; n; n = n->next) {
+            if (strcmp(n->key, key) == 0) { node = n; break; }
+        }
+        arc->B2->size--;
+        arc->hashMap[hash] = -1;
+    } else { // Not in cache
+        node = (Node*)malloc(sizeof(Node));
+        strcpy(node->key, key);
+        node->prev = node->next = NULL;
+    }
+
+    if (arc->T1->size + arc->T2->size >= arc->capacity) {
+        if (arc->T1->size > 0 && (arc->T1->size > arc->p || (listIndex == 2 && arc->T1->size == arc->p))) {
+            Node* evicted = removeTail(arc->T1);
+            addToHead(arc->B1, evicted);
+            arc->hashMap[hashKey(evicted->key)] = 2;
+        } else {
+            Node* evicted = removeTail(arc->T2);
+            addToHead(arc->B2, evicted);
+            arc->hashMap[hashKey(evicted->key)] = 3;
+        }
+    }
+
+    addToHead(listIndex == 2 || listIndex == 3 ? arc->T2 : arc->T1, node);
+    arc->hashMap[hash] = (listIndex == 2 || listIndex == 3 ? 1 : 0);
+    if (listIndex == 2 || listIndex == 3) arc->T2->size++; else arc->T1->size++;
+}
+
+int main() {
+    ARC arc;
+    initARC(&arc, 4);
+    printf("ARC Cache Simulation:\n");
+    char* requests[] = {"img1", "vid1", "img1", "img2", "vid2", "img1", "vid1", "img3"};
+    for (int i = 0; i < 8; i++) {
+        arcAccess(&arc, requests[i]);
+        printf("Access %s: T1=[", requests[i]);
+        for (Node* n = arc.T1->head; n; n = n->next) printf("%s ", n->key);
+        printf("], T2=[");
+        for (Node* n = arc.T2->head; n; n = n->next) printf("%s ", n->key);
+        printf("]\n");
+    }
+    return 0;
+}
+    </pre>
+
+    <h2>Least Frequently Used (LFU)</h2>
+    <p>
+      LFU evicts the least frequently accessed item, prioritizing content with high access counts to maximize cache hits.
+    </p>
+    <h3>How It Works</h3>
+    <p>
+      LFU tracks the access frequency of each cached item, incrementing a counter each time an item is requested. Items are stored in a min-heap, ordered by frequency (and recency as a tiebreaker), allowing O(log n) retrieval of the least frequent item for eviction. A hash map maps content keys to heap nodes for O(1) access. When the cache is full, LFU evicts the item with the lowest frequency; on a tie, the least recently accessed item is removed. When an item is accessed, its frequency is updated, and the heap is rebalanced. In an e-commerce scenario, LFU ensures popular product images (accessed thousands of times) remain cached, while rarely viewed banners are evicted. It excels for skewed access patterns but may retain old, once-popular items unless aging is applied. For Akamai, LFU’s O(log n) updates are slightly slower than ARC’s O(1), but its frequency focus aligns with CDN workloads.
+    </p>
+    <pre>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAX_CACHE_SIZE 100
+
+typedef struct {
+    char key[20];
+    int freq;
+    int time; // For recency tiebreaker
+    int index; // Heap index
+} CacheItem;
+
+typedef struct {
+    CacheItem* heap[MAX_CACHE_SIZE];
+    int size;
+    int capacity;
+    int timeCounter;
+    int* hashMap; // Maps key hash to heap index
+} LFU;
+
+void swap(CacheItem** a, CacheItem** b) {
+    CacheItem* temp = *a;
+    *a = *b;
+    *b = temp;
+    (*a)->index = (*b)->index;
+    (*b)->index = temp->index;
+}
+
+void heapifyUp(LFU* lfu, int index) {
+    while (index > 0) {
+        int parent = (index - 1) / 2;
+        if (lfu->heap[index]->freq < lfu->heap[parent]->freq ||
+            (lfu->heap[index]->freq == lfu->heap[parent]->freq && lfu->heap[index]->time > lfu->heap[parent]->time)) {
+            swap(&lfu->heap[index], &lfu->heap[parent]);
+            index = parent;
+        } else break;
+    }
+}
+
+void heapifyDown(LFU* lfu, int index) {
+    int smallest = index;
+    int left = 2 * index + 1;
+    int right = 2 * index + 2;
+    if (left < lfu->size && (lfu->heap[left]->freq < lfu->heap[smallest]->freq ||
+                             (lfu->heap[left]->freq == lfu->heap[smallest]->freq && lfu->heap[left]->time > lfu->heap[smallest]->time)))
+        smallest = left;
+    if (right < lfu->size && (lfu->heap[right]->freq < lfu->heap[smallest]->freq ||
+                              (lfu->heap[right]->freq == lfu->heap[smallest]->freq && lfu->heap[right]->time > lfu->heap[smallest]->time)))
+        smallest = right;
+    if (smallest != index) {
+        swap(&lfu->heap[index], &lfu->heap[smallest]);
+        heapifyDown(lfu, smallest);
+    }
+}
+
+void initLFU(LFU* lfu, int capacity) {
+    lfu->size = 0;
+    lfu->capacity = capacity;
+    lfu->timeCounter = 0;
+    lfu->hashMap = (int*)malloc(MAX_CACHE_SIZE * sizeof(int));
+    for (int i = 0; i < MAX_CACHE_SIZE; i++) lfu->hashMap[i] = -1;
+}
+
+unsigned int hashKey(const char* key) {
+    unsigned int hash = 0;
+    for (int i = 0; key[i]; i++) hash = hash * 31 + key[i];
+    return hash % MAX_CACHE_SIZE;
+}
+
+void lfuAccess(LFU* lfu, const char* key) {
+    unsigned int hash = hashKey(key);
+    int index = lfu->hashMap[hash];
+    
+    if (index != -1) { // Item in cache
+        lfu->heap[index]->freq++;
+        lfu->heap[index]->time = lfu->timeCounter++;
+        heapifyUp(lfu, index);
+        heapifyDown(lfu, index);
+        return;
+    }
+
+    if (lfu->size >= lfu->capacity) { // Evict least frequent
+        int evictedIndex = 0;
+        CacheItem* evicted = lfu->heap[evictedIndex];
+        lfu->hashMap[hashKey(evicted->key)] = -1;
+        lfu->heap[evictedIndex] = lfu->heap[--lfu->size];
+        lfu->heap[evictedIndex]->index = evictedIndex;
+        heapifyDown(lfu, 0);
+        free(evicted);
+    }
+
+    CacheItem* item = (CacheItem*)malloc(sizeof(CacheItem));
+    strcpy(item->key, key);
+    item->freq = 1;
+    item->time = lfu->timeCounter++;
+    item->index = lfu->size;
+    lfu->heap[lfu->size] = item;
+    lfu->hashMap[hash] = lfu->size++;
+    heapifyUp(lfu, lfu->size - 1);
+}
+
+int main() {
+    LFU lfu;
+    initLFU(&lfu, 4);
+    printf("LFU Cache Simulation:\n");
+    char* requests[] = {"img1", "vid1", "img1", "img2", "vid2", "img1", "vid1", "img3"};
+    for (int i = 0; i < 8; i++) {
+        lfuAccess(&lfu, requests[i]);
+        printf("Access %s: Cache=[", requests[i]);
+        for (int j = 0; j < lfu.size; j++) printf("%s(%d) ", lfu.heap[j]->key, lfu.heap[j]->freq);
+        printf("]\n");
+    }
+    return 0;
+}
+    </pre>
+
+    <h2>Least Recently Used (LRU)</h2>
+    <p>
+      LRU evicts the least recently accessed item, prioritizing recency to keep recently requested content in cache.
+    </p>
+    <h3>How It Works</h3>
+    <p>
+      LRU uses a double-linked list to track access order, with recently accessed items at the head and least recent at the tail, and a hash map for O(1) key lookups. When an item is accessed, it’s moved to the head; if not in cache, it’s added to the head, and if the cache is full, the tail item is evicted. In an e-commerce launch, LRU keeps recently viewed product pages or trending videos in cache, evicting older, less accessed content like outdated banners. Its O(1) operations make it ideal for Akamai’s high-speed edge servers, but it may evict frequently accessed items if not recently used, potentially lowering hit ratios compared to ARC or LFU. LRU’s simplicity and recency focus suit workloads with strong temporal locality, such as trending content.
+    </p>
+    <pre>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAX_CACHE_SIZE 100
+
+typedef struct Node {
+    char key[20];
+    struct Node *prev, *next;
+} Node;
+
+typedef struct {
+    Node* head;
+    Node* tail;
+    int size;
+    int capacity;
+    int* hashMap; // Maps key hash to node index
+} LRU;
+
+void initLRU(LRU* lru, int capacity) {
+    lru->head = lru->tail = NULL;
+    lru->size = 0;
+    lru->capacity = capacity;
+    lru->hashMap = (int*)malloc(MAX_CACHE_SIZE * sizeof(int));
+    for (int i = 0; i < MAX_CACHE_SIZE; i++) lru->hashMap[i] = -1;
+}
+
+unsigned int hashKey(const char* key) {
+    unsigned int hash = 0;
+    for (int i = 0; key[i]; i++) hash = hash * 31 + key[i];
+    return hash % MAX_CACHE_SIZE;
+}
+
+void moveToHead(LRU* lru, Node* node) {
+    if (node == lru->head) return;
+    if (node->prev) node->prev->next = node->next;
+    if (node->next) node->next->prev = node->prev;
+    if (node == lru->tail) lru->tail = node->prev;
+    node->next = lru->head;
+    node->prev = NULL;
+    if (lru->head) lru->head->prev = node;
+    lru->head = node;
+    if (!lru->tail) lru->tail = node;
+}
+
+void lruAccess(LRU* lru, const char* key) {
+    unsigned int hash = hashKey(key);
+    int index = lru->hashMap[hash];
+    Node* node = NULL;
+
+    if (index != -1) { // Item in cache
+        for (Node* n = lru->head; n; n = n->next) {
+            if (strcmp(n->key, key) == 0) { node = n; break; }
+        }
+        moveToHead(lru, node);
+        return;
+    }
+
+    if (lru->size >= lru->capacity) { // Evict least recent
+        Node* evicted = lru->tail;
+        lru->tail = evicted->prev;
+        if (lru->tail) lru->tail->next = NULL;
+        else lru->head = NULL;
+        lru->hashMap[hashKey(evicted->key)] = -1;
+        lru->size--;
+        free(evicted);
+    }
+
+    node = (Node*)malloc(sizeof(Node));
+    strcpy(node->key, key);
+    node->prev = node->next = NULL;
+    moveToHead(lru, node);
+    lru->hashMap[hash] = 1;
+    lru->size++;
+}
+
+int main() {
+    LRU lru;
+    initLRU(&lru, 4);
+    printf("LRU Cache Simulation:\n");
+    char* requests[] = {"img1", "vid1", "img1", "img2", "vid2", "img1", "vid1", "img3"};
+    for (int i = 0; i < 8; i++) {
+        lruAccess(&lru, requests[i]);
+        printf("Access %s: Cache=[", requests[i]);
+        for (Node* n = lru.head; n; n = n->next) printf("%s ", n->key);
+        printf("]\n");
+    }
+    return 0;
+}
+    </pre>
+
+    <h2>Time and Space Complexity</h2>
+    <table>
+      <tr>
+        <th>Algorithm</th>
+        <th>Best Case Time</th>
+        <th>Typical Case Time</th>
+        <th>Worst Case Time</th>
+        <th>Space Complexity</th>
+      </tr>
+      <tr>
+        <td>ARC</td>
+        <td>O(1)</td>
+        <td>O(1)</td>
+        <td>O(1)</td>
+        <td>O(N)</td>
+      </tr>
+      <tr>
+        <td>LFU</td>
+        <td>O(1) for lookup</td>
+        <td>O(log N) for update</td>
+        <td>O(log N) for update</td>
+        <td>O(N)</td>
+      </tr>
+      <tr>
+        <td>LRU</td>
+        <td>O(1)</td>
+        <td>O(1)</td>
+        <td>O(1)</td>
+        <td>O(N)</td>
+      </tr>
+    </table>
+    <p>
+      Note: N = cache size (number of items). ARC and LRU achieve O(1) for all operations due to linked lists and hash maps. LFU’s O(log N) updates stem from heap rebalancing. Space complexity is O(N) for all, accounting for hash maps and data structures (lists or heap).
+    </p>
+
+    <h2>Inference</h2>
+    <p>
+      For Intelligent Cache Eviction and Content Replacement, ARC is the recommended algorithm. It excels by dynamically balancing recency and frequency, achieving high cache hit ratios across diverse workloads, making it ideal for Akamai’s e-commerce and media platforms. LFU is a strong second, prioritizing frequency to retain popular content, suitable for skewed access patterns but less adaptive to sudden changes. LRU, while simple and fast, focuses on recency, which may evict frequent items, lowering hit ratios in some scenarios. ARC’s adaptability and performance make it the top choice for delivering fast, reliable content in large-scale CDNs.
+    </p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Akamai Cybersecurity Service Architecture</title>
+  <style>
+    :root {
+      --color-bg: #f4f4f7;
+      --color-text: #1c1f26;
+      --color-accent: #0d47a1;
+      --color-highlight: #ffffff;
+      --color-muted: #607d8b;
+      --color-shadow: rgba(0, 0, 0, 0.06);
+      --primary-shade: #0a2e6e;
+      --border-radius: 10px;
+      --section-bg: #e9edf2;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(-45deg, #e9edf2, #f4f4f7, #dce3ea, #eef1f4);
+      background-size: 400% 400%;
+      animation: gradientFlow 15s ease infinite;
+      color: var(--color-text);
+      line-height: 1.8;
+      padding-top: 70px;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: var(--color-highlight);
+      box-shadow: 0 2px 12px var(--color-shadow);
+      z-index: 1000;
+      height: 70px;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: var(--primary-shade);
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--color-accent);
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--color-muted);
+    }
+
+    .section {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      padding: 4rem 2rem;
+      width: 95%;
+      margin: auto;
+    }
+
+    .sub-section {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(6px);
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: 0 6px 20px var(--color-shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      width: 100%;
+      margin: auto;
+      margin-top: 50px;
+    }
+
+    .sub-section:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 24px var(--color-shadow);
+    }
+
+    h2 {
+      color: var(--color-accent);
+      margin-bottom: 1.5rem;
+      margin-top: 2rem;
+      border-bottom: 2px solid #ddd;
+      padding: 1.2rem;
+      padding-bottom: 0.8rem;
+      font-size: 2rem;
+      text-align: center;
+    }
+
+    h4 {
+      font-size: 1.4rem;
+      color: var(--color-accent);
+      margin-bottom: 1rem;
+    }
+
+    h5 {
+      font-size: 1.2rem;
+      color: var(--color-text);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    ul {
+      list-style-position: inside;
+      padding-left: 1.5rem;
+    }
+
+    ul li {
+      margin-bottom: 0.8rem;
+      font-size: 1.1rem;
+    }
+
+    a {
+      color: var(--color-accent);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: var(--color-muted);
+    }
+
+    @keyframes gradientFlow {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .nav-container {
+        padding: 1.5rem 1.2rem;
+      }
+
+      .section {
+        padding: 3rem 1.5rem;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .navbar {
+        height: 70px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-links.show {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+      }
+
+      .nav-container {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+
+      .section {
+        padding: 3rem 1.2rem;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">Vaishnavi Bhat</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Back to Portfolio</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="section">
+    <section class="sub-section">
+      <h2>Akamai Cybersecurity Service Architecture</h2>
+      <p>
+        Akamai’s cybersecurity services protect websites, applications, and APIs from threats like DDoS attacks, bots, and vulnerabilities by leveraging its edge network and advanced threat intelligence.
+      </p>
+      <h5>Step-by-Step Process:</h5>
+      <div style="text-align: center; margin-bottom: 2rem;">
+  <img src="cyber.png" alt="Akamai CDN Architecture Diagram" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+</div>
+      <ul>
+        <li><strong>Step 1: User Sends a Request to a Website or API</strong><br>
+          A user (e.g., a shopper accessing an e-commerce site or an API call from a mobile app) sends a request to a website or API endpoint. This request reaches Akamai’s Intelligent Edge Platform, which includes over 365,000 edge servers across 4,100+ points of presence (PoPs) in 135 countries, strategically placed to intercept traffic close to the user.</li>
+        <li><strong>Step 2: Request Inspection with Threat Intelligence</strong><br>
+          Akamai’s edge servers analyze the incoming request using its Threat Intelligence System, which is powered by real-time data from billions of daily requests across Akamai’s global network. The system identifies potential threats (e.g., malicious IPs, bot signatures, or unusual traffic patterns) by cross-referencing the request with an updated threat database that tracks known attack vectors, botnets, and compromised IPs. This enables rapid detection of risks like SQL injection, cross-site scripting (XSS), or unauthorized API access attempts.</li>
+        <li><strong>Step 3: Web & API Protection with App & API Protector</strong><br>
+          Akamai’s App & API Protector, a cloud-native Web Application and API Protection (WAAP) solution, applies multiple layers of defense at the edge server:<br>
+          <ul>
+            <li><strong>Web Application Firewall (WAF):</strong> Filters requests to block common exploits like SQL injection, XSS, and file inclusion attacks by matching request patterns against predefined and custom rules.</li>
+            <li><strong>API Security:</strong> Validates API requests by checking for proper authentication (e.g., OAuth tokens), rate-limiting excessive calls (to prevent abuse), and detecting malformed or shadow APIs (undocumented endpoints that could be exploited).</li>
+            <li><strong>Bot Management:</strong> Uses behavioral analysis and fingerprinting to distinguish between legitimate users, good bots (e.g., search engine crawlers), and malicious bots (e.g., credential stuffers). It employs techniques like JavaScript challenges and device fingerprinting to block bad bots while allowing legitimate traffic.</li>
+            <li><strong>Client Reputation:</strong> Assigns risk scores to IPs based on historical behavior, blocking high-risk IPs proactively to prevent attacks like scraping or fraud.</li>
+          </ul>
+        </li>
+        <li><strong>Step 4: DDoS Mitigation with Scrubbing Centers</strong><br>
+          If the Threat Intelligence System detects a Distributed Denial-of-Service (DDoS) attack (e.g., a flood of requests overwhelming a website during a product launch), Akamai routes the traffic to its Scrubbing Centers. These are high-capacity facilities designed to filter malicious traffic. The scrubbing process involves:<br>
+          <ul>
+            <li><strong>Traffic Analysis:</strong> Identifies abnormal patterns (e.g., UDP floods, SYN floods) using machine learning models trained on attack signatures.</li>
+            <li><strong>Traffic Filtering:</strong> Drops malicious packets while allowing legitimate traffic to pass through, using techniques like rate limiting, geo-blocking (restricting traffic from suspicious regions), and protocol validation (ensuring packets conform to expected standards).</li>
+            <li><strong>Traffic Redirection:</strong> Clean traffic is sent back to the edge server for delivery to the origin server or directly to the user, ensuring uninterrupted service.</li>
+          </ul>
+          Akamai’s massive network capacity (over 100 Tbps) absorbs and mitigates large-scale DDoS attacks without impacting performance.</li>
+        <li><strong>Step 5: Secure Request Forwarding to Origin Server</strong><br>
+          If the request is legitimate and requires data from the Origin Server (e.g., for dynamic content like a user’s account balance), the edge server forwards it securely using Akamai’s Intelligent Routing and Overlay Network. This network optimizes the path to avoid internet congestion and encrypts data in transit with TLS/SSL to prevent interception. The edge server also validates the response from the Origin Server to ensure it’s not compromised (e.g., checking for injected malicious scripts).</li>
+        <li><strong>Step 6: Response Delivered to User</strong><br>
+          The edge server delivers the response (e.g., a webpage or API data) to the user with security enhancements like HTTP Strict Transport Security (HSTS) to enforce secure connections and Content Security Policy (CSP) headers to prevent unauthorized scripts. This ensures a fast, secure, and reliable experience for the user, even during active threats.</li>
+      </ul>
+      <h5>All Components:</h5>
+      <ul>
+        <li><strong>Intelligent Edge Platform:</strong> Network of over 365,000+ edge servers in 4,100+ locations across 135 countries for request interception.</li>
+        <li><strong>Threat Intelligence System:</strong> Real-time threat detection using data from billions of daily requests.</li>
+        <li><strong>Threat Database:</strong> Tracks malicious IPs, botnets, and attack vectors for rapid threat identification.</li>
+        <li><strong>App & API Protector (WAAP):</strong> Provides WAF, API security, bot management, and client reputation.</li>
+        <li><strong>Web Application Firewall (WAF):</strong> Blocks exploits like SQL injection and XSS with rule-based filtering.</li>
+        <li><strong>API Security:</strong> Validates API requests for authentication, rate limits, and endpoint integrity.</li>
+        <li><strong>Bot Management:</strong> Uses behavioral analysis and fingerprinting to block malicious bots.</li>
+        <li><strong>Client Reputation:</strong> Assigns risk scores to IPs based on historical behavior.</li>
+        <li><strong>Scrubbing Centers:</strong> High-capacity facilities for DDoS traffic filtering.</li>
+        <li><strong>Traffic Analysis & Filtering:</strong> Identifies and drops malicious DDoS traffic using ML and rule-based techniques.</li>
+        <li><strong>Intelligent Routing & Overlay Network:</strong> Optimizes and secures request forwarding to origin servers.</li>
+        <li><strong>TLS/SSL Encryption:</strong> Secures data in transit between edge servers, origin servers, and users.</li>
+        <li><strong>HTTP Strict Transport Security (HSTS):</strong> Enforces secure connections for users.</li>
+        <li><strong>Content Security Policy (CSP):</strong> Prevents unauthorized scripts in responses.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

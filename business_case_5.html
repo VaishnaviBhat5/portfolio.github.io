@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Business Case 5: Edge Function Scheduling and Orchestration</title>
+  <style>
+    :root {
+      --color-bg: #f4f4f7;
+      --color-text: #1c1f26;
+      --color-accent: #0d47a1;
+      --color-highlight: #ffffff;
+      --color-muted: #607d8b;
+      --color-shadow: rgba(0, 0, 0, 0.06);
+      --primary-shade: #0a2e6e;
+      --border-radius: 10px;
+      --section-bg: #e9edf2;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(-45deg, #e9edf2, #f4f4f7, #dce3ea, #eef1f4);
+      background-size: 400% 400%;
+      animation: gradientFlow 15s ease infinite;
+      color: var(--color-text);
+      line-height: 1.8;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(6px);
+      border-radius: var(--border-radius);
+      box-shadow: 0 6px 20px var(--color-shadow);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: var(--color-accent);
+      text-align: center;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.8rem;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: var(--primary-shade);
+      margin: 2rem 0 1rem;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      color: var(--color-text);
+      margin: 1.5rem 0 1rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    li {
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+
+    th, td {
+      padding: 1rem;
+      border: 1px solid #ddd;
+      text-align: left;
+      font-size: 1.1rem;
+    }
+
+    th {
+      background-color: var(--color-accent);
+      color: white;
+    }
+
+    td {
+      background-color: #f9f9f9;
+    }
+
+    pre {
+      background: #f8f8f8;
+      padding: 12px;
+      border-left: 4px solid var(--color-accent);
+      overflow-x: auto;
+      font-size: 1rem;
+      border-radius: var(--border-radius);
+      margin: 1.5rem 0;
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>Edge Function Scheduling and Orchestration</h1>
+
+    <p>
+      This business case focuses on scheduling and orchestrating edge functions, such as personalization, A/B testing, and real-time analytics, at Akamai’s edge servers to ensure low-latency execution, efficient resource utilization, and enhanced user experiences at scale. By leveraging dependency-aware scheduling, dynamic prioritization, and resource allocation, this approach optimizes the execution of complex function pipelines in content delivery networks (CDNs).
+    </p>
+
+    <h2>Theory</h2>
+    <p>
+      Edge Function Scheduling and Orchestration involves coordinating the execution of lightweight, serverless functions at edge servers to process user requests closer to their geographic location. These functions, such as generating personalized content, running A/B tests, or performing real-time analytics, often have dependencies (e.g., data fetching must precede personalization) and varying priorities (e.g., user-facing tasks over background analytics). The system models functions as a directed acyclic graph (DAG), where nodes represent functions and edges denote dependencies. Scheduling algorithms assign functions to available compute resources (e.g., CPU cores) while respecting dependencies, minimizing latency, and optimizing resource use. Key considerations include handling dynamic workloads, ensuring SLA compliance (A Service Level Agreement is a formal contract or agreement between a service provider and a customer that defines the expected level of service, performance metrics, and responsibilities. SLAs are critical for ensuring reliable, low-latency delivery of content or services.) for time-sensitive tasks, and scaling across thousands of edge servers. Effective orchestration reduces end-to-end latency, improves throughput, and enhances user experiences by delivering fast, tailored content.
+    </p>
+
+    <h2>Real-Time Scenario</h2>
+    <p>
+      During a global Black Friday sale on an e-commerce platform, millions of users access the website, triggering edge functions for personalized product recommendations, A/B testing of UI variants, and real-time inventory checks. Edge servers in regions like San Francisco, Singapore, and Frankfurt execute these functions with dependencies: personalization depends on user data fetching, and A/B testing must complete before rendering. The scheduling system models functions as a DAG and assigns them to CPU cores on edge servers. High-priority functions, like personalized ads with strict SLAs, are executed first, while low-priority tasks (e.g., analytics) are deferred. When a traffic spike occurs in Europe, the system dynamically reschedules tasks, allocating more resources to critical functions and reordering tasks to minimize latency, ensuring fast page loads. If a function fails (e.g., due to a timeout), the system retries or skips non-critical tasks, maintaining reliability.
+    </p>
+
+    <h2>Usage</h2>
+    <p>
+      For Akamai, Edge Function Scheduling and Orchestration enables the execution of serverless functions at the edge to enhance content delivery. Key use cases include:
+    </p>
+    <ul>
+      <li><strong>Personalization</strong>: Generating tailored product recommendations or user interfaces based on real-time user data, improving engagement.</li>
+      <li><strong>A/B Testing</strong>: Running experiments to optimize UI or content layouts, ensuring rapid deployment and analysis without impacting performance.</li>
+      <li><strong>Real-Time Analytics</strong>: Processing user interactions for immediate insights, such as tracking click-through rates or inventory status.</li>
+      <li><strong>Security Functions</strong>: Executing authentication or bot detection at the edge, enhancing site protection with minimal latency.</li>
+      <li><strong>Content Transformation</strong>: Modifying images or videos (e.g., resizing, format conversion) to optimize delivery for user devices.</li>
+    </ul>
+    <p>
+      These functions are orchestrated to run in the correct order, with high-priority tasks (e.g., personalization) taking precedence, ensuring seamless integration into Akamai’s CDN workflow.
+    </p>
+
+    <h2>Impact </h2>
+    <p>
+      Implementing Edge Function Scheduling and Orchestration provides significant benefits for Akamai’s CDN operations:
+    </p>
+    <ul>
+      <li><strong>Reduced Latency</strong>: Executing functions at the edge minimizes round-trip times to origin servers, delivering content 50-70% faster for users, critical for e-commerce and media platforms.</li>
+      <li><strong>Improved User Experience</strong>: Personalized content and optimized A/B tests increase user engagement and conversion rates by up to 20%, boosting client revenue.</li>
+      <li><strong>Resource Efficiency</strong>: Optimized scheduling maximizes CPU and memory utilization, reducing operational costs by 15-25% on edge servers.</li>
+      <li><strong>Scalability</strong>: Handling millions of requests during traffic spikes ensures reliability, maintaining 99.99% uptime for clients.</li>
+      <li><strong>Competitive Advantage</strong>: Advanced edge computing capabilities differentiate Akamai, attracting clients seeking low-latency, dynamic content delivery.</li>
+    </ul>
+    <p>
+      This business case strengthens Akamai’s position as a leader in edge computing, enabling faster, more reliable services for global clients.
+    </p>
+
+    <h2>Challenges</h2>
+    <ul>
+      <li>Dependency Management: Ensuring functions execute in the correct order based on dependencies.</li>
+      <li>Low Latency: Minimizing execution time for user-facing functions to meet SLAs.</li>
+      <li>Resource Constraints: Limited CPU and memory on edge servers require efficient allocation.</li>
+      <li>Dynamic Workloads: Adapting to traffic spikes or function failures in real-time.</li>
+      <li>Scalability: Handling thousands of functions across global edge servers.</li>
+    </ul>
+
+    <h2>Algorithms Used</h2>
+    <p>Below are the algorithms evaluated for edge function scheduling and orchestration, with summaries of their purpose and detailed explanations of their mechanics, followed by simplified implementations:</p>
+
+    <h2>List Scheduling (Priority Queue + DAG)</h2>
+    <p>
+      List Scheduling combines dependency handling with dynamic prioritization to schedule functions on available resources, optimizing latency and throughput.
+    </p>
+    <h3>How It Works</h3>
+    <p>
+      List Scheduling models edge functions as a DAG, where nodes represent functions and edges represent dependencies. A priority queue maintains ready functions (those with no unsatisfied dependencies), ordered by priority (e.g., SLA urgency or execution time). The algorithm assigns ready functions to available resources (e.g., CPU cores) as they become free, respecting dependencies and prioritizing high-impact tasks. For each function, it updates the dependency status of its successors, adding them to the queue when ready. In a Black Friday scenario, List Scheduling ensures personalization (high priority) runs before analytics (low priority) and assigns functions to multiple cores for parallel execution, minimizing latency. Its O(V log V + E) complexity, where V is the number of functions and E is dependencies, makes it scalable for Akamai’s edge servers, and its flexibility supports dynamic workloads.
+    </p>
+    <pre>
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX_FUNCTIONS 100
+
+typedef struct {
+    int id;
+    int priority; // Higher value = higher priority
+    int duration; // Execution time in ms
+    int dependencies[MAX_FUNCTIONS];
+    int dep_count;
+} Function;
+
+typedef struct {
+    int id;
+    int priority;
+    int index;
+} PQNode;
+
+typedef struct {
+    PQNode heap[MAX_FUNCTIONS];
+    int size;
+} PriorityQueue;
+
+void heapifyUp(PriorityQueue* pq, int index) {
+    while (index > 0) {
+        int parent = (index - 1) / 2;
+        if (pq->heap[index].priority > pq->heap[parent].priority) {
+            PQNode temp = pq->heap[index];
+            pq->heap[index] = pq->heap[parent];
+            pq->heap[parent] = temp;
+            pq->heap[index].index = index;
+            pq->heap[parent].index = parent;
+            index = parent;
+        } else break;
+    }
+}
+
+void heapifyDown(PriorityQueue* pq, int index) {
+    int largest = index;
+    int left = 2 * index + 1;
+    int right = 2 * index + 2;
+    if (left < pq->size && pq->heap[left].priority > pq->heap[largest].priority) largest = left;
+    if (right < pq->size && pq->heap[right].priority > pq->heap[largest].priority) largest = right;
+    if (largest != index) {
+        PQNode temp = pq->heap[index];
+        pq->heap[index] = pq->heap[largest];
+        pq->heap[largest] = temp;
+        pq->heap[index].index = index;
+        pq->heap[largest].index = largest;
+        heapifyDown(pq, largest);
+    }
+}
+
+void push(PriorityQueue* pq, int id, int priority) {
+    pq->heap[pq->size].id = id;
+    pq->heap[pq->size].priority = priority;
+    pq->heap[pq->size].index = pq->size;
+    heapifyUp(pq, pq->size++);
+}
+
+PQNode pop(PriorityQueue* pq) {
+    PQNode result = pq->heap[0];
+    pq->heap[0] = pq->heap[--pq->size];
+    pq->heap[0].index = 0;
+    heapifyDown(pq, 0);
+    return result;
+}
+
+void listScheduling(Function* functions, int n, int m) { // n = functions, m = cores
+    int in_degree[MAX_FUNCTIONS] = {0};
+    int adj[MAX_FUNCTIONS][MAX_FUNCTIONS] = {0};
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < functions[i].dep_count; j++) {
+            int dep = functions[i].dependencies[j];
+            adj[dep][i] = 1;
+            in_degree[i]++;
+        }
+    }
+
+    PriorityQueue pq = { .size = 0 };
+    for (int i = 0; i < n; i++) {
+        if (in_degree[i] == 0) push(&pq, i, functions[i].priority);
+    }
+
+    int time = 0, completed = 0;
+    int core_busy_until[m];
+    for (int i = 0; i < m; i++) core_busy_until[i] = 0;
+
+    printf("List Scheduling Simulation:\n");
+    while (pq.size > 0 || completed < n) {
+        while (pq.size > 0) {
+            int core = -1, min_time = __INT_MAX__;
+            for (int i = 0; i < m; i++) {
+                if (core_busy_until[i] <= time && core_busy_until[i] < min_time) {
+                    core = i;
+                    min_time = core_busy_until[i];
+                }
+            }
+            if (core == -1) break;
+
+            PQNode node = pop(&pq);
+            int func = node.id;
+            printf("Time %d: Assign function %d to core %d (duration: %d)\n", time, func, core, functions[func].duration);
+            core_busy_until[core] = time + functions[func].duration;
+
+            for (int i = 0; i < n; i++) {
+                if (adj[func][i]) {
+                    in_degree[i]--;
+                    if (in_degree[i] == 0) push(&pq, i, functions[i].priority);
+                }
+            }
+            completed++;
+        }
+        time++;
+    }
+}
+
+int main() {
+    int n = 6, m = 2; // 6 functions, 2 cores
+    Function functions[] = {
+        {0, 10, 5, {}, 0}, // Fetch (no deps)
+        {1, 8, 3, {0}, 1}, // Personalize
+        {2, 6, 2, {0}, 1}, // A/B Test
+        {3, 4, 4, {1, 2}, 2}, // Render
+        {4, 2, 1, {}, 0}, // Analytics
+        {5, 1, 2, {4}, 1} // Logging
+    };
+    listScheduling(functions, n, m);
+    return 0;
+}
+    </pre>
+
+    <h2>Critical Path Method (CPM)</h2>
+    <p>
+      CPM optimizes end-to-end latency by identifying and prioritizing the critical path in the function dependency graph.
+    </p>
+    <h3>How It Works</h3>
+    <p>
+      CPM models edge functions as a DAG, with nodes as functions and edges as dependencies, each with a duration (execution time). It computes the earliest start and finish times for each function by traversing the DAG forward, ensuring dependencies are met. The critical path—the longest dependency chain—determines the minimum makespan (total execution time). Functions on the critical path are prioritized to avoid delays, while non-critical functions have slack time, allowing flexible scheduling. In a Black Friday scenario, CPM ensures the fetch → personalize → render pipeline (critical path) completes quickly, scheduling analytics in parallel where possible. Its O(V + E) complexity is efficient, and it can integrate with a priority queue for SLA-aware prioritization, making it ideal for Akamai’s latency-sensitive workflows.
+    </p>
+    <pre>
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX_FUNCTIONS 100
+
+typedef struct {
+    int id;
+    int duration; // Execution time in ms
+    int dependencies[MAX_FUNCTIONS];
+    int dep_count;
+} Function;
+
+void cpm(Function* functions, int n) {
+    int earliest_start[MAX_FUNCTIONS] = {0};
+    int earliest_finish[MAX_FUNCTIONS] = {0};
+    int adj[MAX_FUNCTIONS][MAX_FUNCTIONS] = {0};
+    int in_degree[MAX_FUNCTIONS] = {0};
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < functions[i].dep_count; j++) {
+            int dep = functions[i].dependencies[j];
+            adj[dep][i] = 1;
+            in_degree[i]++;
+        }
+    }
+
+    int queue[MAX_FUNCTIONS], front = 0, rear = 0;
+    for (int i = 0; i < n; i++) {
+        if (in_degree[i] == 0) queue[rear++] = i;
+    }
+
+    while (front < rear) {
+        int func = queue[front++];
+        earliest_finish[func] = earliest_start[func] + functions[func].duration;
+
+        for (int i = 0; i < n; i++) {
+            if (adj[func][i]) {
+                if (earliest_finish[func] > earliest_start[i]) {
+                    earliest_start[i] = earliest_finish[func];
+                }
+                in_degree[i]--;
+                if (in_degree[i] == 0) queue[rear++] = i;
+            }
+        }
+    }
+
+    int makespan = 0;
+    for (int i = 0; i < n; i++) {
+        if (earliest_finish[i] > makespan) makespan = earliest_finish[i];
+    }
+
+    printf("CPM Simulation:\n");
+    for (int i = 0; i < n; i++) {
+        printf("Function %d: Start=%d, Finish=%d\n", i, earliest_start[i], earliest_finish[i]);
+    }
+    printf("Critical Path Makespan: %d ms\n", makespan);
+}
+
+int main() {
+    int n = 6; // 6 functions
+    Function functions[] = {
+        {0, 5, {}, 0}, // Fetch
+        {1, 3, {0}, 1}, // Personalize
+        {2, 2, {0}, 1}, // A/B Test
+        {3, 4, {1, 2}, 2}, // Render
+        {4, 1, {}, 0}, // Analytics
+        {5, 2, {4}, 1} // Logging
+    };
+    cpm(functions, n);
+    return 0;
+}
+    </pre>
+
+    <h2>Topological Sort (Kahn’s Algorithm)</h2>
+    <p>
+      Kahn’s Algorithm ensures dependency-safe execution order for edge functions, supporting parallel execution of independent tasks.
+    </p>
+    <h3>How It Works</h3>
+    <p>
+      Kahn’s Algorithm models edge functions as a DAG and produces a topological order by processing functions with no dependencies (in-degree = 0), using a queue. As each function is processed, its dependencies are removed, and successors with zero in-degree are added to the queue. This ensures a valid execution order, allowing independent functions (e.g., A/B testing and analytics) to run in parallel. In a Black Friday scenario, it schedules fetch before personalize and render, enabling concurrent execution of non-dependent tasks. Its O(V + E) complexity is efficient, and it can integrate a priority queue for prioritization, making it suitable for Akamai’s static or semi-dynamic function pipelines.
+    </p>
+    <pre>
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX_FUNCTIONS 100
+
+typedef struct {
+    int id;
+    int dependencies[MAX_FUNCTIONS];
+    int dep_count;
+} Function;
+
+void kahnsAlgorithm(Function* functions, int n) {
+    int in_degree[MAX_FUNCTIONS] = {0};
+    int adj[MAX_FUNCTIONS][MAX_FUNCTIONS] = {0};
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < functions[i].dep_count; j++) {
+            int dep = functions[i].dependencies[j];
+            adj[dep][i] = 1;
+            in_degree[i]++;
+        }
+    }
+
+    int queue[MAX_FUNCTIONS], front = 0, rear = 0;
+    for (int i = 0; i < n; i++) {
+        if (in_degree[i] == 0) queue[rear++] = i;
+    }
+
+    printf("Kahn’s Algorithm Simulation:\nExecution Order: ");
+    while (front < rear) {
+        int func = queue[front++];
+        printf("%d ", func);
+
+        for (int i = 0; i < n; i++) {
+            if (adj[func][i]) {
+                in_degree[i]--;
+                if (in_degree[i] == 0) queue[rear++] = i;
+            }
+        }
+    }
+    printf("\n");
+}
+
+int main() {
+    int n = 6; // 6 functions
+    Function functions[] = {
+        {0, {}, 0}, // Fetch
+        {1, {0}, 1}, // Personalize
+        {2, {0}, 1}, // A/B Test
+        {3, {1, 2}, 2}, // Render
+        {4, {}, 0}, // Analytics
+        {5, {4}, 1} // Logging
+    };
+    kahnsAlgorithm(functions, n);
+    return 0;
+}
+    </pre>
+
+    <h2>Earliest Deadline First (EDF)</h2>
+    <p>
+      EDF prioritizes functions with the earliest deadlines to meet SLA requirements, supporting dependency constraints.
+    </p>
+    <h3>How It Works</h3>
+    <p>
+      EDF schedules functions based on their deadlines, ensuring timely execution for time-sensitive tasks (e.g., real-time ads). Functions are modeled in a DAG, with dependencies ensuring correct execution order. EDF uses a priority queue to maintain ready functions (no unsatisfied dependencies), ordered by deadline. At each time step, EDF assigns the function with the earliest deadline to an available resource, updating dependencies and adding ready successors to the queue. In a Black Friday scenario, EDF prioritizes personalized ads with a 50ms SLA over analytics, scheduling dependent tasks like data fetching first. Its O(V log V + E) complexity is scalable, but it requires deadline estimates, which may be challenging for some functions. For Akamai’s edge servers, EDF is ideal for latency-critical tasks with strict SLAs.
+    </p>
+    <pre>
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX_FUNCTIONS 100
+
+typedef struct {
+    int id;
+    int duration; // Execution time in ms
+    int deadline; // Deadline in ms
+    int dependencies[MAX_FUNCTIONS];
+    int capacity;
+    int dep_count;
+} Function;
+
+typedef struct {
+    int id;
+    int deadline;
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < functions[i].dep_count; j++) {
+        int dep = functions[i].dependencies[j];
+    int index;
+} PQNode;
+
+typedef struct {
+    PQNode heap[MAX_FUNCTIONS];
+    int size;
+} PriorityQueue;
+
+void heapifyUp(PriorityQueue* pq, int index) {
+    while (index > 0) {
+        int parent = (index - 1) / 2;
+        if (pq->heap[index].deadline < pq->heap[parent].deadline) {
+            PQNode temp = pq->heap[index];
+            pq->heap[index] = pq->heap[parent];
+            pq->heap[parent] = temp;
+            pq->heap[index].index = parent;
+            pq->heap[parent].index = parent;
+            index = parent;
+        } else break;
+    }
+}
+
+void heapifyDown(PriorityQueue* pq, int index) {
+    int smallest = index;
+    int left = index;
+    int left = 2 * index + 1;
+    int right = left + 2 * index + 2;
+    if (left < pq->size && pq->heap[left].deadline < pq->heap[smallest].deadline) {
+        left = smallest;
+        smallest = left;
+    }
+    if (right < pq->size && right < pq->heap[right].size && pq->heap[right].deadline < pq->heap[smallest].deadline) {
+        smallest = right;
+    }
+    if (smallest != index) {
+        PQNode temp = pq->heap[index];
+        pq->heap[index] = pq->heap[smallest];
+        pq->heap[smallest] = temp;
+        pq->heap[smallest].index = smallest;
+        pq->heap[index].index = smallest.index;
+        heapifyDown(pq->heap[index], pq);
+    }
+}
+
+void push(PriorityQueue* pq, int id, int deadline) {
+    pq->heap[pq->size].id = id;
+    pq->heap[pq->size].deadline = deadline;
+    pq->heap[pq->size].index = pq->size;
+    heapifyUp(pq, pq->size++);
+}
+
+PQNode pop(PriorityQueue* pq) {
+    PQNode result = pq->heap[0];
+    pq->heap[0] = pq->heap[pq->size - 1];
+    pq->size--;
+    pq->heap[0].index = 0;
+    heapifyDown(pq, 0);
+    return result;
+}
+
+void edfScheduling(Function* functions, int n, int m) { // n = functions, m = cores
+    int in_degree[MAX_FUNCTIONS] = {0};
+    int adj[MAX_FUNCTIONS][MAX_FUNCTIONS] = {0};
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < functions[i].dep_count; j++) {
+            int dep = functions[i].dependencies[j];
+            adj[dep][i] = 1;
+            in_degree[i]++;
+        }
+    }
+
+    PriorityQueue pq = { .size = 0 };
+    for (int i = 0; i < n; i++) {
+        if (in_degree[i] == 0) push(&pq, i, functions[i].deadline);
+    }
+
+    int time = 0, completed = 0;
+    int core_busy_until[m];
+    for (int i = 0; i < m; i++) core_busy_until[i] = 0;
+
+    printf("EDF Scheduling Simulation:\n");
+    while (pq.size > 0 || completed < n) {
+        while (pq.size > 0) {
+            int core = -1, min_time = __INT_MAX__;
+            for (int i = 0; i < m; i++) {
+                if (core_busy_until[i] <= time && core_busy_until[i] < min_time) {
+                    core = i;
+                    min_time = core_busy_until[i];
+                }
+            }
+            if (core == -1) break;
+
+            PQNode node = pop(&pq);
+            int func = node.id;
+            printf("Time %d: Assign function %d to core %d (duration: %d, deadline: %d)\n", 
+                   time, func, core, functions[func].duration, functions[func].deadline);
+            core_busy_until[core] = time + functions[func].duration;
+
+            for (int i = 0; i < n; i++) {
+                if (adj[func][i]) {
+                    in_degree[i]--;
+                    if (in_degree[i] == 0) push(&pq, i, functions[i].deadline);
+                }
+            }
+            completed++;
+        }
+        time++;
+    }
+}
+
+int main() {
+    int n = 6, m = 2; // 6 functions, 2 cores
+    Function functions[] = {
+        {0, 5, 20, {}, 0}, // Fetch
+        {1, 3, 15, {0}, 1}, // Personalize
+        {2, 2, 12, {0}, 1}, // A/B Test
+        {3, 4, 25, {1, 2}, 2}, // Render
+        {4, 1, 30, {}, 0}, // Analytics
+        {5, 2, 35, {4}, 1} // Logging
+    };
+    edfScheduling(functions, n, m);
+    return 0;
+}
+    </pre>
+
+    <h2>Time and Space Complexity</h2>
+    <table>
+      <tr>
+        <th>Algorithm</th>
+        <th>Best Case Time</th>
+        <th>Typical Case Time</th>
+        <th>Worst Case Time</th>
+        <th>Space Complexity</th>
+      </tr>
+      <tr>
+        <td>List Scheduling</td>
+        <td>O(V + E)</td>
+        <td>O(V log V + E)</td>
+        <td>O(V log V + E)</td>
+        <td>O(V + E)</td>
+      </tr>
+      <tr>
+        <td>CPM</td>
+        <td>O(V + E)</td>
+        <td>O(V + E)</td>
+        <td>O(V + E)</td>
+        <td>O(V + E)</td>
+      </tr>
+      <tr>
+        <td>Kahn’s Algorithm</td>
+        <td>O(V + E)</td>
+        <td>O(V + E)</td>
+        <td>O(V + E)</td>
+        <td>O(V + E)</td>
+      </tr>
+      <tr>
+        <td>EDF</td>
+        <td>O(V + E)</td>
+        <td>O(V log V + E)</td>
+        <td>O(V log V + E)</td>
+        <td>O(V + E)</td>
+      </tr>
+    </table>
+    <p>
+      Note: V = number of functions, E = number of dependencies. List Scheduling and EDF have O(V log V + E) due to priority queue operations. CPM and Kahn’s Algorithm achieve O(V + E) as they avoid dynamic prioritization. Space complexity is O(V + E) for all, accounting for adjacency lists, queues, and auxiliary arrays.
+    </p>
+
+    <h2>Inference</h2>
+    <p>
+      For Edge Function Scheduling and Orchestration, List Scheduling is the recommended algorithm. It excels by combining dependency handling with dynamic prioritization, enabling efficient resource allocation and low-latency execution across Akamai’s edge servers, ideal for heterogeneous workloads like personalization and A/B testing. CPM is a strong second, optimizing end-to-end latency for complex workflows by prioritizing the critical path, perfect for checkout pipelines. Kahn’s Algorithm, while simple and scalable, lacks native prioritization, making it better for static DAGs. EDF ensures SLA compliance for time-sensitive functions but requires accurate deadline estimates. List Scheduling’s flexibility and scalability make it the top choice for Akamai’s real-time, distributed edge computing needs.
+    </p>
+  </div>
+</body>
+</html>

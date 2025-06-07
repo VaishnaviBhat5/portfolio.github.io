@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Akamai CDN Service Architecture</title>
+  <style>
+    :root {
+      --color-bg: #f4f4f7;
+      --color-text: #1c1f26;
+      --color-accent: #0d47a1;
+      --color-highlight: #ffffff;
+      --color-muted: #607d8b;
+      --color-shadow: rgba(0, 0, 0, 0.06);
+      --primary-shade: #0a2e6e;
+      --border-radius: 10px;
+      --section-bg: #e9edf2;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(-45deg, #e9edf2, #f4f4f7, #dce3ea, #eef1f4);
+      background-size: 400% 400%;
+      animation: gradientFlow 15s ease infinite;
+      color: var(--color-text);
+      line-height: 1.8;
+      padding-top: 70px;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: var(--color-highlight);
+      box-shadow: 0 2px 12px var(--color-shadow);
+      z-index: 1000;
+      height: 70px;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: var(--primary-shade);
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--color-accent);
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--color-muted);
+    }
+
+    .section {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      padding: 4rem 2rem;
+      width: 95%;
+      margin: auto;
+    }
+
+    .sub-section {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(6px);
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: 0 6px 20px var(--color-shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      width: 100%;
+      margin: auto;
+      margin-top: 50px;
+    }
+
+    .sub-section:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 24px var(--color-shadow);
+    }
+
+    h2 {
+      color: var(--color-accent);
+      margin-bottom: 1.5rem;
+      margin-top: 2rem;
+      border-bottom: 2px solid #ddd;
+      padding: 1.2rem;
+      padding-bottom: 0.8rem;
+      font-size: 2rem;
+      text-align: center;
+    }
+
+    h4 {
+      font-size: 1.4rem;
+      color: var(--color-accent);
+      margin-bottom: 1rem;
+    }
+
+    h5 {
+      font-size: 1.2rem;
+      color: var(--color-text);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    ul {
+      list-style-position: inside;
+      padding-left: 1.5rem;
+    }
+
+    ul li {
+      margin-bottom: 0.8rem;
+      font-size: 1.1rem;
+    }
+
+    a {
+      color: var(--color-accent);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: var(--color-muted);
+    }
+
+    @keyframes gradientFlow {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .nav-container {
+        padding: 1.5rem 1.2rem;
+      }
+
+      .section {
+        padding: 3rem 1.5rem;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .navbar {
+        height: 70px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-links.show {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+      }
+
+      .nav-container {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+
+      .section {
+        padding: 3rem 1.2rem;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">Vaishnavi Bhat</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Back to Portfolio</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="section">
+    <section class="sub-section">
+      <h2>Akamai CDN Service Architecture</h2>
+      <p>
+        Akamai’s CDN ensures fast, reliable, and secure delivery of web content, media, and applications to users globally by leveraging a distributed network of edge servers. It minimizes latency, handles massive traffic spikes, and provides inherent security benefits.
+      </p>
+      <h5>Step-by-Step Process:</h5>
+      <div style="text-align: center; margin-bottom: 2rem;">
+  <img src="cdn.png" alt="Akamai CDN Architecture Diagram" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+</div>
+      <ul>
+        <li><strong>Step 1: Content Provider Uploads Content to Origin Servers</strong><br>
+          A content provider (e.g., an e-commerce website or streaming service) uploads their website assets (e.g., images, videos, HTML files) to their Origin Servers, which act as the central storage for all original content and the source of truth for the website or app.</li>
+        <li><strong>Step 2: Content Propagation to Edge Servers</strong><br>
+          Akamai’s Intelligent Edge Platform, with over 365,000 Edge Servers across 4,100+ points of presence (PoPs) in 135 countries, mirrors the content from the origin servers. This process uses Intelligent Caching, where Akamai’s algorithms predict which content (e.g., popular product images during a sale) will be accessed frequently and store it on edge servers closer to users. The content is either pushed (proactively sent to edge servers) or pulled (fetched when a user requests it) using techniques like predictive prefetching (guessing what users might need next) and demand-based replication (copying content based on user demand). To manage storage efficiently, Akamai implements cache eviction policies such as time-to-live (TTL) settings (removing content after a set expiration time) and least recently used (LRU) policies (evicting less frequently accessed content), ensuring space for new or more relevant data.</li>
+        <li><strong>Step 3: DNS Mapping and Request Routing with Mapping System</strong><br>
+          When a user enters a URL (e.g., www.ecommercestore.com) in their browser, their device sends a DNS Query to locate the website. Akamai’s Authoritative DNS System, supported by its Mapping System, resolves this query by mapping the URL to the IP address of the nearest edge server. The Mapping System continuously monitors internet conditions (e.g., latency, packet loss) to ensure accurate routing. The selection of the edge server is based on factors like the user’s geolocation, network conditions, server health, and load, ensuring the user is directed to the optimal server for fast delivery.</li>
+        <li><strong>Step 4: Edge Server Handles the Request (Caching, Delivery, and Freshness Validation)</strong><br>
+          The selected Edge Server checks if the requested content is in its cache:<br>
+          <ul>
+            <li><strong>Cache Hit:</strong> If the content (e.g., a product image) is cached, the edge server validates its freshness by checking with the Origin Server using HTTP headers like If-Modified-Since. If the content is still fresh, it delivers it directly to the user, minimizing delay.</li>
+            <li><strong>Cache Miss:</strong> If the content isn’t cached or is stale, the edge server fetches it from the Origin Server using Intelligent Routing. This routing uses Akamai’s overlay network, which avoids congested internet paths to reduce latency. Once fetched, the content is cached locally on the edge server for future requests, adhering to cache eviction policies.</li>
+          </ul>
+        </li>
+        <li><strong>Step 5: Dynamic Content Assembly</strong><br>
+          For dynamic content (e.g., a user’s shopping cart), Akamai uses Edge Side Includes (ESI) to assemble personalized web pages at the edge server. ESI combines static (cached) and dynamic (personalized) parts of a webpage, ensuring fast delivery even for customized content.</li>
+        <li><strong>Step 6: Content Delivery with Optimization and Security</strong><br>
+          The edge server delivers the content to the user with minimal latency, capable of handling massive traffic spikes (e.g., during global events like Black Friday sales or the Olympics) due to its distributed architecture. Akamai uses adaptive delivery protocols like HTTP/2 (faster loading with multiplexing), Brotli (efficient compression), and QUIC (reliable UDP-based delivery) to optimize performance across devices and networks. Additionally, Akamai provides basic security features at the edge, such as TLS/SSL termination (encrypting data between the user and edge server) and Secure Token Authentication (ensuring only authorized users access protected content), enhancing the CDN’s inherent security.</li>
+      </ul>
+      <h5>All Components:</h5>
+      <ul>
+        <li><strong>Origin Servers:</strong> Store the original content uploaded by the provider.</li>
+        <li><strong>Intelligent Edge Platform:</strong> A network of over 365,000 edge servers in 4,100+ PoPs across 135 countries.</li>
+        <li><strong>Edge Servers:</strong> Cache and deliver content to users from locations close to them.</li>
+        <li><strong>Intelligent Caching:</strong> Predicts and stores frequently accessed content on edge servers.</li>
+        <li><strong>Predictive Prefetching:</strong> Proactively caches content that users are likely to request next.</li>
+        <li><strong>Demand-Based Replication:</strong> Copies content to edge servers based on user demand.</li>
+        <li><strong>Cache Eviction Policies (TTL, LRU):</strong> Manages storage by removing outdated or less-used content.</li>
+        <li><strong>Authoritative DNS System:</strong> Resolves user requests to the nearest edge server.</li>
+        <li><strong>Mapping System:</strong> Monitors internet conditions to optimize routing.</li>
+        <li><strong>Intelligent Routing:</strong> Finds the best path between edge servers and origin servers, avoiding congestion.</li>
+        <li><strong>Overlay Network:</strong> Akamai’s private network for optimized data transfer.</li>
+        <li><strong>If-Modified-Since (HTTP Header):</strong> Validates content freshness with the Origin Server.</li>
+        <li><strong>Edge Side Includes (ESI):</strong> Assembles personalized web pages at the edge.</li>
+        <li><strong>Adaptive Delivery Protocols (HTTP/2, Brotli, QUIC):</strong> Optimize content delivery for speed and compatibility.</li>
+        <li><strong>TLS/SSL Termination:</strong> Encrypts data between the user and edge server.</li>
+        <li><strong>Secure Token Authentication:</strong> Ensures authorized access to protected content.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

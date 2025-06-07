@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Business Case 6: Route Optimization using Real-Time Network Graph Analytics</title>
+  <style>
+    :root {
+      --color-bg: #f4f4f7;
+      --color-text: #1c1f26;
+      --color-accent: #0d47a1;
+      --color-highlight: #ffffff;
+      --color-muted: #607d8b;
+      --color-shadow: rgba(0, 0, 0, 0.06);
+      --primary-shade: #0a2e6e;
+      --border-radius: 10px;
+      --section-bg: #e9edf2;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(-45deg, #e9edf2, #f4f4f7, #dce3ea, #eef1f4);
+      background-size: 400% 400%;
+      animation: gradientFlow 15s ease infinite;
+      color: var(--color-text);
+      line-height: 1.8;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(6px);
+      border-radius: var(--border-radius);
+      box-shadow: 0 6px 20px var(--color-shadow);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: var(--color-accent);
+      text-align: center;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.8rem;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: var(--primary-shade);
+      margin: 2rem 0 1rem;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      color: var(--color-text);
+      margin: 1.5rem 0 1rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    li {
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+
+    th, td {
+      padding: 1rem;
+      border: 1px solid #ddd;
+      text-align: left;
+      font-size: 1.1rem;
+    }
+
+    th {
+      background-color: var(--color-accent);
+      color: white;
+    }
+
+    td {
+      background-color: #f9f9f9;
+    }
+
+    pre {
+      background: #f8f8f8;
+      padding: 12px;
+      border-left: 4px solid var(--color-accent);
+      overflow-x: auto;
+      font-size: 1rem;
+      border-radius: var(--border-radius);
+      margin: 1.5rem 0;
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>Route Optimization using Real-Time Network Graph Analytics</h1>
+
+    <p>
+      This business case focuses on optimizing data routing paths across global networks to minimize latency and avoid congestion, ensuring reliable content delivery for applications like streaming, e-commerce, and gaming. By leveraging real-time network graph analytics, this approach dynamically selects the fastest paths to edge servers, enhancing user experience at scale for Akamai’s content delivery network (CDN).
+    </p>
+
+    <h2>Theory</h2>
+    <p>
+      Route Optimization using Real-Time Network Graph Analytics involves computing the shortest or fastest paths from users to edge servers in a weighted graph, where nodes represent users, routers, and edge servers, and edges represent network links with weights reflecting real-time latency or congestion. Algorithms analyze network conditions (e.g., latency, bandwidth, server load) to select optimal paths, adapting to dynamic changes like network failures or traffic spikes. Key considerations include minimizing end-to-end latency, ensuring reliability by avoiding congested or unhealthy servers, and scaling to handle thousands of nodes in a global CDN. Data structures like priority queues or adjacency lists support efficient path computation. Effective route optimization reduces latency, improves throughput, and ensures consistent content delivery, critical for user satisfaction in high-demand scenarios.
+    </p>
+
+    <h2>Real-Time Scenario</h2>
+    <p>
+      During a global live streaming event, users from London, São Paulo, and Sydney access a high-definition video feed, generating millions of requests. A user in London initiates a stream, triggering a routing query to find the fastest path to an edge server, such as one in Frankfurt, based on real-time metrics like latency (10ms vs. 20ms for a congested path), server load, and network health. The routing algorithm evaluates multiple paths, selecting the Frankfurt server to minimize buffering. If congestion occurs on a link to Frankfurt, the system reroutes to an alternative server in Amsterdam with a 12ms latency. For cache misses, the edge server fetches content from the origin, caches it, and delivers it to the user. As traffic surges, the system continuously monitors network conditions, dynamically adjusting paths to avoid overloaded servers or congested links, ensuring uninterrupted streaming with minimal latency across regions.
+    </p>
+
+    <h2>Usage</h2>
+    <p>
+      For Akamai, Route Optimization using Real-Time Network Graph Analytics enhances content delivery across its global CDN. Key use cases include:
+    </p>
+    <ul>
+      <li><strong>Media Streaming</strong>: Routing video requests to low-latency edge servers for seamless playback during live events.</li>
+      <li><strong>E-commerce</strong>: Directing product page or checkout requests to nearby servers to ensure fast load times during sales.</li>
+      <li><strong>Online Gaming</strong>: Minimizing lag by routing player data to the closest, least congested servers.</li>
+      <li><strong>API Delivery</strong>: Optimizing API call routing for real-time applications like payment processing or location services.</li>
+      <li><strong>Enterprise Applications</strong>: Ensuring low-latency access to business-critical services across global offices.</li>
+    </ul>
+    
+
+    <h2>Impact</h2>
+    <p>
+      Implementing Route Optimization provides significant benefits for Akamai’s CDN operations and clients:
+    </p>
+    <ul>
+      <li><strong>Reduced Latency</strong>: Cutting content delivery times by 60-80% improves user engagement and retention by 20-30%.</li>
+      <li><strong>High Reliability</strong>: Achieving 99.99% uptime by rerouting around congested or failed paths ensures consistent service.</li>
+      <li><strong>Scalability</strong>: Handling 3-5x traffic spikes during peak events maintains performance for global audiences.</li>
+      <li><strong>Cost Efficiency</strong>: Optimizing path selection reduces bandwidth costs by 15-25%, enhancing operational efficiency.</li>
+      <li><strong>Competitive Edge</strong>: Superior low-latency delivery strengthens Akamai’s market leadership, attracting clients needing reliable CDN solutions.</li>
+    </ul>
+    
+    <h2>Challenges</h2>
+    <ul>
+      <li>Dynamic Network Conditions: Adapting to real-time changes in latency and congestion.</li>
+      <li>Global Scale: Computing optimal paths across thousands of edge servers worldwide.</li>
+      <li>Server Health: Avoiding routing to overloaded or unhealthy servers.</li>
+      <li>Computational Efficiency: Balancing path optimality with fast query processing.</li>
+      <li>Network Failures: Rerouting quickly around failed links or servers.</li>
+    </ul>
+
+    <h2>Algorithms Used</h2>
+    <p>Below are the algorithms evaluated for route optimization, with summaries of their purpose and detailed explanations of their mechanics, followed by simplified implementations:</p>
+
+    <h2>A* (A Star)</h2>
+    <p>
+      A* is a pathfinding algorithm that finds the optimal route from a user to an edge server by combining actual costs (e.g., latency) with a heuristic estimate (e.g., geographic distance).
+    </p>
+    <h3>How It Works</h3>
+    <p>
+      A* models the network as a weighted graph, with nodes representing users, routers, and edge servers, and edges representing links with latency weights. It uses a priority queue to explore paths, prioritizing nodes with the lowest combined score: actual cost (g-score, sum of latencies so far) plus a heuristic estimate (h-score, e.g., straight-line distance to the edge server). The heuristic must be admissible (never overestimates true cost) to ensure optimality. A* evaluates neighbors, updates scores for better paths, and continues until the target edge server is reached, reconstructing the optimal path. In a live streaming scenario, A* routes a London user’s request to a Frankfurt edge server via a 10ms path, guided by geographic distance, avoiding a 20ms congested path. It adapts to real-time changes by updating edge weights and excludes unhealthy servers with infinite weights. Its O(E * log V) complexity (V = nodes, E = edges) is efficient with a good heuristic, making it ideal for Akamai’s large-scale, dynamic CDN.
+    </p>
+    <pre>
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#define MAX_NODES 1000
+#define INF 1e9
+
+typedef struct {
+    int id;
+    double fScore;
+} PQNode;
+
+typedef struct {
+    int from, to;
+    double weight;
+} Edge;
+
+void swap(PQNode* a, PQNode* b) {
+    PQNode temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void heapify(PQNode* pq, int size, int i) {
+    int smallest = i;
+    int left = 2 * i + 1;
+    int right = 2 * i + 2;
+    if (left < size && pq[left].fScore < pq[smallest].fScore) smallest = left;
+    if (right < size && pq[right].fScore < pq[smallest].fScore) smallest = right;
+    if (smallest != i) {
+        swap(&pq[i], &pq[smallest]);
+        heapify(pq, size, smallest);
+    }
+}
+
+void push(PQNode* pq, int* size, int id, double fScore) {
+    pq[*size].id = id;
+    pq[*size].fScore = fScore;
+    int i = (*size)++;
+    while (i > 0 && pq[(i - 1) / 2].fScore > pq[i].fScore) {
+        swap(&pq[i], &pq[(i - 1) / 2]);
+        i = (i - 1) / 2;
+    }
+}
+
+PQNode pop(PQNode* pq, int* size) {
+    PQNode result = pq[0];
+    pq[0] = pq[--(*size)];
+    heapify(pq, *size, 0);
+    return result;
+}
+
+double estimateLatency(int node, int goal) {
+    return sqrt(pow(node - goal, 2)); // Simplified heuristic
+}
+
+double getNetworkLatency(int from, int to, Edge* edges, int edgeCount) {
+    for (int i = 0; i < edgeCount; i++) {
+        if (edges[i].from == from && edges[i].to == to) return edges[i].weight;
+    }
+    return INF;
+}
+
+int* aStar(int start, int goal, Edge* edges, int edgeCount, int nodeCount) {
+    double gScore[MAX_NODES];
+    double fScore[MAX_NODES];
+    int prev[MAX_NODES];
+    PQNode pq[MAX_NODES];
+    int pqSize = 0;
+    int* path = (int*)malloc(MAX_NODES * sizeof(int));
+    int pathLen = 0;
+    
+    for (int i = 0; i < nodeCount; i++) {
+        gScore[i] = INF;
+        fScore[i] = INF;
+        prev[i] = -1;
+    }
+    gScore[start] = 0;
+    fScore[start] = estimateLatency(start, goal);
+    push(pq, &pqSize, start, fScore[start]);
+    
+    while (pqSize > 0) {
+        PQNode current = pop(pq, &pqSize);
+        if (current.id == goal) {
+            for (int at = goal; at != -1; at = prev[at])
+                path[pathLen++] = at;
+            break;
+        }
+        
+        for (int i = 0; i < nodeCount; i++) {
+            double weight = getNetworkLatency(current.id, i, edges, edgeCount);
+            if (weight == INF) continue;
+            double tentativeGScore = gScore[current.id] + weight;
+            if (tentativeGScore < gScore[i]) {
+                prev[i] = current.id;
+                gScore[i] = tentativeGScore;
+                fScore[i] = gScore[i] + estimateLatency(i, goal);
+                push(pq, &pqSize, i, fScore[i]);
+            }
+        }
+    }
+    
+    int* result = (int*)malloc((pathLen + 1) * sizeof(int));
+    for (int i = 0; i < pathLen; i++) result[i] = path[pathLen - 1 - i];
+    result[pathLen] = -1;
+    free(path);
+    return result;
+}
+
+int main() {
+    int nodeCount = 6;
+    Edge edges[] = {
+        {0, 1, 2.5}, {0, 2, 4.0}, {1, 3, 3.0}, {2, 3, 1.5},
+        {3, 4, 2.0}, {1, 4, 5.0}, {4, 5, 1.0}
+    };
+    int edgeCount = 7;
+    int start = 0; // User in London
+    int goal = 5; // Edge server in Frankfurt
+    
+    int* path = aStar(start, goal, edges, edgeCount, nodeCount);
+    printf("A* Path from user to edge server: ");
+    for (int i = 0; path[i] != -1; i++) {
+        printf("%d ", path[i]);
+    }
+    printf("\n");
+    free(path);
+    return 0;
+}
+    </pre>
+
+    <h2>Bellman-Ford Algorithm</h2>
+    <p>
+      Bellman-Ford computes single-source shortest paths, adapting to dynamic network conditions and handling negative weights if present.
+    </p>
+    <h3>How It Works</h3>
+    <p>
+      Bellman-Ford models the network as a weighted graph and computes the shortest path from a source (user) to all nodes by relaxing all edges V-1 times, updating distances if a shorter path is found. It can detect negative cycles, ensuring robustness. In a live streaming scenario, it routes a São Paulo user’s request to a local edge server, recomputing paths when congestion increases latency on a link. It excludes unhealthy servers by setting infinite weights. Its O(V * E) complexity is slower than A* for sparse graphs (E ≈ V in CDNs), making it less efficient for frequent queries in large networks. Negative weights are rare in CDNs (latency is positive), reducing its unique advantage. However, it’s simple and adaptable, suitable for smaller networks or scenarios with infrequent updates.
+    </p>
+    <pre>
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX_NODES 1000
+#define INF 1e9
+
+typedef struct {
+    int from, to;
+    double weight;
+} Edge;
+
+int* bellmanFord(int start, int goal, Edge* edges, int edgeCount, int nodeCount) {
+    double distances[MAX_NODES];
+    int prev[MAX_NODES];
+    int* path = (int*)malloc(MAX_NODES * sizeof(int));
+    int pathLen = 0;
+    
+    for (int i = 0; i < nodeCount; i++) {
+        distances[i] = INF;
+        prev[i] = -1;
+    }
+    distances[start] = 0;
+    
+    for (int i = 0; i < nodeCount - 1; i++) {
+        for (int j = 0; j < edgeCount; j++) {
+            int u = edges[j].from, v = edges[j].to;
+            double weight = edges[j].weight;
+            if (distances[u] != INF && distances[u] + weight < distances[v]) {
+                distances[v] = distances[u] + weight;
+                prev[v] = u;
+            }
+        }
+    }
+    
+    for (int at = goal; at != -1; at = prev[at]) {
+        path[pathLen++] = at;
+    }
+    
+    int* result = (int*)malloc((pathLen + 1) * sizeof(int));
+    for (int i = 0; i < pathLen; i++) result[i] = path[pathLen - 1 - i];
+    result[pathLen] = -1;
+    free(path);
+    return result;
+}
+
+int main() {
+    int nodeCount = 6;
+    Edge edges[] = {
+        {0, 1, 2.5}, {0, 2, 4.0}, {1, 3, 3.0}, {2, 3, 1.5},
+        {3, 4, 2.0}, {1, 4, 5.0}, {4, 5, 1.0}
+    };
+    int edgeCount = 7;
+    int start = 0; // User in São Paulo
+    int goal = 5; // Edge server in local region
+    
+    int* path = bellmanFord(start, goal, edges, edgeCount, nodeCount);
+    printf("Bellman-Ford Path from user to edge server: ");
+    for (int i = 0; path[i] != -1; i++) {
+        printf("%d ", path[i]);
+    }
+    printf("\n");
+    free(path);
+    return 0;
+}
+    </pre>
+
+    <h2>Floyd-Warshall Algorithm</h2>
+    <p>
+      Floyd-Warshall computes all-pairs shortest paths, providing a comprehensive path map for static or semi-static networks.
+    </p>
+    <h3>How It Works</h3>
+    <p>
+      Floyd-Warshall uses dynamic programming to compute shortest paths between all pairs of nodes in a weighted graph. It iterates over all nodes as intermediate points, updating the shortest path between each pair if a better path exists via the intermediate node. In a streaming scenario, it could provide paths for all users to all edge servers but requires O(V³) computation, making it unscalable for large CDNs with thousands of nodes. Dynamic updates (e.g., latency changes) necessitate recomputing the entire matrix, which is too slow for real-time use. It can exclude unhealthy servers but at high cost. Its O(V²) space and O(1) query time after precomputation are offset by its inability to handle frequent updates, making it unsuitable for Akamai’s dynamic, real-time routing needs.
+    </p>
+    <pre>
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX_NODES 1000
+#define INF 1e9
+
+double dist[MAX_NODES][MAX_NODES];
+int prev[MAX_NODES][MAX_NODES];
+
+void floydWarshall(int nodeCount, double graph[MAX_NODES][MAX_NODES]) {
+    for (int i = 0; i < nodeCount; i++) {
+        for (int j = 0; j < nodeCount; j++) {
+            dist[i][j] = graph[i][j];
+            if (graph[i][j] != INF && i != j) prev[i][j] = i;
+            else prev[i][j] = -1;
+        }
+    }
+    
+    for (int k = 0; k < nodeCount; k++) {
+        for (int i = 0; i < nodeCount; i++) {
+            for (int j = 0; j < nodeCount; j++) {
+                if (dist[i][k] != INF && dist[k][j] != INF && dist[i][k] + dist[k][j] < dist[i][j]) {
+                    dist[i][j] = dist[i][k] + dist[k][j];
+                    prev[i][j] = prev[k][j];
+                }
+            }
+        }
+    }
+}
+
+int* getPath(int start, int goal, int nodeCount) {
+    int* path = (int*)malloc(MAX_NODES * sizeof(int));
+    int pathLen = 0;
+    if (dist[start][goal] == INF) {
+        path[0] = -1;
+        return path;
+    }
+    
+    for (int at = goal; at != -1; at = prev[start][at]) {
+        path[pathLen++] = at;
+        if (at == start) break;
+    }
+    
+    int* result = (int*)malloc((pathLen + 1) * sizeof(int));
+    for (int i = 0; i < pathLen; i++) result[i] = path[pathLen - 1 - i];
+    result[pathLen] = -1;
+    free(path);
+    return result;
+}
+
+int main() {
+    int nodeCount = 6;
+    double graph[MAX_NODES][MAX_NODES];
+    for (int i = 0; i < nodeCount; i++) {
+        for (int j = 0; j < nodeCount; j++) {
+            graph[i][j] = (i == j) ? 0 : INF;
+        }
+    }
+    graph[0][1] = 2.5; graph[0][2] = 4.0; graph[1][3] = 3.0; graph[2][3] = 1.5;
+    graph[3][4] = 2.0; graph[1][4] = 5.0; graph[4][5] = 1.0;
+    
+    floydWarshall(nodeCount, graph);
+    
+    int start = 0; // User in Sydney
+    int goal = 5; // Edge server in local region
+    int* path = getPath(start, goal, nodeCount);
+    printf("Floyd-Warshall Path from user to edge server: ");
+    for (int i = 0; path[i] != -1; i++) {
+        printf("%d ", path[i]);
+    printf("\n");
+    free(path);
+    return 0;
+}
+    </pre>
+
+    <h2>Time and Space Complexity</h2>
+    <table>
+      <tr>
+        <th>Algorithm</th>
+        <th>Best Case Time</th>
+        <th>Typical Case Time</th>
+        <th>Worst Case Time</th>
+        <th>Space Complexity</th>
+      </tr>
+      <tr>
+        <td>A* (A Star)</td>
+        <td>O(V) with perfect heuristic</td>
+        <td>O(E * log V)</td>
+        <td>O(V² * log V) for dense graph</td>
+        <td>O(V)</td>
+      </tr>
+      <tr>
+        <td>Bellman-Ford</td>
+        <td>O(V * E)</td>
+        <td>O(V * E)</td>
+        <td>O(V * E)</td>
+        <td>O(V)</td>
+      </tr>
+      <tr>
+        <td>Floyd-Warshall</td>
+        <td>O(V³)</td>
+        <td>O(V³)</td>
+        <td>O(V³)</td>
+        <td>O(V²)</td>
+      </tr>
+    </table>
+    <p>
+      Note: V = number of nodes (users, edge servers), E = number of edges (network links). A*’s efficiency depends on the heuristic; Bellman-Ford is slower but handles negative weights; Floyd-Warshall’s O(V³) is prohibitive for large graphs, with O(V²) space for the distance matrix.
+    </p>
+
+    <h2>Inference</h2>
+    <p>
+      For Route Optimization using Real-Time Network Graph Analytics, A* is the recommended algorithm. It excels by combining real-time latency costs with heuristic estimates (e.g., geographic distance), ensuring fast, optimal path computation for Akamai’s CDN. Its O(E * log V) complexity and adaptability to dynamic network changes make it ideal for frequent queries during traffic surges, such as live streaming events. Bellman-Ford is a viable alternative for smaller networks or scenarios with negative weights (rare in CDNs), but its O(V * E) complexity limits scalability. Floyd-Warshall is unsuitable due to its O(V³) computation and poor adaptability to real-time updates, as it computes unnecessary all-pairs paths. A*’s efficiency, scalability, and alignment with single-source routing make it the top choice for delivering low-latency, reliable content across global networks.
+    </p>
+  </div>
+</body>
+</html>

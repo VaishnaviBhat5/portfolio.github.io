@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Business Case 10: Log Analytics for Cloud Monitoring</title>
+  <style>
+    :root {
+      --color-bg: #f4f4f7;
+      --color-text: #1c1f26;
+      --color-accent: #0d47a1;
+      --color-highlight: #ffffff;
+      --color-muted: #607d8b;
+      --color-shadow: rgba(0, 0, 0, 0.06);
+      --primary-shade: #0a2e6e;
+      --border-radius: 10px;
+      --section-bg: #e9edf2;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(-45deg, #e9edf2, #f4f4f7, #dce3ea, #eef1f4);
+      background-size: 400% 400%;
+      animation: gradientFlow 15s ease infinite;
+      color: var(--color-text);
+      line-height: 1.8;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(6px);
+      border-radius: var(--border-radius);
+      box-shadow: 0 6px 20px var(--color-shadow);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: var(--color-accent);
+      text-align: center;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.8rem;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: var(--primary-shade);
+      margin: 2rem 0 1rem;
+    }
+
+    h3 {
+      font-size: 1.4rem;
+      color: var(--color-text);
+      margin: 1.5rem 0 1rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    li {
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+
+    th, td {
+      padding: 1rem;
+      border: 1px solid #ddd;
+      text-align: left;
+      font-size: 1.1rem;
+    }
+
+    th {
+      background-color: var(--color-accent);
+      color: white;
+    }
+
+    td {
+      background-color: #f9f9f9;
+    }
+
+    pre {
+      background: #f8f8f8;
+      padding: 12px;
+      border-left: 4px solid var(--color-accent);
+      overflow-x: auto;
+      font-size: 1rem;
+      border-radius: var(--border-radius);
+      margin: 1.5rem 0;
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>Log Analytics for Cloud Monitoring</h1>
+
+    <p>
+      This business case focuses on processing and analyzing large-scale logs in real-time to monitor cloud infrastructure, enabling proactive issue detection and performance optimization. The approach leverages efficient data structures for log ingestion, indexing, and querying to identify errors, bottlenecks, and trends swiftly.
+    </p>
+    <h2>Theory</h2>
+    <p>
+      Log Analytics for Cloud Monitoring involves ingesting, storing, and analyzing high-volume log data from cloud servers, applications, and services in real-time. Logs (e.g., error messages, request rates, latency) are generated at massive scale, requiring fast write throughput, efficient storage, and quick queries for metrics or patterns. Data structures like LSM trees handle rapid ingestion, while indexes enable fast searches for issue detection (e.g., error spikes). Range queries help analyze trends over time, aiding performance optimization. Key considerations include scalability for millions of logs, low-latency analysis for proactive alerts, and efficient storage to manage data growth, ensuring robust cloud monitoring.
+    </p>
+    <h2>Real-Time Scenario</h2>
+    <p>
+      During a peak shopping event, a cloud platform generates millions of logs from web servers, databases, and APIs. The log analytics system ingests logs in real-time, storing entries like "ERROR: DB timeout" or "Request: 200ms latency" with timestamps and source IPs. An LSM tree handles the high write rate, while an inverted index enables fast searches for "ERROR" or specific IPs. A sudden spike in database timeout errors is detected via range queries, pinpointing a bottleneck in a specific region. The system alerts admins within seconds, triggering load balancing to optimize performance. Trend analysis reveals rising latency over hours, prompting proactive resource scaling, ensuring uptime and user satisfaction.
+    </p>
+    <h2>Usage</h2>
+    <p>
+      For Akamai, Log Analytics for Cloud Monitoring enhances infrastructure reliability and client services. Key use cases include:
+    </p>
+    <ul>
+      <li><strong>Error Detection</strong>: Identifying error spikes (e.g., 500 errors) in real-time to alert admins.</li>
+      <li><strong>Performance Monitoring</strong>: Tracking latency and throughput to optimize cloud resources.</li>
+      <li><strong>Security Analysis</strong>: Detecting unusual patterns (e.g., repeated failed logins) in logs for threat mitigation.</li>
+      <li><strong>Trend Analysis</strong>: Analyzing log trends over time to predict and prevent bottlenecks.</li>
+      <li><strong>Client Reporting</strong>: Providing real-time insights on service performance for Akamai’s clients.</li>
+    </ul>
+
+    <h2>Impact</h2>
+    <p>
+      Implementing Log Analytics for Cloud Monitoring delivers significant benefits for Akamai’s operations and clients:
+    </p>
+    <ul>
+      <li><strong>Proactive Issue Resolution</strong>: Detects 90% of issues within seconds, reducing downtime by 30-40%.</li>
+      <li><strong>Performance Gains</strong>: Optimizes resource use, cutting latency by 20-30% during peak loads.</li>
+      <li><strong>Enhanced Security</strong>: Flags suspicious log patterns, improving threat response by 35%.</li>
+      <li><strong>Cost Efficiency</strong>: Reduces over-provisioning, saving 15-25% on cloud costs.</li>
+      <li><strong>Client Trust</strong>: Real-time analytics boost reliability, increasing client satisfaction by 25%.</li>
+    </ul>
+    <h2>Challenges</h2>
+    <ul>
+      <li>High volume: Ingesting millions of logs per second in real-time.</li>
+      <li>Low latency: Enabling fast queries for immediate issue detection.</li>
+      <li>Scalability: Managing growing log data across distributed cloud systems.</li>
+      <li>Data variety: Handling diverse log formats (e.g., errors, metrics, events).</li>
+      <li>Storage efficiency: Minimizing space while retaining query performance.</li>
+    </ul>
+
+    <h2>Algorithms Used</h2>
+    <p>Below are the algorithms evaluated for log analytics, with summaries of their purpose and detailed explanations, followed by optimized implementations:</p>
+
+    <h2>LSM Tree (Log-Structured Merge Tree)</h2>
+    <p>
+      Designed for high write throughput, ideal for log ingestion at scale, and supports efficient range queries. Widely used in systems like Cassandra, RocksDB, and InfluxDB.
+    </p>
+    <h3>How It Works</h3>
+    <p>
+      LSM Tree optimizes for high write throughput by appending logs to an in-memory memtable (e.g., a balanced tree). When full, the memtable is flushed to disk as an immutable, sorted SSTable. Multiple SSTables are merged periodically via compaction, keeping data sorted for efficient range queries (e.g., logs by timestamp). For cloud monitoring, this allows rapid ingestion of millions of logs, with queries to detect issues like error spikes over time. Compaction merges overlapping data, reducing redundancy and optimizing storage, making it scalable for large-scale log analytics.
+    </p>
+    <pre>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAX_MEMTABLE 5
+#define MAX_KEY 100
+
+typedef struct {
+    char key[32]; // e.g., timestamp
+    char value[64]; // e.g., log message
+} LogEntry;
+
+typedef struct {
+    LogEntry entries[MAX_MEMTABLE];
+    int size;
+} Memtable;
+
+typedef struct {
+    LogEntry* entries;
+    int size;
+} SSTable;
+
+void initMemtable(Memtable* mt) {
+    mt->size = 0;
+}
+
+void addLog(Memtable* mt, const char* key, const char* value) {
+    if (mt->size < MAX_MEMTABLE) {
+        strcpy(mt->entries[mt->size].key, key);
+        strcpy(mt->entries[mt->size].value, value);
+        mt->size++;
+    }
+}
+
+void sortMemtable(Memtable* mt) {
+    for (int i = 0; i < mt->size - 1; i++) {
+        for (int j = 0; j < mt->size - i - 1; j++) {
+            if (strcmp(mt->entries[j].key, mt->entries[j + 1].key) > 0) {
+                LogEntry temp = mt->entries[j];
+                mt->entries[j] = mt->entries[j + 1];
+                mt->entries[j + 1] = temp;
+            }
+        }
+    }
+}
+
+SSTable* flushToSSTable(Memtable* mt) {
+    SSTable* sst = (SSTable*)malloc(sizeof(SSTable));
+    sst->entries = (LogEntry*)malloc(mt->size * sizeof(LogEntry));
+    sst->size = mt->size;
+    sortMemtable(mt);
+    for (int i = 0; i < mt->size; i++) sst->entries[i] = mt->entries[i];
+    mt->size = 0;
+    return sst;
+}
+
+char* queryLog(SSTable* sst, const char* key) {
+    for (int i = 0; i < sst->size; i++) {
+        if (strcmp(sst->entries[i].key, key) == 0) return sst->entries[i].value;
+    }
+    return "Not found";
+}
+
+void freeSSTable(SSTable* sst) {
+    free(sst->entries);
+    free(sst);
+}
+
+int main() {
+    Memtable mt;
+    initMemtable(&mt);
+    printf("LSM Tree Log Analytics:\n");
+    
+    printf("Example 1: Add normal log\n");
+    addLog(&mt, "2025-06-07T14:00:00", "INFO: Server started");
+    printf("Memtable size: %d\n", mt.size);
+    
+    printf("Example 2: Add error log\n");
+    addLog(&mt, "2025-06-07T14:00:01", "ERROR: DB timeout");
+    printf("Memtable size: %d\n", mt.size);
+    
+    printf("Example 3: Add latency log\n");
+    addLog(&mt, "2025-06-07T14:00:02", "INFO: Latency 200ms");
+    printf("Memtable size: %d\n", mt.size);
+    
+    printf("Example 4: Add more logs\n");
+    addLog(&mt, "2025-06-07T14:00:03", "WARN: High CPU");
+    addLog(&mt, "2025-06-07T14:00:04", "ERROR: Connection lost");
+    printf("Memtable size: %d\n", mt.size);
+    
+    printf("Example 5: Flush to SSTable\n");
+    SSTable* sst = flushToSSTable(&mt);
+    printf("SSTable size: %d\n", sst->size);
+    
+    printf("Example 6: Query logs\n");
+    printf("Query '2025-06-07T14:00:01': %s\n", queryLog(sst, "2025-06-07T14:00:01"));
+    printf("Query '2025-06-07T14:00:04': %s\n", queryLog(sst, "2025-06-07T14:00:04"));
+    
+    freeSSTable(sst);
+    return 0;
+}
+    </pre>
+
+    <h2>Inverted Index</h2>
+    <p>
+      Best for full-text search, filtering, and querying logs by tokens (e.g., error codes, IPs). Core of tools like Elasticsearch.
+    </p>
+    <h3>How It Works</h3>
+    <p>
+      Inverted Index maps tokens (e.g., words like "ERROR", "timeout", or IPs) to lists of log entries containing them, enabling fast lookups. Logs are parsed to extract tokens, and each token is associated with indices of matching logs. For cloud monitoring, this allows rapid searches for patterns (e.g., all "ERROR" logs or logs from "192.168.1.1") in real-time, critical for issue detection. The structure is built incrementally as logs arrive, with hash tables for O(1) token lookups, making it efficient for filtering and proactive analysis in large-scale log systems.
+    </p>
+    <pre>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#define MAX_LOGS 100
+#define MAX_TOKEN 32
+#define MAX_LIST 10
+
+typedef struct {
+    char log[64];
+    int index;
+} LogEntry;
+
+typedef struct {
+    char token[MAX_TOKEN];
+    int indices[MAX_LIST];
+    int count;
+} TokenEntry;
+
+typedef struct {
+    TokenEntry* entries;
+    int size;
+} InvertedIndex;
+
+void initIndex(InvertedIndex* idx) {
+    idx->entries = (TokenEntry*)malloc(MAX_LOGS * sizeof(TokenEntry));
+    idx->size = 0;
+}
+
+void addToken(InvertedIndex* idx, const char* token, int logIdx) {
+    for (int i = 0; i < idx->size; i++) {
+        if (strcmp(idx->entries[i].token, token) == 0) {
+            if (idx->entries[i].count < MAX_LIST) {
+                idx->entries[i].indices[idx->entries[i].count++] = logIdx;
+            }
+            return;
+        }
+    }
+    strcpy(idx->entries[idx->size].token, token);
+    idx->entries[idx->size].indices[0] = logIdx;
+    idx->entries[idx->size].count = 1;
+    idx->size++;
+}
+
+void buildIndex(InvertedIndex* idx, LogEntry* logs, int n) {
+    for (int i = 0; i < n; i++) {
+        char* token = strtok(logs[i].log, " :");
+        while (token) {
+            addToken(idx, token, i);
+            token = strtok(NULL, " :");
+        }
+    }
+}
+
+void queryIndex(InvertedIndex* idx, const char* token, LogEntry* logs) {
+    for (int i = 0; i < idx->size; i++) {
+        if (strcmp(idx->entries[i].token, token) == 0) {
+            for (int j = 0; j < idx->entries[i].count; j++) {
+                int idx = idx->entries[i].indices[j];
+                printf("Log %d: %s\n", idx, logs[idx].log);
+            }
+            return;
+        }
+    }
+    printf("No logs found for '%s'\n", token);
+}
+
+void freeIndex(InvertedIndex* idx) {
+    free(idx->entries);
+}
+
+int main() {
+    LogEntry logs[] = {
+        {"ERROR: DB timeout", 0},
+        {"INFO: Latency 200ms", 1},
+        {"WARN: High CPU", 2},
+        {"ERROR: Connection lost", 3},
+        {"INFO: Server started", 4}
+    };
+    int n = 5;
+    InvertedIndex idx;
+    initIndex(&idx);
+    
+    printf("Inverted Index Log Analytics:\n");
+    printf("Example 1: Build index for logs\n");
+    buildIndex(&idx, logs, n);
+    printf("Index size: %d tokens\n", idx.size);
+    
+    printf("Example 2: Query 'ERROR'\n");
+    queryIndex(&idx, "ERROR", logs);
+    
+    printf("Example 3: Query 'INFO'\n");
+    queryIndex(&idx, "INFO", logs);
+    
+    printf("Example 4: Query 'timeout'\n");
+    queryIndex(&idx, "timeout", logs);
+    
+    printf("Example 5: Query 'CPU'\n");
+    queryIndex(&idx, "CPU", logs);
+    
+    printf("Example 6: Query missing token 'FATAL'\n");
+    queryIndex(&idx, "FATAL", logs);
+    
+    freeIndex(&idx);
+    return 0;
+}
+    </pre>
+
+    <h2>B-Tree / B+ Tree</h2>
+    <p>
+      Efficient for range queries and indexing (e.g., by timestamp), good for querying logs, though not optimal for fast ingestion.
+    </p>
+    <h3>How It Works</h3>
+    <p>
+      B+ Tree is a balanced tree where nodes store multiple keys and pointers, keeping data sorted for efficient searches and range queries. Unlike B-Tree, only leaves store values, with internal nodes guiding searches. For log analytics, logs are indexed by keys (e.g., timestamps), allowing O(log N) lookups and range queries (e.g., logs from 14:00 to 14:05). This supports cloud monitoring by quickly finding logs for issue detection or performance trends, though write performance is slower than LSM for high ingestion rates. The balanced structure scales well for large log datasets.
+    </p>
+    <pre>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define ORDER 3
+
+typedef struct {
+    char key[32]; // e.g., timestamp
+    char value[64]; // e.g., log message
+} LogEntry;
+
+typedef struct BPlusNode {
+    char keys[ORDER][32];
+    void* pointers[ORDER + 1];
+    int numKeys;
+    int isLeaf;
+    struct BPlusNode* next;
+} BPlusNode;
+
+BPlusNode* createNode(int isLeaf) {
+    BPlusNode* node = (BPlusNode*)malloc(sizeof(BPlusNode));
+    node->numKeys = 0;
+    node->isLeaf = isLeaf;
+    node->next = NULL;
+    for (int i = 0; i < ORDER + 1; i++) node->pointers[i] = NULL;
+    return node;
+}
+
+void insertEntry(BPlusNode* node, const char* key, const char* value) {
+    if (!node->isLeaf) return;
+    int i = node->numKeys - 1;
+    while (i >= 0 && strcmp(key, node->keys[i]) < 0) {
+        strcpy(node->keys[i + 1], node->keys[i]);
+        node->pointers[i + 1] = node->pointers[i];
+        i--;
+    }
+    strcpy(node->keys[i + 1], key);
+    LogEntry* entry = (LogEntry*)malloc(sizeof(LogEntry));
+    strcpy(entry->key, key);
+    strcpy(entry->value, value);
+    node->pointers[i + 1] = entry;
+    node->numKeys++;
+}
+
+BPlusNode* insert(BPlusNode* root, const char* key, const char* value) {
+    if (!root) return createNode(1);
+    insertEntry(root, key, value);
+    return root;
+}
+
+void rangeQuery(BPlusNode* node, const char* start, const char* end) {
+    if (!node || !node->isLeaf) return;
+    for (int i = 0; i < node->numKeys; i++) {
+        if (strcmp(node->keys[i], start) >= 0 && strcmp(node->keys[i], end) <= 0) {
+            LogEntry* entry = (LogEntry*)node->pointers[i];
+            printf("Key: %s, Log: %s\n", entry->key, entry->value);
+        }
+    }
+    if (node->next) rangeQuery(node->next, start, end);
+}
+
+void freeTree(BPlusNode* node) {
+    if (!node) return;
+    if (node->isLeaf) {
+        for (int i = 0; i < node->numKeys; i++) free(node->pointers[i]);
+    } else {
+        for (int i = 0; i <= node->numKeys; i++) freeTree((BPlusNode*)node->pointers[i]);
+    }
+    free(node);
+}
+
+int main() {
+    BPlusNode* root = NULL;
+    printf("B+ Tree Log Analytics:\n");
+    
+    printf("Example 1: Insert normal log\n");
+    root = insert(root, "2025-06-07T14:00:00", "INFO: Server started");
+    printf("Inserted key: 2025-06-07T14:00:00\n");
+    
+    printf("Example 2: Insert error log\n");
+    root = insert(root, "2025-06-07T14:00:01", "ERROR: DB timeout");
+    printf("Inserted key: 2025-06-07T14:00:01\n");
+    
+    printf("Example 3: Insert latency log\n");
+    root = insert(root, "2025-06-07T14:00:02", "INFO: Latency 200ms");
+    printf("Inserted key: 2025-06-07T14:00:02\n");
+    
+    printf("Example 4: Insert warning log\n");
+    root = insert(root, "2025-06-07T14:00:03", "WARN: High CPU");
+    printf("Inserted key: 2025-06-07T14:00:03\n");
+    
+    printf("Example 5: Insert error log\n");
+    root = insert(root, "2025-06-07T14:00:04", "ERROR: Connection lost");
+    printf("Inserted key: 2025-06-07T14:00:04\n");
+    
+    printf("Example 6: Range query (14:00:01 to 14:00:03)\n");
+    rangeQuery(root, "2025-06-07T14:00:01", "2025-06-07T14:00:03");
+    
+    freeTree(root);
+    return 0;
+}
+    </pre>
+
+    <h2>Segment Tree</h2>
+    <p>
+      Useful for range queries on aggregated metrics (e.g., number of errors in time window). Not ideal for real-time ingestion.
+    </p>
+    <h3>How It Works</h3>
+    <p>
+      Segment Tree is a binary tree for storing aggregated metrics (e.g., error counts) over time intervals. Leaves store values for individual time points (e.g., error count at a timestamp), and internal nodes hold aggregates (e.g., sum) of their children. Built bottom-up, it enables O(log N) range queries to sum metrics, such as counting errors in a time window for cloud monitoring. Updates are efficient, adjusting nodes up the tree. It’s ideal for analyzing trends or detecting issue spikes, but less suited for high-throughput log ingestion or full-text search.
+    </p>
+    <pre>
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX_POINTS 100
+
+typedef struct {
+    int start, end;
+    int errorCount;
+    struct SegmentNode* left;
+    struct SegmentNode* right;
+} SegmentNode;
+
+SegmentNode* createNode(int start, int end, int value) {
+    SegmentNode* node = (SegmentNode*)malloc(sizeof(SegmentNode));
+    node->start = start;
+    node->end = end;
+    node->errorCount = value;
+    node->left = node->right = NULL;
+    return node;
+}
+
+SegmentNode* buildTree(int* errors, int start, int end) {
+    if (start == end) return createNode(start, end, errors[start]);
+    SegmentNode* node = createNode(start, end, 0);
+    int mid = (start + end) / 2;
+    node->left = buildTree(errors, start, mid);
+    node->right = buildTree(errors, mid + 1, end);
+    node->errorCount = node->left->errorCount + node->right->errorCount;
+    return node;
+}
+
+int rangeQuery(SegmentNode* node, int qStart, int qEnd) {
+    if (!node || qEnd < node->start || qStart > node->end) return 0;
+    if (qStart <= node->start && qEnd >= node->end) return node->errorCount;
+    return rangeQuery(node->left, qStart, qEnd) + rangeQuery(node->right, qStart, qEnd);
+}
+
+void freeTree(SegmentNode* node) {
+    if (!node) return;
+    freeTree(node->left);
+    freeTree(node->right);
+    free(node);
+}
+
+int main() {
+    int errors[] = {1, 0, 2, 1, 3, 0, 1, 2, 0, 1}; // Error counts per second
+    int n = 10;
+    SegmentNode* root = buildTree(errors, 0, n - 1);
+    
+    printf("Segment Tree Log Analytics:\n");
+    printf("Example 1: Build tree for error counts\n");
+    printf("Total errors: %d\n", root->errorCount);
+    
+    printf("Example 2: Query errors (0-2 sec)\n");
+    printf("Errors in range: %d\n", rangeQuery(root, 0, 2));
+    
+    printf("Example 3: Query errors (3-5 sec)\n");
+    printf("Errors in range: %d\n", rangeQuery(root, 3, 5));
+    
+    printf("Example 4: Query errors (6-9 sec)\n");
+    printf("Errors in range: %d\n", rangeQuery(root, 6, 9));
+    
+    printf("Example 5: Query single second (2 sec)\n");
+    printf("Errors in range: %d\n", rangeQuery(root, 2, 2));
+    
+    printf("Example 6: Query out of range (10-11 sec)\n");
+    printf("Errors in range: %d\n", rangeQuery(root, 10, 11));
+    
+    freeTree(root);
+    return 0;
+}
+    </pre>
+
+    <h2>Time and Space Complexity</h2>
+    <table>
+      <tr>
+        <th>Algorithm</th>
+        <th>Best Case Time</th>
+        <th>Typical Case Time</th>
+        <th>Worst Case Time</th>
+        <th>Space Complexity</th>
+      </tr>
+      <tr>
+        <td>LSM Tree</td>
+        <td>O(1) write</td>
+        <td>O(log N) query</td>
+        <td>O(N) compaction</td>
+        <td>O(N)</td>
+      </tr>
+      <tr>
+        <td>Inverted Index</td>
+        <td>O(1) insert</td>
+        <td>O(1) query</td>
+        <td>O(N) build</td>
+        <td>O(N * T)</td>
+      </tr>
+      <tr>
+        <td>B+ Tree</td>
+        <td>O(log N) insert</td>
+        <td>O(log N) query</td>
+        <td>O(log N) range</td>
+        <td>O(N)</td>
+      </tr>
+      <tr>
+        <td>Segment Tree</td>
+        <td>O(N) build</td>
+        <td>O(log N) query</td>
+        <td>O(log N) update</td>
+        <td>O(N)</td>
+      </tr>
+    </table>
+    <p>
+      Note: N = number of log entries, T = number of tokens. LSM excels in writes, Inverted Index in queries, B+ Tree in balanced ops, Segment Tree in range queries.
+    </p>
+
+    <h2>Inference</h2>
+    <p>
+      For Log Analytics for Cloud Monitoring, LSM Tree is the recommended algorithm. Its O(1) write throughput handles high-volume log ingestion, critical for real-time cloud monitoring, while supporting efficient range queries for analysis. Inverted Index is a close second, offering O(1) lookups for fast filtering of errors or patterns, vital for proactive issue detection. B+ Tree excels in range queries and indexing by timestamp, but slower writes limit ingestion. Segment Tree suits aggregated metric queries, but isn’t ideal for raw log processing. LSM’s scalability and speed make it best for large-scale, real-time log analytics.
+    </p>
+  </div>
+</body>
+</html>

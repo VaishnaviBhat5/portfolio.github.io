@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Business Case 2: Real-Time Adaptive Load Balancing across Edge Servers</title>
+  <style>
+    :root {
+      --color-bg: #f4f4f7;
+      --color-text: #1c1f26;
+      --color-accent: #0d47a1;
+      --color-highlight: #ffffff;
+      --color-muted: #607d8b;
+      --color-shadow: rgba(0, 0, 0, 0.06);
+      --primary-shade: #0a2e6e;
+      --border-radius: 10px;
+      --section-bg: #e9edf2;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(-45deg, #e9edf2, #f4f4f7, #dce3ea, #eef1f4);
+      background-size: 400% 400%;
+      animation: gradientFlow 15s ease infinite;
+      color: var(--color-text);
+      line-height: 1.8;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(6px);
+      border-radius: var(--border-radius);
+      box-shadow: 0 6px 20px var(--color-shadow);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: var(--color-accent);
+      text-align: center;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 0.8rem;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: var(--primary-shade);
+      margin: 2rem 0 1rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    li {
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+
+    th, td {
+      padding: 1rem;
+      border: 1px solid #ddd;
+      text-align: left;
+      font-size: 1.1rem;
+    }
+
+    th {
+      background-color: var(--color-accent);
+      color: white;
+    }
+
+    td {
+      background-color: #f9f9f9;
+    }
+
+    pre {
+      background: #f8f8f8;
+      padding: 12px;
+      border-left: 4px solid var(--color-accent);
+      overflow-x: auto;
+      font-size: 1rem;
+      border-radius: var(--border-radius);
+      margin: 1.5rem 0;
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h1>Real-Time Adaptive Load Balancing across Edge Servers</h1>
+
+    <p>
+      This business case focuses on distributing incoming client requests across multiple servers to optimize resource utilization, minimize response time, and ensure high availability for web applications, such as e-commerce platforms and streaming services. The approach leverages server load, capacity, and session persistence to achieve scalable, efficient load balancing.
+    </p>
+
+    <h2>Theory</h2>
+    <p>
+      Real-Time Adaptive Load Balancing involves distributing incoming client requests across a pool of edge servers to optimize performance and reliability. The system monitors server metrics (e.g., connection counts, CPU usage, latency) and uses algorithms to route requests to the least loaded or most suitable server, ensuring low response times and high availability. Key considerations include maintaining session persistence for stateful applications (e.g., shopping carts), adapting to dynamic changes (e.g., server failures or additions), and balancing load across heterogeneous servers with varying capacities. Algorithms like Consistent Hashing ensure consistent routing for user sessions, while others like Power of Two Choices minimize queue buildup by selecting less loaded servers. Data structures such as hash rings, lookup tables, or weighted schedules support efficient routing decisions. Effective load balancing reduces latency, prevents server overload, and enhances scalability, critical for handling traffic surges in content delivery networks (CDNs) like Akamai’s.
+    </p>
+
+    <h2>Real-Time Scenario</h2>
+    <p>
+      During a global product launch on an e-commerce platform, users from London, New York, and Tokyo flood the website to browse products and fill shopping carts, causing a massive traffic surge. A load balancer receives each user request and uses real-time metrics like server connection counts, processing capacities, or hash-based mappings to select an optimal server from a cluster of edge servers. For stateful applications like shopping carts, the load balancer employs consistent hashing to ensure subsequent requests from the same user are routed to the same server, preserving session data such as cart contents. For example, when a London user adds items to their cart, the system ensures all their requests stay with the same server for consistency. As traffic spikes, the load balancer continuously monitors server health and load, bypassing failed or overloaded servers and redistributing requests to underutilized ones. When a server in the cluster fails or a new server is added to handle the surge, the system seamlessly adjusts routing to maintain low latency. This dynamic adaptation ensures fast response times and a seamless user experience, even under high demand or unexpected server failures.
+    </p>
+    <h2>Usage</h2>
+    <p>
+      For Akamai, Real-Time Adaptive Load Balancing optimizes content delivery and application performance across its global edge server network. Key use cases include:
+    </p>
+    <ul>
+      <li><strong>E-commerce Platforms</strong>: Distributing shopping cart and checkout requests to ensure low latency and session persistence during sales events.</li>
+      <li><strong>Media Streaming</strong>: Routing video stream requests to underutilized servers to minimize buffering and ensure high-quality playback.</li>
+      <li><strong>Web Applications</strong>: Balancing API calls or dynamic content requests to enhance responsiveness for interactive applications.</li>
+      <li><strong>Gaming Services</strong>: Directing player requests to low-latency servers to reduce lag in multiplayer online games.</li>
+      <li><strong>Enterprise Applications</strong>: Managing internal application traffic to ensure reliability and performance for business-critical services.</li>
+    </ul>
+    
+    <h2>Impact </h2>
+    <p>
+      Implementing Real-Time Adaptive Load Balancing provides significant benefits for Akamai’s CDN operations and clients:
+    </p>
+    <ul>
+      <li><strong>Reduced Latency</strong>: Cutting average response times by 50-70% improves user satisfaction and engagement.</li>
+      <li><strong>High Availability</strong>: Achieving 99.99% uptime by bypassing failed servers ensures reliable service during traffic surges.</li>
+      <li><strong>Improved Scalability</strong>: Handling 2-3x traffic spikes without performance degradation supports large-scale events like product launches.</li>
+      <li><strong>Cost Efficiency</strong>: Optimizing server utilization reduces infrastructure costs by 20-30%, maximizing resource efficiency.</li>
+      <li><strong>Competitive Edge</strong>: Delivering superior performance strengthens Akamai’s market position, attracting clients needing scalable, low-latency solutions.</li>
+    </ul>
+    <h2>Challenges</h2>
+    <ul>
+      <li>Dynamic load variation: Server loads change rapidly, requiring adaptive distribution.</li>
+      <li>Session persistence: Ensuring stateful requests (e.g., user sessions) go to the same server.</li>
+      <li>Scalability: Handling server additions/removals without disrupting service.</li>
+      <li>Server heterogeneity: Balancing load across servers with different capacities.</li>
+    </ul>
+
+    <h2>Algorithms Used</h2>
+    <p>Below are the algorithms evaluated for load balancing, with descriptions and simplified implementations:</p>
+
+    <h2>Power of Two Choices (P2C)</h2>
+    <p>
+      P2C is a randomized load balancing algorithm that selects two servers randomly and routes the request to the one with fewer active connections, reducing the chance of overloading any server.
+    </p>
+    <h2>How It Works</h2>
+    <p>
+      For each incoming request, the Power of Two Choices (P2C) algorithm randomly selects two servers from the available pool and compares their current connection counts, routing the request to the server with fewer active connections. This simple yet effective approach leverages randomness to avoid overloading any single server, significantly reducing the probability of queue buildup compared to choosing a single random server. After routing, the selected server’s connection count is incremented, and the system continuously updates these metrics in real-time to reflect current loads. In practice, during an e-commerce traffic surge, P2C might choose between two servers—one handling 10 requests and another handling 50—and route to the former, ensuring balanced load distribution. The algorithm’s low computational overhead (O(1) per request) makes it ideal for high-throughput environments, though it may not guarantee session persistence for stateful applications unless combined with additional mechanisms like session tracking. It also adapts well to dynamic server health, as failed servers can be excluded from the random selection pool, ensuring robust performance under varying conditions.
+    </p>
+    <pre>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#define MAX_SERVERS 100
+
+typedef struct {
+    int id;
+    int connections;
+} Server;
+
+int getRandomServer(int numServers) {
+    return rand() % numServers;
+}
+
+int powerOfTwoChoices(Server* servers, int numServers) {
+    int server1 = getRandomServer(numServers);
+    int server2 = getRandomServer(numServers);
+    while (server2 == server1) server2 = getRandomServer(numServers);
+    
+    return servers[server1].connections <= servers[server2].connections ? server1 : server2;
+}
+
+int main() {
+    srand(time(NULL));
+    int numServers = 7;
+    Server servers[MAX_SERVERS] = {
+        {0, 12}, {1, 5}, {2, 8}, {3, 3}, {4, 7}, {5, 10}, {6, 4}
+    };
+    
+    printf("P2C Load Balancing Simulation:\n");
+    for (int i = 0; i < 10; i++) {
+        int serverId = powerOfTwoChoices(servers, numServers);
+        servers[serverId].connections++;
+        printf("Request %d routed to Server %d (Connections: %d)\n", i+1, serverId, servers[serverId].connections);
+    }
+    
+    return 0;
+}
+    </pre>
+
+    <h2>Maglev Hashing</h2>
+    <p>
+      Maglev Hashing is an advanced hashing algorithm that maps requests to servers using a precomputed lookup table, ensuring even distribution and minimal disruption when servers change.
+    </p>
+    <h2>How It Works</h2>
+    <p>
+      Maglev Hashing constructs a precomputed lookup table that maps fixed slots to servers, ensuring consistent and balanced request distribution. Each server is assigned multiple slots in the table based on hash functions applied to its identifier, creating a permutation of preferences across the table’s slots. For each incoming request, a hash of the request (e.g., based on user ID or session key) determines a slot, which maps to a specific server. This approach ensures even load distribution, as the table is designed to minimize collisions and evenly spread requests. During a product launch, for instance, Maglev Hashing ensures that user requests for shopping cart updates consistently hit the same server, preserving session data like cart contents. When servers are added or removed (e.g., due to failure or scaling), the lookup table is rebuilt, but Maglev’s design minimizes remapping—typically affecting only a small fraction of slots—maintaining session persistence for most users. The algorithm’s O(1) lookup time makes it highly efficient for large-scale systems, though building the initial table (O(N*M), where N is servers and M is table size) can be costly during server changes. This makes Maglev ideal for stateful applications with frequent scaling needs, such as streaming or e-commerce platforms.
+    </p>
+    <pre>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAX_SERVERS 100
+#define TABLE_SIZE 1000
+
+typedef struct {
+    int id;
+    char name[20];
+} Server;
+
+unsigned int simpleHash(const char* str, int seed) {
+    unsigned int hash = seed;
+    for (int i = 0; str[i]; i++) hash = hash * 31 + str[i];
+    return hash;
+}
+
+void buildMaglevTable(int* lookup, Server* servers, int numServers) {
+    int permutation[MAX_SERVERS][TABLE_SIZE];
+    int next[MAX_SERVERS] = {0};
+    
+    for (int i = 0; i < numServers; i++) {
+        for (int j = 0; j < TABLE_SIZE; j++) {
+            permutation[i][j] = (simpleHash(servers[i].name, j) % TABLE_SIZE);
+        }
+    }
+    
+    for (int i = 0; i < TABLE_SIZE; i++) lookup[i] = -1;
+    
+    int filled = 0;
+    while (filled < TABLE_SIZE) {
+        for (int i = 0; i < numServers && filled < TABLE_SIZE; i++) {
+            int slot;
+            do {
+                slot = permutation[i][next[i]++];
+            } while (lookup[slot] != -1 && next[i] < TABLE_SIZE);
+            if (lookup[slot] == -1) {
+                lookup[slot] = i;
+                filled++;
+            }
+        }
+    }
+}
+
+int maglevLookup(int* lookup, const char* request) {
+    return lookup[simpleHash(request, 0) % TABLE_SIZE];
+}
+
+int main() {
+    int numServers = 7;
+    Server servers[MAX_SERVERS] = {
+        {0, "ServerA"}, {1, "ServerB"}, {2, "ServerC"}, {3, "ServerD"},
+        {4, "ServerE"}, {5, "ServerF"}, {6, "ServerG"}
+    };
+    int lookup[TABLE_SIZE];
+    
+    buildMaglevTable(lookup, servers, numServers);
+    
+    printf("Maglev Hashing Simulation:\n");
+    char requests[][20] = {"Req1", "Req2", "Req3", "Req4", "Req5", "Req6", "Req7"};
+    for (int i = 0; i < 7; i++) {
+        int serverId = maglevLookup(lookup, requests[i]);
+        printf("Request %s routed to Server %d (%s)\n", requests[i], serverId, servers[serverId].name);
+    }
+    
+    return 0;
+}
+    </pre>
+
+    <h2>Consistent Hashing</h2>
+    <p>
+      Consistent Hashing maps requests to servers using a hash ring, minimizing redistribution when servers are added/removed.
+    </p>
+    <h2>How It Works</h2>
+    <p>
+      Consistent Hashing organizes servers and requests on a circular hash space, or “ring,” where each server is assigned multiple virtual nodes (hash values) to improve distribution. A request is hashed (e.g., using a user ID) to a point on the ring and routed to the next server clockwise. This ensures consistent routing for stateful applications, as the same user request always maps to the same server unless the server configuration changes. For example, during an e-commerce product launch, a user’s shopping cart requests consistently hit the same server, preserving session data. When a server is added or removed, only a small fraction of requests (proportional to 1/N, where N is the number of servers) are remapped, minimizing disruptions compared to traditional hashing. Virtual nodes enhance balance by spreading each server’s presence across the ring, reducing the risk of uneven load distribution. The algorithm’s lookup time is typically O(log N) using a binary search on the sorted ring, making it efficient for large clusters. However, managing virtual nodes increases space complexity (O(N*R), where R is virtual nodes per server). Consistent Hashing is well-suited for dynamic, stateful systems like streaming services, where server changes are frequent but session continuity is critical.
+    </p>
+    <pre>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define MAX_SERVERS 100
+#define VIRTUAL_NODES 10
+
+typedef struct {
+    unsigned int hash;
+    int serverId;
+} Node;
+
+unsigned int simpleHash(const char* str) {
+    unsigned int hash = 0;
+    for (int i = 0; str[i]; i++) hash = hash * 31 + str[i];
+    return hash;
+}
+
+int compareNodes(const void* a, const void* b) {
+    return ((Node*)a)->hash - ((Node*)b)->hash;
+}
+
+int consistentHashing(Node* ring, int ringSize, const char* request) {
+    unsigned int requestHash = simpleHash(request);
+    for (int i = 0; i < ringSize; i++) {
+        if (ring[i].hash >= requestHash) return ring[i].serverId;
+    }
+    return ring[0].serverId; // Wrap around to first server
+}
+
+int main() {
+    int numServers = 7;
+    char serverNames[][20] = {"ServerA", "ServerB", "ServerC", "ServerD", "ServerE", "ServerF", "ServerG"};
+    Node ring[MAX_SERVERS * VIRTUAL_NODES];
+    int ringSize = 0;
+    
+    for (int i = 0; i < numServers; i++) {
+        for (int j = 0; j < VIRTUAL_NODES; j++) {
+            char key[30];
+            snprintf(key, sizeof(key), "%s%d", serverNames[i], j);
+            ring[ringSize].hash = simpleHash(key);
+            ring[ringSize].serverId = i;
+            ringSize++;
+        }
+    }
+    
+    qsort(ring, ringSize, sizeof(Node), compareNodes);
+    
+    printf("Consistent Hashing Simulation:\n");
+    char requests[][20] = {"Req1", "Req2", "Req3", "Req4", "Req5", "Req6", "Req7"};
+    for (int i = 0; i < 7; i++) {
+        int serverId = consistentHashing(ring, ringSize, requests[i]);
+        printf("Request %s routed to Server %d (%s)\n", requests[i], serverId, serverNames[serverId]);
+    }
+    
+    return 0;
+}
+    </pre>
+
+    <h2>Weighted Round Robin</h2>
+    <p>
+      Weighted Round Robin distributes requests cyclically across servers, with each server assigned a weight based on its capacity.
+    </p>
+    <h2>How It Works</h2>
+    <p>
+      Weighted Round Robin (WRR) assigns requests to servers in a cyclical order, where each server’s frequency in the cycle is proportional to its assigned weight, reflecting its processing capacity (e.g., CPU or memory). A schedule is generated based on these weights, and requests are routed according to this schedule, cycling back to the start once complete. For each request, the algorithm selects the next server in the sequence, reducing the server’s current weight by a factor (e.g., the GCD of all weights) to track capacity usage. When a server’s weight reaches zero, it is reset to its original weight, ensuring continuous cycling. In an e-commerce scenario, a high-capacity server with a weight of 6 might handle three times as many requests as a server with a weight of 2, ensuring efficient resource utilization. WRR’s O(1) time complexity per request makes it highly efficient, but it requires precomputed weights and is less adaptable to real-time load changes or server failures unless combined with health checks. It excels in stable environments with heterogeneous servers but struggles with session persistence unless paired with additional mechanisms, making it best for stateless or semi-static workloads.
+    </p>
+    <pre>
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX_SERVERS 100
+
+typedef struct {
+    int id;
+    int weight;
+    int currentWeight;
+} Server;
+
+int gcd(int a, int b) {
+    return b == 0 ? a : gcd(b, a % b);
+}
+
+int weightedRoundRobin(Server* servers, int numServers, int* currentIndex) {
+    int maxWeight = -1, totalWeight = 0;
+    for (int i = 0; i < numServers; i++) {
+        if (servers[i].currentWeight > maxWeight) {
+            maxWeight = servers[i].currentWeight;
+            *currentIndex = i;
+        }
+        totalWeight += servers[i].weight;
+    }
+    
+    if (maxWeight == -1) return -1;
+    
+    servers[*currentIndex].currentWeight -= gcd(totalWeight, servers[*currentIndex].weight);
+    if (servers[*currentIndex].currentWeight <= 0) {
+        servers[*currentIndex].currentWeight = servers[*currentIndex].weight;
+    }
+    
+    return servers[*currentIndex].id;
+}
+
+int main() {
+    int numServers = 7;
+    Server servers[MAX_SERVERS] = {
+        {0, 5, 5}, {1, 3, 3}, {2, 2, 2}, {3, 4, 4},
+        {4, 6, 6}, {5, 1, 1}, {6, 3, 3}
+    };
+    
+    printf("Weighted Round Robin Simulation:\n");
+    int currentIndex = 0;
+    for (int i = 0; i < 10; i++) {
+        int serverId = weightedRoundRobin(servers, numServers, &currentIndex);
+        printf("Request %d routed to Server %d (Weight: %d)\n", i+1, serverId, servers[serverId].weight);
+    }
+    
+    return 0;
+}
+    </pre>
+
+    <h2>Time and Space Complexity</h2>
+    <table>
+      <tr>
+        <th>Algorithm</th>
+        <th>Best Case Time</th>
+        <th>Typical Case Time</th>
+        <th>Worst Case Time</th>
+        <th>Space Complexity</th>
+      </tr>
+      <tr>
+        <td>Power of Two Choices</td>
+        <td>O(1)</td>
+        delicensed
+        <td>O(1)</td>
+        <td>O(1)</td>
+        <td>O(N)</td>
+      </tr>
+      <tr>
+        <td>Maglev Hashing</td>
+        <td>O(1)</td>
+        <td>O(1)</td>
+        <td>O(1)</td>
+        <td>O(N * M)</td>
+      </tr>
+      <tr>
+        <td>Consistent Hashing</td>
+        <td>O(1)</td>
+        <td>O(log N)</td>
+        <td>O(log N)</td>
+        <td>O(N * R)</td>
+      </tr>
+      <tr>
+        <td>Weighted Round Robin</td>
+        <td>O(1)</td>
+        <td>O(1)</td>
+        <td>O(1)</td>
+        <td>O(N)</td>
+      </tr>
+    </table>
+    <p>
+      Note: N = number of servers, M = lookup table size (Maglev Hashing), R = virtual nodes per server (Consistent Hashing). Maglev and Consistent Hashing have higher space complexity due to their data structures for scalability.
+    </p>
+
+    <h2>Inference</h2>
+    <p>
+      For Load Balancing for Scalable Web Services, Maglev Hashing is the recommended algorithm. It excels in large-scale systems by providing even load distribution, session persistence, and minimal disruption during server changes, making it ideal for e-commerce or streaming platforms. Consistent Hashing is a close second, offering similar benefits with simpler implementation. Power of Two Choices is highly effective for dynamic load adaptation with low overhead, suitable for stateless services. Weighted Round Robin is simpler but less adaptable, best for stable, heterogeneous clusters. Maglev Hashing’s balance of scalability and performance makes it the top choice for delivering reliable, low-latency web services.
+    </p>
+  </div>
+</body>
+</html>

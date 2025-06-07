@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Akamai Cloud Service Architecture</title>
+  <style>
+    :root {
+      --color-bg: #f4f4f7;
+      --color-text: #1c1f26;
+      --color-accent: #0d47a1;
+      --color-highlight: #ffffff;
+      --color-muted: #607d8b;
+      --color-shadow: rgba(0, 0, 0, 0.06);
+      --primary-shade: #0a2e6e;
+      --border-radius: 10px;
+      --section-bg: #e9edf2;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(-45deg, #e9edf2, #f4f4f7, #dce3ea, #eef1f4);
+      background-size: 400% 400%;
+      animation: gradientFlow 15s ease infinite;
+      color: var(--color-text);
+      line-height: 1.8;
+      padding-top: 70px;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background-color: var(--color-highlight);
+      box-shadow: 0 2px 12px var(--color-shadow);
+      z-index: 1000;
+      height: 70px;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: var(--primary-shade);
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--color-accent);
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--color-muted);
+    }
+
+    .section {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      padding: 4rem 2rem;
+      width: 95%;
+      margin: auto;
+    }
+
+    .sub-section {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(6px);
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: 0 6px 20px var(--color-shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      width: 100%;
+      margin: auto;
+      margin-top: 50px;
+    }
+
+    .sub-section:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 24px var(--color-shadow);
+    }
+
+    h2 {
+      color: var(--color-accent);
+      margin-bottom: 1.5rem;
+      margin-top: 2rem;
+      border-bottom: 2px solid #ddd;
+      padding: 1.2rem;
+      padding-bottom: 0.8rem;
+      font-size: 2rem;
+      text-align: center;
+    }
+
+    h4 {
+      font-size: 1.4rem;
+      color: var(--color-accent);
+      margin-bottom: 1rem;
+    }
+
+    h5 {
+      font-size: 1.2rem;
+      color: var(--color-text);
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    ul {
+      list-style-position: inside;
+      padding-left: 1.5rem;
+    }
+
+    ul li {
+      margin-bottom: 0.8rem;
+      font-size: 1.1rem;
+    }
+
+    a {
+      color: var(--color-accent);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: var(--color-muted);
+    }
+
+    @keyframes gradientFlow {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .nav-container {
+        padding: 1.5rem 1.2rem;
+      }
+
+      .section {
+        padding: 3rem 1.5rem;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .navbar {
+        height: 70px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-links.show {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+      }
+
+      .nav-container {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+
+      .section {
+        padding: 3rem 1.2rem;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">Vaishnavi Bhat</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Back to Portfolio</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="section">
+    <section class="sub-section">
+      <h2>Cloud Computing Service Architecture (Akamai Connected Cloud)</h2>
+      <p>
+        Akamai’s cloud computing service, built on the acquisition of Linode, provides scalable compute and storage solutions by extending its edge network, enabling businesses to run applications closer to users for faster performance.
+      </p>
+      <h5>Step-by-Step Process:</h5>
+      <div style="text-align: center; margin-bottom: 2rem;">
+  <img src="cloud.png" alt="Akamai CDN Architecture Diagram" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+</div>
+      <ul>
+        <li><strong>Step 1: Developer Deploys an Application</strong><br>
+          A developer uploads their application (e.g., a gaming backend or regional analytics tool) to Akamai’s Cloud Portal, a web interface for managing cloud resources. The application includes code, configurations, and dependencies, which can be packaged as containers (e.g., Docker) or serverless functions (e.g., via Akamai EdgeWorkers).</li>
+        <li><strong>Step 2: Workload Distribution to Edge Compute Regions</strong><br>
+          Akamai distributes the application across its Edge Compute Regions, which are Compute Nodes (virtualized servers) located in over 700 cities. These nodes operate on the Intelligent Edge Platform, ensuring the app runs close to users for low-latency access. An Edge Orchestration Layer manages this distribution by performing horizontal scaling (adding more nodes based on traffic increases, guided by auto-scaling policies like CPU/memory usage thresholds), health checks (ensuring nodes are operational), load balancing (distributing requests evenly across nodes), and traffic routing (directing requests to the best node).</li>
+        <li><strong>Step 3: User Interacts with the Application</strong><br>
+          When a user interacts with the app (e.g., starting a game), their request is routed to the nearest compute node using Akamai’s Dynamic Request Routing System. This system considers factors like server load (how busy the node is), network congestion, and user location to ensure the request goes to the optimal node for fast processing.</li>
+        <li><strong>Step 4: Compute Node Processes the Request</strong><br>
+          The Compute Node processes the request using Virtualized Resources such as containers or virtual machines (VMs). If the app needs to store or retrieve data (e.g., a player’s game progress), it uses Akamai’s Distributed Storage (also called Object & BLOB Storage), which stores data across regional storage nodes for reliability and speed. The storage system ensures data availability through data replication (copying data across multiple nodes) and uses eventual consistency models to balance performance and reliability, ensuring data is accessible even if one node fails.</li>
+        <li><strong>Step 5: Real-Time Workloads with Qualified Partners</strong><br>
+          For latency-sensitive applications (e.g., live gaming or media rendering), Akamai’s Qualified Compute Partners—such as integrations with Akamai’s EdgeWorkers or third-party tools—run specialized workloads. These include observability tools like logging (e.g., for error tracking), monitoring (e.g., for performance metrics), and tracing (e.g., for request flow analysis), ensuring real-time performance without delays.</li>
+        <li><strong>Step 6: Integration with Other Clouds</strong><br>
+          Akamai’s cloud supports hybrid workloads by integrating with major cloud platforms like AWS, Azure, and GCP. Akamai manages secure ingress/egress (data entering and leaving the system) using private interconnects (e.g., Akamai Cloud Interconnect) or VPNs, and handles internal service meshes (communication between app components) using tools like Istio or Linkerd, ensuring secure and seamless operation across different cloud environments.</li>
+        <li><strong>Step 7: Response Delivered to the User</strong><br>
+          After processing, the compute node sends the result (e.g., game update) back to the user through the same Edge Network, ensuring high performance and reliability. Use cases include low-latency gaming servers, regional analytics, media rendering, and latency-sensitive APIs.</li>
+      </ul>
+      <h5>All Components:</h5>
+      <ul>
+        <li><strong>Cloud Portal:</strong> Interface for developers to upload and manage applications.</li>
+        <li><strong>Edge Compute Regions (Compute Nodes):</strong> Virtualized servers in over 700 cities for running apps.</li>
+        <li><strong>Intelligent Edge Platform:</strong> The network that connects compute nodes globally.</li>
+        <li><strong>Edge Orchestration Layer:</strong> Manages horizontal scaling, health checks, load balancing, and traffic routing.</li>
+        <li><strong>Auto-Scaling Policies:</strong> Triggers scaling based on CPU/memory usage.</li>
+        <li><strong>Load Balancing:</strong> Distributes requests evenly across nodes.</li>
+        <li><strong>Virtualized Resources (Containers/VMs):</strong> Isolated environments to run applications.</li>
+        <li><strong>Dynamic Request Routing System:</strong> Routes user requests to the optimal compute node based on load, congestion, and location.</li>
+        <li><strong>Distributed Storage (Object & BLOB Storage):</strong> Stores app data across regional nodes.</li>
+        <li><strong>Data Replication & Eventual Consistency Models:</strong> Ensures reliability and performance in storage.</li>
+        <li><strong>Qualified Compute Partners (e.g., EdgeWorkers):</strong> Run low-latency workloads like observability tools (logging, monitoring, tracing).</li>
+        <li><strong>Interconnectivity (AWS, Azure, GCP):</strong> Supports hybrid workloads with other cloud platforms.</li>
+        <li><strong>Private Interconnects (e.g., Akamai Cloud Interconnect) & VPNs:</strong> Secures data ingress/egress.</li>
+        <li><strong>Internal Service Meshes (e.g., Istio, Linkerd):</strong> Manages secure app communication.</li>
+        <li><strong>Edge Network:</strong> Delivers responses to users with low latency.</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
