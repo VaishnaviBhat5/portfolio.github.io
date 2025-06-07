@@ -183,9 +183,9 @@
       ARC maintains two lists: T1 (recently accessed items) and T2 (frequently accessed items, i.e., accessed at least twice), each with associated ghost lists (B1 and B2) to track recently evicted items. The cache size is split between T1 and T2, with a parameter p adjusting their relative sizes based on access patterns. When an item is accessed, ARC checks if it’s in T1, T2, B1, or B2. If in T1 or T2, it’s moved to T2 (marking it frequent); if in B1, p increases to favor recency, and the item is added to T2; if in B2, p decreases to favor frequency, and the item is added to T2. If the cache is full, ARC evicts the least recent item from T1 (if T1 is large) or T2. Ghost lists help ARC adapt: frequent hits in B1 suggest more recency focus, while B2 hits suggest more frequency focus. In an e-commerce launch, ARC keeps trending product images (frequent) and recently viewed videos (recent) in cache, adapting to shifts like a viral video by adjusting p. Its O(1) operations make it efficient for Akamai’s high-throughput edge servers.
     </p>
     <pre>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
 #define MAX_CACHE_SIZE 100
 
 typedef struct Node {
@@ -340,9 +340,9 @@ int main() {
       LFU tracks the access frequency of each cached item, incrementing a counter each time an item is requested. Items are stored in a min-heap, ordered by frequency (and recency as a tiebreaker), allowing O(log n) retrieval of the least frequent item for eviction. A hash map maps content keys to heap nodes for O(1) access. When the cache is full, LFU evicts the item with the lowest frequency; on a tie, the least recently accessed item is removed. When an item is accessed, its frequency is updated, and the heap is rebalanced. In an e-commerce scenario, LFU ensures popular product images (accessed thousands of times) remain cached, while rarely viewed banners are evicted. It excels for skewed access patterns but may retain old, once-popular items unless aging is applied. For Akamai, LFU’s O(log n) updates are slightly slower than ARC’s O(1), but its frequency focus aligns with CDN workloads.
     </p>
     <pre>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
 #define MAX_CACHE_SIZE 100
 
 typedef struct {
@@ -465,9 +465,9 @@ int main() {
       LRU uses a double-linked list to track access order, with recently accessed items at the head and least recent at the tail, and a hash map for O(1) key lookups. When an item is accessed, it’s moved to the head; if not in cache, it’s added to the head, and if the cache is full, the tail item is evicted. In an e-commerce launch, LRU keeps recently viewed product pages or trending videos in cache, evicting older, less accessed content like outdated banners. Its O(1) operations make it ideal for Akamai’s high-speed edge servers, but it may evict frequently accessed items if not recently used, potentially lowering hit ratios compared to ARC or LFU. LRU’s simplicity and recency focus suit workloads with strong temporal locality, such as trending content.
     </p>
     <pre>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
 #define MAX_CACHE_SIZE 100
 
 typedef struct Node {
